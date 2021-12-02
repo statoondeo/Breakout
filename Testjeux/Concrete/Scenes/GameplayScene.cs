@@ -6,6 +6,8 @@ namespace GameNameSpace
 	public class GameplayScene : BaseScene
 	{
 		private static readonly Point BRICKS = new Point(8, 6);
+		private static readonly Point BALL = new Point(24);
+		private static readonly Point RACKET = new Point(120, 20);
 
 		protected ICommand WinCommand;
 		protected ICommand LooseCommand;
@@ -18,8 +20,8 @@ namespace GameNameSpace
 			Screen = ServiceLocator.Instance.Get<Game>().Window.ClientBounds;
 
 			// Condition de victoires et défaites
-			WinCommand = new SwitchSceneCommand(new GotoSceneCommand(GameState.SceneType.VICTORY));
-			LooseCommand = new SwitchSceneCommand(new GotoSceneCommand(GameState.SceneType.GAMEOVER));
+			WinCommand = new SwitchSceneCommand(SceneType.VICTORY);
+			LooseCommand = new SwitchSceneCommand(SceneType.GAMEOVER);
 
 			// Murs autour de la scène
 			RegisterGameObject(new WallGameObject(new Vector2(-50), new Point(Screen.Width + 100, 50)));
@@ -38,10 +40,10 @@ namespace GameNameSpace
 			}
 
 			// Raquette du joueur
-			IGameObject racket = RegisterGameObject(new RacketGameObject(new Vector2((Screen.Width - RacketGameObject.DEFAULT_SIZE.X) / 2, Screen.Height - 2 * RacketGameObject.DEFAULT_SIZE.Y)));
+			IGameObject racket = RegisterGameObject(new RacketGameObject(new Vector2((Screen.Width - RACKET.X) / 2, Screen.Height - 2 * RACKET.Y), RACKET));
 
 			// Balle de la scène
-			Ball = RegisterGameObject(new BallGameObject(new Vector2(racket.Movable.Position.X + (racket.Movable.Size.X - BallGameObject.DEFAULT_SIZE.X) / 2, racket.Movable.Position.Y - BallGameObject.DEFAULT_SIZE.Y), new Vector2(300, -300)));
+			Ball = RegisterGameObject(new BallGameObject(new Vector2(racket.Movable.Position.X + (racket.Movable.Size.X - BALL.X) / 2, racket.Movable.Position.Y - BALL.Y), new Vector2(300, -300), BALL));
 		}
 
 		public override void Update(GameTime gameTime)

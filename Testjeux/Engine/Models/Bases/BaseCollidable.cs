@@ -6,6 +6,7 @@ namespace GameNameSpace
 	{
 		public IPositionable Positionable { get; protected set; }
 		public CollidableType Type { get; protected set; }
+		protected IRenderable Renderable;
 
 		protected BaseCollidable(IPositionable positionable) 
 		{
@@ -14,6 +15,9 @@ namespace GameNameSpace
 
 		public virtual void Collide() { }
 
-		public virtual void Draw(SpriteBatch spriteBatch) { }
+		public virtual void Draw(SpriteBatch spriteBatch) 
+		{
+			Renderable.Draw(spriteBatch);
+		}
 	}
 }

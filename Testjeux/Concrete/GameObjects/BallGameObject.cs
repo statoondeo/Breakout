@@ -4,15 +4,13 @@ namespace GameNameSpace
 {
 	public class BallGameObject : BaseGameObject
 	{
-		public static readonly Point DEFAULT_SIZE = new Point(10);
-
-		public BallGameObject(Vector2 position, Vector2 velocity)
+		public BallGameObject(Vector2 position, Vector2 velocity, Point size)
 			: base()
 		{
 			Type = GameObjectType.BALL;
-			Movable = new VelocityMovable(position, DEFAULT_SIZE, velocity);
+			Movable = new VelocityMovable(position, size, velocity);
 			Collidable = new BallCollidable(Movable, new BallCollidableCommand(Movable as VelocityMovable));
-			Renderable = new TextureRenderable(Movable, ServiceLocator.Instance.Get<ShapeFactory>().CreateTexture(DEFAULT_SIZE, Color.OrangeRed));
+			Renderable = new TextureRenderable(Movable, ServiceLocator.Instance.Get<AssetManager>().RedBall);
 		}
 	}
 }

@@ -1,11 +1,9 @@
-﻿using System.Diagnostics;
-
-namespace GameNameSpace
+﻿namespace GameNameSpace
 {
 	public class GotoSceneCommand : BaseCommand
 	{
-		protected GameState.SceneType TargetScene;
-		public GotoSceneCommand(GameState.SceneType targetScene)
+		protected SceneType TargetScene;
+		public GotoSceneCommand(SceneType targetScene)
 			: base()
 		{
 			TargetScene = targetScene;
@@ -13,7 +11,6 @@ namespace GameNameSpace
 
 		public override void Execute()
 		{
-			Trace.WriteLine("GotoSceneCommand");
 			ServiceLocator.Instance.Get<GameState>().ChangeScene(TargetScene);
 		}
 	}

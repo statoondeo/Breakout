@@ -1,19 +1,17 @@
-﻿using System.Diagnostics;
-
-namespace GameNameSpace
+﻿namespace GameNameSpace
 {
 	public class SwitchSceneCommand : BaseCommand
 	{
 		protected ICommand GotoTargetScene;
-		public SwitchSceneCommand(ICommand gotoTargetScene)
+
+		public SwitchSceneCommand(SceneType targetScene)
 			: base()
 		{
-			GotoTargetScene = gotoTargetScene;
+			GotoTargetScene = new GotoSceneCommand(targetScene);
 		}
 
 		public override void Execute()
 		{
-			Trace.WriteLine("SwitchSceneCommand");
 			ServiceLocator.Instance.Get<GameState>().CurrentScene.UnLoad(GotoTargetScene);
 		}
 	}

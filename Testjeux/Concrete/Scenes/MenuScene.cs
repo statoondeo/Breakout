@@ -19,7 +19,7 @@ namespace GameNameSpace
 
 			// Bouton pour démarrer le jeu
 			Point buttonSize = new Point(400, 100);
-			RegisterGameObject(new ButtonGameObject(new Vector2((screen.Width - buttonSize.X) / 2, 2 * (screen.Height - buttonSize.Y) / 3), buttonSize, Color.Coral, ServiceLocator.Instance.Get<AssetManager>().Button, "Jouer", Color.Black, new SwitchSceneCommand(new GotoSceneCommand(GameState.SceneType.GAMEPLAY))));
+			RegisterGameObject(new ButtonGameObject(new Vector2((screen.Width - buttonSize.X) / 2, 2 * (screen.Height - buttonSize.Y) / 3), buttonSize, Color.Coral, ServiceLocator.Instance.Get<AssetManager>().Button, "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY)));
 		}
 
 		public override void Update(GameTime gameTime)

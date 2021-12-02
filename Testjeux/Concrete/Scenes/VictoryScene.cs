@@ -11,7 +11,7 @@ namespace GameNameSpace
 
 		public VictoryScene() : base()
 		{
-			ReturnToMenuCommand = new SwitchSceneCommand(new GotoSceneCommand(GameState.SceneType.MENU));
+			ReturnToMenuCommand = new SwitchSceneCommand(SceneType.MENU);
 
 			Rectangle screen = ServiceLocator.Instance.Get<Game>().Window.ClientBounds;
 			SpriteFont spriteFont = ServiceLocator.Instance.Get<AssetManager>().Title;

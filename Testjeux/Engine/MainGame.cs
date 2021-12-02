@@ -34,7 +34,7 @@ namespace GameNameSpace
 			GameState = ServiceLocator.Instance.Register<GameState>(new GameState());
 
 			// Redirection vers la 1ere scène du jeu
-			GameState.ChangeScene(GameState.SceneType.MENU);
+			GameState.ChangeScene(SceneType.MENU);
 		}
 
 		protected override void LoadContent()

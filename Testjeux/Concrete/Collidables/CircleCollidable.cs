@@ -2,12 +2,11 @@
 {
 	public class CircleCollidable : BaseCollidable
 	{
-		public int Radius { get; protected set; }
-		public CircleCollidable(IPositionable positionable, int radius) 
+		public CircleCollidable(IPositionable positionable) 
 			: base(positionable)
 		{
 			Type = CollidableType.CIRCLE;
-			Radius = radius;
+			Renderable = new CircleFrameRenderable(Positionable);
 		}
 	}
 }

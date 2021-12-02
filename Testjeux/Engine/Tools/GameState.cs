@@ -3,16 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-	public class GameState
+	public partial class GameState
 	{
-		public enum SceneType
-		{
-			MENU,
-			GAMEPLAY,
-			GAMEOVER,
-			VICTORY
-		}
-
 		public IScene CurrentScene { get; protected set; }
 
 		public GameState()

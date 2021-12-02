@@ -46,7 +46,7 @@ namespace GameNameSpace
 
 		private static bool IsCircleIntersectsCircle(CircleCollidable circle1, CircleCollidable circle2)
 		{
-			int centerDistance = (circle1.Radius + circle2.Radius) * (circle1.Radius + circle2.Radius);
+			int centerDistance = (circle1.Positionable.Size.X + circle2.Positionable.Size.X) * (circle1.Positionable.Size.X + circle2.Positionable.Size.X) / 4;
 			float hDistance = (circle1.Positionable.Position.X - circle2.Positionable.Position.X) * (circle1.Positionable.Position.X - circle2.Positionable.Position.X);
 			float vDistance = (circle1.Positionable.Position.Y - circle2.Positionable.Position.Y) * (circle1.Positionable.Position.Y - circle2.Positionable.Position.Y);
 			return ((hDistance + vDistance) <= centerDistance);
@@ -61,18 +61,18 @@ namespace GameNameSpace
 
 		private static bool IsCircleIntersectsRectangle(CircleCollidable circle, RectangleCollidable rectangle)
 		{
-			float distX = Math.Abs(circle.Positionable.Position.X + circle.Radius - rectangle.Positionable.Position.X - rectangle.Positionable.Size.X / 2);
-			float distY = Math.Abs(circle.Positionable.Position.Y + circle.Radius - rectangle.Positionable.Position.Y - rectangle.Positionable.Size.Y / 2);
+			float distX = Math.Abs(circle.Positionable.Position.X + circle.Positionable.Size.X / 2 - rectangle.Positionable.Position.X - rectangle.Positionable.Size.X / 2);
+			float distY = Math.Abs(circle.Positionable.Position.Y + circle.Positionable.Size.X / 2 - rectangle.Positionable.Position.Y - rectangle.Positionable.Size.Y / 2);
 
-			if (distX > (rectangle.Positionable.Size.X / 2 + circle.Radius)) return (false);
-			if (distY > (rectangle.Positionable.Size.Y / 2 + circle.Radius)) return (false);
+			if (distX > (rectangle.Positionable.Size.X + circle.Positionable.Size.X) / 2) return (false);
+			if (distY > (rectangle.Positionable.Size.Y + circle.Positionable.Size.X) / 2) return (false);
 
 			if (distX <= (rectangle.Positionable.Size.X / 2)) return (true);
 			if (distY <= (rectangle.Positionable.Size.Y / 2)) return (true);
 
 			float dx = distX - rectangle.Positionable.Size.X / 2;
 			float dy = distY - rectangle.Positionable.Size.Y / 2;
-			return (dx * dx + dy * dy <= circle.Radius * circle.Radius);
+			return (dx * dx + dy * dy <= circle.Positionable.Size.X * circle.Positionable.Size.X);
 		}
 	}
 }

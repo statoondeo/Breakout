@@ -4,15 +4,13 @@ namespace GameNameSpace
 {
 	public class RacketGameObject : BaseGameObject
 	{
-		public static readonly Point DEFAULT_SIZE = new Point(120, 20);
-
-		public RacketGameObject(Vector2 position)
+		public RacketGameObject(Vector2 position, Point size)
 			: base()
 		{
 			Type = GameObjectType.RACKET;
-			Movable = new MouseMovable(position, DEFAULT_SIZE);
+			Movable = new MouseMovable(position, size);
 			Collidable = new RacketCollidable(Movable, new RacketCollidableCommand(this));
-			Renderable = new TextureRenderable(Movable, ServiceLocator.Instance.Get<ShapeFactory>().CreateTexture(DEFAULT_SIZE, Color.CornflowerBlue));
+			Renderable = new TextureRenderable(Movable, ServiceLocator.Instance.Get<ShapeFactory>().CreateTexture(size, Color.CornflowerBlue));
 		}
 	}
 }

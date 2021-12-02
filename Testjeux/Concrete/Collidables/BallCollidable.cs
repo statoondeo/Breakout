@@ -1,6 +1,6 @@
 ﻿namespace GameNameSpace
 {
-	public class BallCollidable : RectangleCollidable
+	public class BallCollidable : CircleCollidable
 	{
 		protected ICollideCommand CollideCommand;
 		public BallCollidable(IPositionable positionable, ICollideCommand collideCommand) 
