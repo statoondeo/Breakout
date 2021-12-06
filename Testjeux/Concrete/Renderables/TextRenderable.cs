@@ -5,15 +5,15 @@ namespace GameNameSpace
 {
 	public class TextRenderable : IRenderable
 	{
-		protected IPositionable Positionable;
+		protected IGameObject GameObject;
 		protected Vector2 Offset;
 		protected SpriteFont SpriteFont;
 		protected string Text;
 		protected Color Color;
 
-		public TextRenderable(IPositionable positionable, Vector2 offset, SpriteFont spriteFont, string text, Color color)
+		public TextRenderable(IGameObject gameObject, Vector2 offset, SpriteFont spriteFont, string text, Color color)
 		{
-			Positionable = positionable;
+			GameObject = gameObject;
 			Offset = offset;
 			SpriteFont = spriteFont;
 			Text = text;
@@ -22,7 +22,7 @@ namespace GameNameSpace
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.DrawString(SpriteFont, Text, Positionable.Position + Offset, Color);
+			spriteBatch.DrawString(SpriteFont, Text, GameObject.Body.Position + Offset, Color);
 		}
 	}
 }

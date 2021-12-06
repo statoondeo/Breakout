@@ -4,18 +4,15 @@ namespace GameNameSpace
 {
 	public class VelocityMovable : BaseMovable
 	{
-		public Vector2 Velocity { get; set; }
-
-		public VelocityMovable(Vector2 position, Point size, Vector2 velocity)
-			: base(position, size)
-		{
-			Velocity = velocity;
-		}
+		public VelocityMovable(IGameObject gameObject)
+			: base(gameObject)
+		{ }
 
 		public override void Move(GameTime gameTime)
 		{
 			base.Move(gameTime);
-			Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+			GameObject.Body.Velocity += GameObject.Body.Force;
+			GameObject.Body.Move(GameObject.Body.Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds);
 		}
 	}
 }

@@ -10,6 +10,7 @@ namespace GameNameSpace
         public SpriteFont Title { get; protected set; }
         public SpriteFont Button { get; protected set; }
         public Texture2D RedBall { get; protected set; }
+        public Texture2D GrayBall { get; protected set; }
         public Texture2D DrawableTexture { get; protected set; }
 
         public AssetManager()
@@ -22,6 +23,7 @@ namespace GameNameSpace
             Title = content.Load<SpriteFont>("Neuropol48");
             Button = content.Load<SpriteFont>("Neuropol24");
             RedBall = content.Load<Texture2D>("redball");
+            GrayBall = content.Load<Texture2D>("grayball");
             DrawableTexture = new Texture2D(graphicDevice, 1, 1, false, SurfaceFormat.Color);
             DrawableTexture.SetData(Enumerable.Repeat(Color.White, 1).ToArray());
         }
@@ -30,6 +32,7 @@ namespace GameNameSpace
 		{
             DrawableTexture.Dispose();
             RedBall.Dispose();
+            GrayBall.Dispose();
         }
     }
 }

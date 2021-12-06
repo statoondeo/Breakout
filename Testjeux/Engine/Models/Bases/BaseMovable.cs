@@ -2,9 +2,14 @@
 
 namespace GameNameSpace
 {
-	public abstract class BaseMovable : BasePositionable, IMovable
+	public abstract class BaseMovable : IMovable
 	{
-		protected BaseMovable(Vector2 position, Point size) : base(position, size) { }
+		protected IGameObject GameObject;
+
+		protected BaseMovable(IGameObject gameObject)
+		{
+			GameObject = gameObject;
+		}
 
 		public virtual void Move(GameTime gameTime) { }
 	}

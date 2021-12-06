@@ -18,7 +18,7 @@ namespace GameNameSpace
 			Vector2 textSize = spriteFont.MeasureString(TITLE);
 
 			// Titre de la scène
-			RegisterGameObject(new TextGameObject(new Vector2((screen.Width - textSize.X) / 2, (screen.Height - textSize.Y) / 4), textSize.ToPoint(), spriteFont, TITLE, Color.Black));
+			RegisterGameObject(new TextGameObject(new Vector2((screen.Width - textSize.X) / 2, (screen.Height - textSize.Y) / 4), textSize, spriteFont, TITLE, Color.Black));
 		}
 
 		public override void Update(GameTime gameTime)

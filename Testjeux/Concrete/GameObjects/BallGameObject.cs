@@ -1,16 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 
 namespace GameNameSpace
 {
 	public class BallGameObject : BaseGameObject
 	{
-		public BallGameObject(Vector2 position, Vector2 velocity, Point size)
+		public BallGameObject(Vector2 position, Vector2 velocity, Vector2 size)
 			: base()
 		{
 			Type = GameObjectType.BALL;
-			Movable = new VelocityMovable(position, size, velocity);
-			Collidable = new BallCollidable(Movable, new BallCollidableCommand(Movable as VelocityMovable));
-			Renderable = new TextureRenderable(Movable, ServiceLocator.Instance.Get<AssetManager>().RedBall);
+			Body = new BallBody(position, size, velocity, new BallColliderCommand(this));
+			Movable = new VelocityMovable(this);
+			Renderable = new TextureRenderable(this, ServiceLocator.Instance.Get<AssetManager>().RedBall);
 		}
 	}
 }

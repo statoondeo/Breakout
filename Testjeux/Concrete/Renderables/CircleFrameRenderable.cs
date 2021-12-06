@@ -5,17 +5,16 @@ namespace GameNameSpace
 {
 	public class CircleFrameRenderable : IRenderable
 	{
-		protected IPositionable Positionable;
+		protected ICircleBody Body;
 
-		public CircleFrameRenderable(IPositionable positionable)
+		public CircleFrameRenderable(ICircleBody body)
 		{
-			Positionable = positionable;
+			Body = body;
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			ShapeFactory shapes = ServiceLocator.Instance.Get<ShapeFactory>();
-			shapes.DrawCircle(Color.YellowGreen, Positionable.Position + Positionable.Size.ToVector2() * 0.5f, Positionable.Size.X / 2, 20, spriteBatch);
+			ServiceLocator.Instance.Get<ShapeFactory>().DrawCircle(Color.YellowGreen, Body.Center, (int)Body.Radius, 50, spriteBatch);
 		}
 	}
 }

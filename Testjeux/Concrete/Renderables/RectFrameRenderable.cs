@@ -5,17 +5,16 @@ namespace GameNameSpace
 {
 	public class RectFrameRenderable : IRenderable
 	{
-		protected IPositionable Positionable;
+		protected IBoxBody Body;
 
-		public RectFrameRenderable(IPositionable positionable)
+		public RectFrameRenderable(IBoxBody body)
 		{
-			Positionable = positionable;
+			Body = body;
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			ShapeFactory shapes = ServiceLocator.Instance.Get<ShapeFactory>();
-			shapes.DrawRectangle(Color.YellowGreen, Positionable.Position.ToPoint(), Positionable.Size, spriteBatch);
+			ServiceLocator.Instance.Get<ShapeFactory>().DrawRectangle(Color.YellowGreen, Body.Position.ToPoint(), Body.Size.ToPoint(), spriteBatch);
 		}
 	}
 }

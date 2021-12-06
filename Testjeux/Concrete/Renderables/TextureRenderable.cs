@@ -5,18 +5,18 @@ namespace GameNameSpace
 {
 	public class TextureRenderable : IRenderable
 	{
-		protected IPositionable Positionable;
 		protected Texture2D Texture;
+		protected IGameObject GameObject;
 
-		public TextureRenderable(IPositionable positionable, Texture2D texture)
+		public TextureRenderable(IGameObject gameObject, Texture2D texture)
 		{
-			Positionable = positionable;
+			GameObject = gameObject;
 			Texture = texture;
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Texture, Positionable.Position, Color.White);
+			spriteBatch.Draw(Texture, GameObject.Body.Position, Color.White);
 		}
 	}
 }

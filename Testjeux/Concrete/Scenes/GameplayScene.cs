@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace GameNameSpace
@@ -12,6 +13,7 @@ namespace GameNameSpace
 		protected ICommand WinCommand;
 		protected ICommand LooseCommand;
 
+		protected IGameObject Racket;
 		protected IGameObject Ball;
 		protected Rectangle Screen;
 
@@ -24,9 +26,16 @@ namespace GameNameSpace
 			LooseCommand = new SwitchSceneCommand(SceneType.GAMEOVER);
 
 			// Murs autour de la scène
-			RegisterGameObject(new WallGameObject(new Vector2(-50), new Point(Screen.Width + 100, 50)));
-			RegisterGameObject(new WallGameObject(new Vector2(-50, 0), new Point(50, Screen.Height)));
-			RegisterGameObject(new WallGameObject(new Vector2(Screen.Width, 0), new Point(50, Screen.Height)));
+			RegisterGameObject(new WallGameObject(new Vector2(-50), new Vector2(Screen.Width + 100, 50)));
+			//RegisterGameObject(new WallGameObject(new Vector2(-50, Screen.Height), new Vector2(Screen.Width + 100, 50)));
+			RegisterGameObject(new WallGameObject(new Vector2(-50, 0), new Vector2(50, Screen.Height)));
+			RegisterGameObject(new WallGameObject(new Vector2(Screen.Width, 0), new Vector2(50, Screen.Height)));
+
+			//Random rand = new Random();
+			//for (int i = 0; i < 100; i++)
+			//{
+			//	RegisterGameObject(new BallGameObject(new Vector2((float)rand.NextDouble() * 600 + 100, (float)rand.NextDouble() * 400 + 100), new Vector2((float)rand.NextDouble() * 600 - 300, (float)rand.NextDouble() * 600 - 300), BALL.ToVector2()));
+			//}
 
 			// Briques de la scène
 			Point brickWrapper = new Point(Screen.Width / BRICKS.X, Screen.Height / 3 / BRICKS.Y);
@@ -35,15 +44,15 @@ namespace GameNameSpace
 			{
 				for (int j = 0; j < BRICKS.Y; j++)
 				{
-					RegisterGameObject(new BrickGameObject(new Vector2(i * brickWrapper.X + 1, j * brickWrapper.Y + 1), brickSize));
+					RegisterGameObject(new BrickGameObject(new Vector2(i * brickWrapper.X + 1, j * brickWrapper.Y + 1), brickSize.ToVector2()));
 				}
 			}
 
 			// Raquette du joueur
-			IGameObject racket = RegisterGameObject(new RacketGameObject(new Vector2((Screen.Width - RACKET.X) / 2, Screen.Height - 2 * RACKET.Y), RACKET));
+			Racket = RegisterGameObject(new RacketGameObject(new Vector2((Screen.Width - RACKET.X) / 2, Screen.Height - 2 * RACKET.Y), RACKET.ToVector2()));
 
 			// Balle de la scène
-			Ball = RegisterGameObject(new BallGameObject(new Vector2(racket.Movable.Position.X + (racket.Movable.Size.X - BALL.X) / 2, racket.Movable.Position.Y - BALL.Y), new Vector2(300, -300), BALL));
+			Ball = RegisterGameObject(new BallGameObject(new Vector2(Racket.Body.Position.X + (RACKET.X - BALL.X ) / 2, Racket.Body.Position.Y - BALL.Y), new Vector2(200, -700), BALL.ToVector2()));
 		}
 
 		public override void Update(GameTime gameTime)
@@ -57,7 +66,7 @@ namespace GameNameSpace
 			}
 
 			// Est-ce que le joueur a perdu?
-			if (Ball.Movable.Position.Y > Screen.Height)
+			if (Ball.Body.Position.Y > Screen.Height)
 			{
 				LooseCommand.Execute();
 			}

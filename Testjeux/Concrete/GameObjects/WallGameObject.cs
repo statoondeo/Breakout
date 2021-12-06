@@ -4,12 +4,11 @@ namespace GameNameSpace
 {
 	public class WallGameObject : BaseGameObject
 	{
-		public WallGameObject(Vector2 position, Point size)
+		public WallGameObject(Vector2 position, Vector2 size)
 			: base()
 		{
 			Type = GameObjectType.WALL;
-			Movable = new ImmobileMovable(position, size);
-			Collidable = new WallCollidable(Movable, new WallCollidableCommand(this));
+			Body = new WallBody(position, size);
 			Renderable = new DummyRenderable();
 		}
 	}

@@ -2,7 +2,7 @@
 
 namespace GameNameSpace
 {
-	public interface IMovable : IPositionable
+	public interface IMovable
 	{
 		void Move(GameTime gameTime);
 	}
