@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-	public class RectFrameRenderable : IRenderable
+	public class RectFrameRenderable : BaseRenderable
 	{
 		protected IBoxBody Body;
 
@@ -12,7 +12,7 @@ namespace GameNameSpace
 			Body = body;
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		public override void Draw(SpriteBatch spriteBatch)
 		{
 			ServiceLocator.Instance.Get<ShapeFactory>().DrawRectangle(Color.YellowGreen, Body.Position.ToPoint(), Body.Size.ToPoint(), spriteBatch);
 		}

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-	public class CircleFrameRenderable : IRenderable
+	public class CircleFrameRenderable : BaseRenderable
 	{
 		protected ICircleBody Body;
 
@@ -12,7 +12,7 @@ namespace GameNameSpace
 			Body = body;
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		public override void Draw(SpriteBatch spriteBatch)
 		{
 			ServiceLocator.Instance.Get<ShapeFactory>().DrawCircle(Color.YellowGreen, Body.Center, (int)Body.Radius, 50, spriteBatch);
 		}

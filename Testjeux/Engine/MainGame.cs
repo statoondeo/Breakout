@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
@@ -30,6 +31,7 @@ namespace GameNameSpace
 			ServiceLocator.Instance.Register<Game>(this);
 			ServiceLocator.Instance.Register<SpriteBatch>(_spriteBatch);
 			ServiceLocator.Instance.Register<ShapeFactory>(new ShapeFactory());
+			ServiceLocator.Instance.Register<Random>(new Random());
 			InputListener = ServiceLocator.Instance.Register<InputListener>(new InputListener());
 			GameState = ServiceLocator.Instance.Register<GameState>(new GameState());
 

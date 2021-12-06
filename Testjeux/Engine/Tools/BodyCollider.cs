@@ -42,7 +42,7 @@ namespace GameNameSpace
 			}
 			else if (body1 is ICompositeIntersecBody)
 			{
-				return (IsCompositeIntersecBodyCollision(body1 as ICompositeIntersecBody, body2));
+				return (IsCompositeIntersecBodyCollision(body1 as ICompositeIntersecBody, body2, true));
 			}
 
 			return (null);
@@ -82,12 +82,14 @@ namespace GameNameSpace
 			body2.Velocity += impulse * body2.InvMass;
 		}
 
-		private static CollisionTestResult IsCompositeIntersecBodyCollision(ICompositeIntersecBody compositeBody, IBody body)
+		private static CollisionTestResult IsCompositeIntersecBodyCollision(ICompositeIntersecBody compositeBody, IBody body, bool inverseNormal = false)
 		{
 			//return (IsCollision(body, compositeBody.CollisionResolverBody));
 			if (null != IsCollision(compositeBody.CollisionCheckerBody, body))
 			{
-				return (IsCollision(body, compositeBody.CollisionResolverBody));
+				CollisionTestResult collisionResult = IsCollision(body, compositeBody.CollisionResolverBody);
+				if (null == collisionResult) return (null);
+				return (inverseNormal ? new CollisionTestResult(Vector2.Negate(collisionResult.Normal), collisionResult.Depth) : collisionResult);
 			}
 			return (null);
 		}
@@ -169,7 +171,7 @@ namespace GameNameSpace
 				return (null);
 			}
 
-			return (new CollisionTestResult(Vector2.Normalize(circle1.Center - circle2.Center), radiusSum - distance));
+			return (new CollisionTestResult(Vector2.Normalize(circle2.Center - circle1.Center), radiusSum - distance));
 		}
 
 		private static CollisionTestResult IsBoxCollision(IBoxBody box1, IBoxBody box2)

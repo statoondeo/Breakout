@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace GameNameSpace
 {
 	public class PhantomGeneratorBallColliderCommand : BallColliderCommand
 	{
-		protected int Speed;
+		protected Vector2 Speed;
 
 		public PhantomGeneratorBallColliderCommand(IGameObject gameObject) 
 			: base(gameObject) 
 		{
-			Speed = 200;
+			Speed = new Vector2(200, -700);
 		}
 
 		public override void Execute(IGameObject gameObject, CollisionTestResult collisionResult)
@@ -18,8 +19,10 @@ namespace GameNameSpace
 			base.Execute(gameObject, collisionResult);
 			if (gameObject.Type == GameObjectType.BRICK)
 			{
+				// Récupération de la raquette
+				RacketGameObject racket = ServiceLocator.Instance.Get<GameState>().CurrentScene.GameObjectsCollection.First(item => item is RacketGameObject) as RacketGameObject;
 				float newAngle = (float)(5 * MathHelper.Pi / 4 + MathHelper.Pi / 2 * (new Random()).NextDouble());
-				ServiceLocator.Instance.Get<GameState>().CurrentScene.RegisterGameObject(new OneShotBallGameObject(GameObject.Body.Position, new Vector2((float)Math.Cos(newAngle) * Speed, (float)Math.Sin(newAngle) * Speed), new Vector2(24)));
+				ServiceLocator.Instance.Get<GameState>().CurrentScene.GeneratedGameObjectsCollection.Add(new OneShotBallGameObject(racket.Body.Position, new Vector2((float)Math.Cos(newAngle) * Speed.X, (float)Math.Sin(newAngle) * Speed.Y), new Vector2(24)));
 			}
 		}
 	}

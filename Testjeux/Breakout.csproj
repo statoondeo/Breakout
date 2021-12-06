@@ -25,14 +25,13 @@
     <None Remove="Old\**" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Engine\Models\Bases\BaseCollidable.cs" />
-    <Compile Remove="Engine\Models\Bases\BasePositionable.cs" />
-    <Compile Remove="Engine\Models\Interfaces\ICollidable.cs" />
+    <Compile Remove="Engine\Bases\BaseCollidable.cs" />
+    <Compile Remove="Engine\Bases\BasePositionable.cs" />
+    <Compile Remove="Engine\Interfaces\ICollidable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\Commands\CollideCommands\BallColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\BrickCollidableCommand.cs" />
-    <Compile Include="Concrete\Commands\CollideCommands\DummyColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\ButtonWrapperColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\OneShotBallCollidableCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\PhantomGeneratorBallColliderCommand.cs" />

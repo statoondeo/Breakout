@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-	public class TextRenderable : IRenderable
+	public class TextRenderable : BaseRenderable
 	{
 		protected IGameObject GameObject;
 		protected Vector2 Offset;
@@ -20,9 +20,14 @@ namespace GameNameSpace
 			Color = color;
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		public override void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.DrawString(SpriteFont, Text, GameObject.Body.Position + Offset, Color);
+		}
+
+		public override void Draw(SpriteBatch spriteBatch, float alpha, float angle, float scale)
+		{
+			spriteBatch.DrawString(SpriteFont, Text, GameObject.Body.Position + Offset, Color * alpha, angle, Vector2.Zero, scale, SpriteEffects.None, 1.0f);
 		}
 	}
 }

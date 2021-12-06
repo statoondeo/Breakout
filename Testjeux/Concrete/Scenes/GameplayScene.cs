@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace GameNameSpace
@@ -27,15 +26,8 @@ namespace GameNameSpace
 
 			// Murs autour de la scène
 			RegisterGameObject(new WallGameObject(new Vector2(-50), new Vector2(Screen.Width + 100, 50)));
-			//RegisterGameObject(new WallGameObject(new Vector2(-50, Screen.Height), new Vector2(Screen.Width + 100, 50)));
 			RegisterGameObject(new WallGameObject(new Vector2(-50, 0), new Vector2(50, Screen.Height)));
 			RegisterGameObject(new WallGameObject(new Vector2(Screen.Width, 0), new Vector2(50, Screen.Height)));
-
-			//Random rand = new Random();
-			//for (int i = 0; i < 100; i++)
-			//{
-			//	RegisterGameObject(new BallGameObject(new Vector2((float)rand.NextDouble() * 600 + 100, (float)rand.NextDouble() * 400 + 100), new Vector2((float)rand.NextDouble() * 600 - 300, (float)rand.NextDouble() * 600 - 300), BALL.ToVector2()));
-			//}
 
 			// Briques de la scène
 			Point brickWrapper = new Point(Screen.Width / BRICKS.X, Screen.Height / 3 / BRICKS.Y);
@@ -52,7 +44,7 @@ namespace GameNameSpace
 			Racket = RegisterGameObject(new RacketGameObject(new Vector2((Screen.Width - RACKET.X) / 2, Screen.Height - 2 * RACKET.Y), RACKET.ToVector2()));
 
 			// Balle de la scène
-			Ball = RegisterGameObject(new BallGameObject(new Vector2(Racket.Body.Position.X + (RACKET.X - BALL.X ) / 2, Racket.Body.Position.Y - BALL.Y), new Vector2(200, -700), BALL.ToVector2()));
+			Ball = RegisterGameObject(new BallGameObject(new Vector2(Racket.Body.Position.X + (RACKET.X - BALL.X) / 2, Racket.Body.Position.Y - BALL.Y), new Vector2(200, -700), BALL.ToVector2()));
 		}
 
 		public override void Update(GameTime gameTime)

@@ -7,6 +7,8 @@ namespace GameNameSpace
 	public interface IScene
 	{
 		IList<IGameObject> GameObjectsCollection { get; }
+		IList<IGameObject> GeneratedGameObjectsCollection { get; }
+
 		void Load();
 		void UnLoad(ICommand commandWhenUnloaded);
 		void Update(GameTime gameTime);

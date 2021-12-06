@@ -15,7 +15,7 @@ namespace GameNameSpace
 				  new BoxBody(position, size, Vector2.Zero, 0.0f, 1.0f, true, new DummyColliderCommand()),
 				  new CircleBody(position, RESOLVER_RADIUS, Vector2.Zero, 0.0f, 1.0f, true, new DummyColliderCommand()))
 		{
-			CollisionResolverOffset = new Vector2(size.X / 2 - RESOLVER_RADIUS, 0);
+			CollisionResolverOffset = new Vector2(size.X / 2 - RESOLVER_RADIUS, -2);
 			RacketRenderable = new RectFrameRenderable(CollisionCheckerBody as IBoxBody);
 			ControllerRenderable = new CircleFrameRenderable(CollisionResolverBody as ICircleBody);
 		}

@@ -8,11 +8,13 @@ namespace GameNameSpace
 	public abstract class BaseScene : IScene
 	{
 		public IList<IGameObject> GameObjectsCollection { get; protected set; }
+		public IList<IGameObject> GeneratedGameObjectsCollection { get; protected set; }
 		protected ICommand CommandWhenUnloaded;
 
 		protected BaseScene() 
 		{
 			GameObjectsCollection = new List<IGameObject>();
+			GeneratedGameObjectsCollection = new List<IGameObject>();
 		}
 
 		public virtual void Load() { }
@@ -27,6 +29,10 @@ namespace GameNameSpace
 		{
 			GameObjectsCollection.Add(gameObject);
 			return (gameObject);
+		}
+		public virtual void RegisterGameObjects(IList<IGameObject> gameObjects)
+		{
+			(GameObjectsCollection as List<IGameObject>).AddRange(gameObjects);
 		}
 
 		public virtual IGameObject UnRegisterGameObject(IGameObject gameObject)
@@ -71,6 +77,10 @@ namespace GameNameSpace
 
 			// On purge tous les éléments obsolètes
 			(GameObjectsCollection as List<IGameObject>).RemoveAll(gameObjectStatus => gameObjectStatus.Status == GameObjectStatus.OUTDATED);
+
+			// On ajoute à la scène les éléments générés
+			RegisterGameObjects(GeneratedGameObjectsCollection);
+			GeneratedGameObjectsCollection.Clear();
 		}
 
 		public virtual void Draw(SpriteBatch spriteBatch)
