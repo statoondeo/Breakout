@@ -20,9 +20,9 @@ namespace GameNameSpace
 			if (gameObject.Type == GameObjectType.BRICK)
 			{
 				// Récupération de la raquette
-				RacketGameObject racket = ServiceLocator.Instance.Get<GameState>().CurrentScene.GameObjectsCollection.First(item => item is RacketGameObject) as RacketGameObject;
+				RacketGameObject racket = ServiceLocator.Instance.Get<ISceneService>().GetCurrent().GameObjectsCollection.First(item => item is RacketGameObject) as RacketGameObject;
 				float newAngle = (float)(5 * MathHelper.Pi / 4 + MathHelper.Pi / 2 * (new Random()).NextDouble());
-				ServiceLocator.Instance.Get<GameState>().CurrentScene.GeneratedGameObjectsCollection.Add(new OneShotBallGameObject(racket.Body.Position, new Vector2((float)Math.Cos(newAngle) * Speed.X, (float)Math.Sin(newAngle) * Speed.Y), new Vector2(24)));
+				ServiceLocator.Instance.Get<ISceneService>().GetCurrent().GeneratedGameObjectsCollection.Add(new OneShotBallGameObject(racket.Body.Position, new Vector2((float)Math.Cos(newAngle) * Speed.X, (float)Math.Sin(newAngle) * Speed.Y), new Vector2(24)));
 			}
 		}
 	}

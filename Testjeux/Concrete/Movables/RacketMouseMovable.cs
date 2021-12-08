@@ -11,8 +11,8 @@ namespace GameNameSpace
 		{
 			base.Move(gameTime);
 			RacketGameObject racket = GameObject as RacketGameObject;
-			float newX = ServiceLocator.Instance.Get<InputListener>().MousePosition().X - racket.Size.X / 2;
-			GameObject.Body.MoveTo(new Vector2(MathHelper.Clamp(newX, 0, ServiceLocator.Instance.Get<Game>().Window.ClientBounds.Width - racket.Size.X), GameObject.Body.Position.Y));
+			float newX = ServiceLocator.Instance.Get<IInputListenerService>().MousePosition().X - racket.Size.X / 2;
+			GameObject.Body.MoveTo(new Vector2(MathHelper.Clamp(newX, 0, ServiceLocator.Instance.Get<IScreenService>().GetScreenSize().X - racket.Size.X), GameObject.Body.Position.Y));
 		}
 	}
 }

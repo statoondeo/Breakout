@@ -22,16 +22,17 @@ namespace GameNameSpace
 			{
 				CurrentTtl = MaxTtl;
 				Vector2 position = GameObject.Body is ICircleBody ? (GameObject.Body as ICircleBody).Center : Vector2.Zero;
+				IRandomService rand = ServiceLocator.Instance.Get<IRandomService>();
 				for (int i = 0; i < Number; i++)
 				{
 					float ttl = 0.25f;
 					float scale = 0.5f;
-					float particleSpeed = (float)(ServiceLocator.Instance.Get<Random>().NextDouble() * 30 * gameTime.ElapsedGameTime.TotalSeconds) ;
+					float particleSpeed = (float)(rand.Next() * 30 * gameTime.ElapsedGameTime.TotalSeconds) ;
 					Vector2 particleVelocity = Vector2.Negate(GameObject.Body.Velocity);
-					particleVelocity *= new Vector2((float)Math.Cos(ServiceLocator.Instance.Get<Random>().NextDouble()), (float)Math.Sin(ServiceLocator.Instance.Get<Random>().NextDouble()));
-					ParticleGameObject particle = ServiceLocator.Instance.Get<ParticleService>().GetParticle();
+					particleVelocity *= new Vector2((float)Math.Cos(rand.Next()), (float)Math.Sin(rand.Next()));
+					ParticleGameObject particle = ServiceLocator.Instance.Get<IParticlesService>().GetParticle();
 					particle.Init(Texture, position - Size * scale * 0.5f, particleVelocity * particleSpeed, scale, ttl, 0, 0.5f, Vector2.Zero);
-					ServiceLocator.Instance.Get<GameState>().CurrentScene.GeneratedGameObjectsCollection.Add(particle);
+					ServiceLocator.Instance.Get<ISceneService>().GetCurrent().GeneratedGameObjectsCollection.Add(particle);
 				}
 			}
 		}

@@ -35,6 +35,7 @@
     <Compile Include="Concrete\Commands\CollideCommands\ButtonWrapperColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\OneShotBallCollidableCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\PhantomGeneratorBallColliderCommand.cs" />
+    <Compile Include="Concrete\Commands\CollideCommands\RacketColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\WallCollidableCommand.cs" />
     <Compile Include="Concrete\GameObjects\BallsGameObjects\OneShotBallGameObject.cs" />
     <Compile Include="Concrete\GameObjects\BallsGameObjects\PhantomGeneratorBallGameObject.cs" />

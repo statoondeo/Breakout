@@ -13,8 +13,8 @@ namespace GameNameSpace
 			Type = GameObjectType.BALL;
 			Body = new BallBody(position, size, velocity, new BallColliderCommand(this));
 			Movable = new VelocityMovable(this);
-			Renderable = new TextureRenderable(this, ServiceLocator.Instance.Get<AssetManager>().RedBall);
-			TrailParticlesEmitter = new BallTrailParticlesEmitter(this, ServiceLocator.Instance.Get<AssetManager>().RedBall, 5);
+			Renderable = new TextureRenderable(this, ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.RedBall));
+			TrailParticlesEmitter = new BallTrailParticlesEmitter(this, ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.RedBall), 5);
 		}
 
 		public override void Update(GameTime gameTime)

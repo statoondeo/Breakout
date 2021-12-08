@@ -7,7 +7,7 @@ namespace GameNameSpace
 	{
 		GameObjectStatus Status { get; set; }
 		GameObjectType Type { get; }
-		IMovable Movable { get; }
+		IMovable Movable { get; set; }
 		IBody Body { get; }
 		IRenderable Renderable { get; }
 		void Update(GameTime gameTime);

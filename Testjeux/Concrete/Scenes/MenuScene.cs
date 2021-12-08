@@ -10,16 +10,16 @@ namespace GameNameSpace
 
 		public MenuScene() : base()
 		{
-			Rectangle screen = ServiceLocator.Instance.Get<Game>().Window.ClientBounds;
-			SpriteFont spriteFontTitle = ServiceLocator.Instance.Get<AssetManager>().Title;
+			Point screen = ServiceLocator.Instance.Get<IScreenService>().GetScreenSize();
+			SpriteFont spriteFontTitle = ServiceLocator.Instance.Get<IAssetService>().GetFont(FontName.Title);
 			Vector2 textSize = spriteFontTitle.MeasureString(TITLE);
 
 			//Titre de la scène
-			RegisterGameObject(new TextGameObject(new Vector2((screen.Width - textSize.X) / 2, (screen.Height - textSize.Y) / 4), textSize, spriteFontTitle, TITLE, Color.Black));
+			RegisterGameObject(new TextGameObject(new Vector2((screen.X - textSize.X) / 2, (screen.Y - textSize.Y) / 4), textSize, spriteFontTitle, TITLE, Color.Black));
 
 			// Bouton pour démarrer le jeu
 			Vector2 buttonSize = new Vector2(400, 100);
-			RegisterGameObject(new ButtonGameObject(new Vector2((screen.Width - buttonSize.X) / 2, 2 * (screen.Height - buttonSize.Y) / 3), buttonSize, Color.Coral, ServiceLocator.Instance.Get<AssetManager>().Button, "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY)));
+			RegisterGameObject(new ButtonGameObject(new Vector2((screen.X - buttonSize.X) / 2, 2 * (screen.Y - buttonSize.Y) / 3), buttonSize, Color.Coral, ServiceLocator.Instance.Get<IAssetService>().GetFont(FontName.Button), "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY)));
 
 			// AJout du curseur de souris
 			RegisterGameObject(new CursorGameObject());
@@ -27,8 +27,9 @@ namespace GameNameSpace
 
 		public override void Update(GameTime gameTime)
 		{
-			if (ServiceLocator.Instance.Get<InputListener>().IsKeyDown(Keys.Escape))
+			if (ServiceLocator.Instance.Get<IInputListenerService>().IsKeyDown(Keys.Escape))
 			{
+				// TODO
 				ServiceLocator.Instance.Get<Game>().Exit();
 			}
 

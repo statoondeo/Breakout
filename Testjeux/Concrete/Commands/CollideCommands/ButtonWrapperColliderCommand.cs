@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace GameNameSpace
+﻿namespace GameNameSpace
 {
 	public class ButtonWrapperColliderCommand : BaseColliderCommand
 	{
@@ -14,7 +12,7 @@ namespace GameNameSpace
 
 		public override void Execute(IGameObject gameObject, CollisionTestResult collisionResult)
 		{
-			if (ServiceLocator.Instance.Get<InputListener>().IsLeftClick())
+			if (ServiceLocator.Instance.Get<IInputListenerService>().IsLeftClick())
 			{
 				Command.Execute();
 			}

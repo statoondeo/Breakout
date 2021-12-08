@@ -8,8 +8,8 @@ namespace GameNameSpace
 	{
 		private GraphicsDeviceManager _graphics;
 		private SpriteBatch _spriteBatch;
-		private GameState GameState;
-		private InputListener InputListener;
+		private ISceneService GameState;
+		private IInputListenerService InputListener;
 
 		public MainGame()
 		{
@@ -28,13 +28,12 @@ namespace GameNameSpace
 			_graphics.ApplyChanges();
 
 			// Enregistrement des services
-			ServiceLocator.Instance.Register<Game>(this);
-			ServiceLocator.Instance.Register<SpriteBatch>(_spriteBatch);
-			ServiceLocator.Instance.Register<ShapeFactory>(new ShapeFactory());
-			ServiceLocator.Instance.Register<Random>(new Random());
-			ServiceLocator.Instance.Register<ParticleService>(new ParticleService(250));
-			InputListener = ServiceLocator.Instance.Register<InputListener>(new InputListener());
-			GameState = ServiceLocator.Instance.Register<GameState>(new GameState());
+			ServiceLocator.Instance.Register<IScreenService>(new ScreenService(Window.ClientBounds));
+			ServiceLocator.Instance.Register<IShapeService>(new ShapeService(_spriteBatch));
+			ServiceLocator.Instance.Register<IRandomService>(new RandomService());
+			ServiceLocator.Instance.Register<IParticlesService>(new ParticleService(250));
+			InputListener = ServiceLocator.Instance.Register<IInputListenerService>(new InputListenerService());
+			GameState = ServiceLocator.Instance.Register<ISceneService>(new SceneService());
 
 			// Redirection vers la 1ere scène du jeu
 			GameState.ChangeScene(SceneType.MENU);
@@ -47,13 +46,13 @@ namespace GameNameSpace
 			// TODO: use this.Content to load your game content here
 
 			// Chargement des ressources
-			ServiceLocator.Instance.Register<AssetManager>(new AssetManager()).Load(Content, _spriteBatch.GraphicsDevice);
+			ServiceLocator.Instance.Register<IAssetService>(new AssetService()).Load(Content, _spriteBatch.GraphicsDevice);
 		}
 
 		protected override void UnloadContent()
 		{
 			base.UnloadContent();
-			ServiceLocator.Instance.Get<AssetManager>().UnLoad();
+			ServiceLocator.Instance.Get<IAssetService>().UnLoad();
 		}
 
 		protected override void Update(GameTime gameTime)

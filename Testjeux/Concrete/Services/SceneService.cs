@@ -3,13 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-	public partial class GameState
+	public class SceneService : ISceneService
 	{
-		public IScene CurrentScene { get; protected set; }
+		protected IScene CurrentScene;
 
-		public GameState()
-		{
-		}
+		public SceneService() { }
 
 		public void Update(GameTime gameTime)
 		{
@@ -21,7 +19,7 @@ namespace GameNameSpace
 			CurrentScene.Draw(spriteBatch);
 		}
 
-		public void ChangeScene(SceneType newScene)
+		public IScene ChangeScene(SceneType newScene)
 		{
 			switch (newScene)
 			{
@@ -42,6 +40,12 @@ namespace GameNameSpace
 					break;
 			}
 			CurrentScene.Load();
+			return (CurrentScene);
+		}
+
+		public IScene GetCurrent()
+		{
+			return (CurrentScene);
 		}
 	}
 }

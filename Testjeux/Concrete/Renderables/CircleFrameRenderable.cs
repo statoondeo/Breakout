@@ -14,7 +14,7 @@ namespace GameNameSpace
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			ServiceLocator.Instance.Get<ShapeFactory>().DrawCircle(Color.YellowGreen, Body.Center, (int)Body.Radius, 50, spriteBatch);
+			ServiceLocator.Instance.Get<IShapeService>().DrawCircle(Color.YellowGreen, Body.Center, (int)Body.Radius, 50, spriteBatch);
 		}
 	}
 }

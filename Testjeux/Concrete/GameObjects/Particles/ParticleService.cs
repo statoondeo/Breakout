@@ -1,6 +1,6 @@
 ﻿namespace GameNameSpace
 {
-	public class ParticleService
+	public class ParticleService : IParticlesService
 	{
 		protected ObjectPool<ParticleGameObject> ObjectPool;
 

@@ -17,7 +17,12 @@ namespace GameNameSpace
 			base.Execute(gameObject, collisionResult);
 			if (gameObject.Type == GameObjectType.BALL)
 			{
-				GameObject.Status = GameObjectStatus.OUTDATED;
+				BrickGameObject brick = GameObject as BrickGameObject;
+				brick.Health--;
+				if (brick.Health <= 0)
+				{
+					GameObject.Status = GameObjectStatus.OUTDATED;
+				}
 				ParticlesEmitterGameObject.Emit();
 			}
 		}

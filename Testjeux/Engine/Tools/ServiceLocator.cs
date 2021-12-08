@@ -6,7 +6,7 @@ namespace GameNameSpace
     public class ServiceLocator
     {
         private static readonly Lazy<ServiceLocator> instance;
-        private readonly IDictionary<Type, object> registeredServices;
+        private readonly IDictionary<Type, IService> registeredServices;
 
         static ServiceLocator()
 		{
@@ -15,7 +15,7 @@ namespace GameNameSpace
 
         private ServiceLocator()
         {
-            registeredServices = new Dictionary<Type, object>();
+            registeredServices = new Dictionary<Type, IService>();
         }
 
         public static ServiceLocator Instance
@@ -26,7 +26,7 @@ namespace GameNameSpace
             }
         }
 
-        public T Register<T>(T service) where T : class
+        public T Register<T>(T service) where T : IService
         {
             registeredServices.Add(typeof(T), service);
             return (service);

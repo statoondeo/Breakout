@@ -6,7 +6,7 @@ namespace GameNameSpace
 {
 	public abstract class BaseGameObject : IGameObject
 	{
-		public IMovable Movable { get; protected set; }
+		public IMovable Movable { get; set; }
 		public IBody Body { get; protected set; }
 		public IRenderable Renderable { get; protected set; }
 		public GameObjectStatus Status { get; set; }

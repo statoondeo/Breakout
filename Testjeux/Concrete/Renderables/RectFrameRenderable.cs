@@ -14,7 +14,7 @@ namespace GameNameSpace
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			ServiceLocator.Instance.Get<ShapeFactory>().DrawRectangle(Color.YellowGreen, Body.Position.ToPoint(), Body.Size.ToPoint(), spriteBatch);
+			ServiceLocator.Instance.Get<IShapeService>().DrawRectangle(Color.YellowGreen, Body.Position.ToPoint(), Body.Size.ToPoint(), spriteBatch);
 		}
 	}
 }

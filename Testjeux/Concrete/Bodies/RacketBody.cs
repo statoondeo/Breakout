@@ -10,9 +10,9 @@ namespace GameNameSpace
 		protected IRenderable RacketRenderable;
 		protected IRenderable ControllerRenderable;
 
-		public RacketBody(Vector2 position, Vector2 size)
+		public RacketBody(Vector2 position, Vector2 size, IColliderCommand command)
 			: base(
-				  new BoxBody(position, size, Vector2.Zero, 0.0f, 1.0f, true, new DummyColliderCommand()),
+				  new BoxBody(position, size, Vector2.Zero, 0.0f, 1.0f, true, command),
 				  new CircleBody(position, RESOLVER_RADIUS, Vector2.Zero, 0.0f, 1.0f, true, new DummyColliderCommand()))
 		{
 			CollisionResolverOffset = new Vector2(size.X / 2 - RESOLVER_RADIUS, -2);

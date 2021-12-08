@@ -9,7 +9,7 @@ namespace GameNameSpace
 			: base(position, velocity, size)
 		{
 			Body = new BallBody(position, size, velocity, new OneShotBallColliderCommand(this));
-			Renderable = new TextureRenderable(this, ServiceLocator.Instance.Get<AssetManager>().GrayBall);
+			Renderable = new TextureRenderable(this, ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.GrayBall));
 		}
 	}
 }

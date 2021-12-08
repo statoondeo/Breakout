@@ -11,7 +11,7 @@
 
 		public override void Execute()
 		{
-			ServiceLocator.Instance.Get<GameState>().ChangeScene(TargetScene);
+			ServiceLocator.Instance.Get<ISceneService>().ChangeScene(TargetScene);
 		}
 	}
 }

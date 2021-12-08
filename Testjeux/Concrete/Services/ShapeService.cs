@@ -5,13 +5,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-	public class ShapeFactory
+	public class ShapeService : IShapeService
 	{
-		public ShapeFactory() { }
+		protected SpriteBatch SpriteBatch;
+		public ShapeService(SpriteBatch spriteBatch) 
+		{
+			SpriteBatch = spriteBatch;
+		}
 
 		public Texture2D CreateTexture(Point size, Color color)
-		{			
-			Texture2D newTexture = new Texture2D(ServiceLocator.Instance.Get<SpriteBatch>().GraphicsDevice, size.X, size.Y);
+		{
+			Texture2D newTexture = new Texture2D(SpriteBatch.GraphicsDevice, size.X, size.Y);
 			newTexture.SetData(Enumerable.Repeat(color, size.X * size.Y).ToArray());
 			return (newTexture);
 		}
@@ -21,12 +25,12 @@ namespace GameNameSpace
 			float hLength = to.X - from.X;
 			float vLength = to.Y - from.Y;
 			float angle = (float)Math.Atan2(vLength, hLength);
-			spriteBatch.Draw(ServiceLocator.Instance.Get<AssetManager>().DrawableTexture, new Rectangle(from.ToPoint(), new Point((int)Math.Sqrt(hLength * hLength + vLength * vLength), 1)), null, color, angle, Vector2.Zero, SpriteEffects.None, 1.0f);
+			spriteBatch.Draw(ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.Drawable), new Rectangle(from.ToPoint(), new Point((int)Math.Sqrt(hLength * hLength + vLength * vLength), 1)), null, color, angle, Vector2.Zero, SpriteEffects.None, 1.0f);
 		}
 
 		public void DrawRectangle(Color color, Point from, Point size, SpriteBatch spriteBatch)
 		{
-			Texture2D texture = ServiceLocator.Instance.Get<AssetManager>().DrawableTexture;
+			Texture2D texture = ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.Drawable);
 			spriteBatch.Draw(texture, new Rectangle(from, new Point(size.X, 1)), color);
 			spriteBatch.Draw(texture, new Rectangle(new Point(from.X + size.X, from.Y), new Point(1, size.Y)), color);
 			spriteBatch.Draw(texture, new Rectangle(from, new Point(1, size.Y)), color);
