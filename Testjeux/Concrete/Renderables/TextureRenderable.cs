@@ -5,7 +5,7 @@ namespace GameNameSpace
 {
 	public class TextureRenderable : BaseRenderable
 	{
-		protected Texture2D Texture;
+		public Texture2D Texture { get; set; }
 		protected IGameObject GameObject;
 
 		public TextureRenderable(IGameObject gameObject, Texture2D texture)
@@ -19,9 +19,9 @@ namespace GameNameSpace
 			spriteBatch.Draw(Texture, GameObject.Body.Position, Color.White);
 		}
 
-		public override void Draw(SpriteBatch spriteBatch, float alpha, float angle, float scale)
+		public override void Draw(SpriteBatch spriteBatch, float alpha, float angle, float scale, Vector2 rotationOrigin)
 		{
-			spriteBatch.Draw(Texture, GameObject.Body.Position, null, Color.White * alpha, angle, Vector2.Zero, scale, SpriteEffects.None, 1.0f);
+			spriteBatch.Draw(Texture, GameObject.Body.Position, null, Color.White * alpha, angle, rotationOrigin, scale, SpriteEffects.None, 1.0f);
 		}
 	}
 }

@@ -25,9 +25,9 @@ namespace GameNameSpace
 			spriteBatch.DrawString(SpriteFont, Text, GameObject.Body.Position + Offset, Color);
 		}
 
-		public override void Draw(SpriteBatch spriteBatch, float alpha, float angle, float scale)
+		public override void Draw(SpriteBatch spriteBatch, float alpha, float angle, float scale, Vector2 rotationOrigin)
 		{
-			spriteBatch.DrawString(SpriteFont, Text, GameObject.Body.Position + Offset, Color * alpha, angle, Vector2.Zero, scale, SpriteEffects.None, 1.0f);
+			spriteBatch.DrawString(SpriteFont, Text, GameObject.Body.Position + Offset, Color * alpha, angle, rotationOrigin, scale, SpriteEffects.None, 1.0f);
 		}
 	}
 }

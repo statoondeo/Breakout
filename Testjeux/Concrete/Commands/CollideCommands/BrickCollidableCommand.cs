@@ -1,15 +1,25 @@
-﻿namespace GameNameSpace
+﻿using Microsoft.Xna.Framework;
+
+namespace GameNameSpace
 {
 	public class BrickColliderCommand : BaseColliderCommand
 	{
-		public BrickColliderCommand(IGameObject gameObject) 
+		protected BrickExplosionParticlesEmitter ParticlesEmitterGameObject;
+
+		public BrickColliderCommand(IGameObject gameObject, BrickExplosionParticlesEmitter particlesEmitterGameObject) 
 			: base(gameObject)
-		{ }
+		{
+			ParticlesEmitterGameObject = particlesEmitterGameObject;
+		}
 
 		public override void Execute(IGameObject gameObject, CollisionTestResult collisionResult)
 		{
 			base.Execute(gameObject, collisionResult);
-			GameObject.Status = gameObject.Type == GameObjectType.BALL ? GameObjectStatus.OUTDATED : GameObject.Status;
+			if (gameObject.Type == GameObjectType.BALL)
+			{
+				GameObject.Status = GameObjectStatus.OUTDATED;
+				ParticlesEmitterGameObject.Emit();
+			}
 		}
 	}
 }

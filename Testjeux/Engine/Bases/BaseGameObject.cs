@@ -28,7 +28,7 @@ namespace GameNameSpace
 		public virtual void Draw(SpriteBatch spriteBatch) 
 		{
 			Renderable.Draw(spriteBatch);
-			Body.Draw(spriteBatch);
+			//Body.Draw(spriteBatch);
 		}
 	}
 }

@@ -5,7 +5,7 @@ namespace GameNameSpace
 {
 	public class GameplayScene : BaseScene
 	{
-		private static readonly Point BRICKS = new Point(8, 6);
+		private static readonly Point BRICKS = new Point(8, 8);
 		private static readonly Point BALL = new Point(24);
 		private static readonly Point RACKET = new Point(120, 20);
 
@@ -30,11 +30,11 @@ namespace GameNameSpace
 			RegisterGameObject(new WallGameObject(new Vector2(Screen.Width, 0), new Vector2(50, Screen.Height)));
 
 			// Briques de la scène
-			Point brickWrapper = new Point(Screen.Width / BRICKS.X, Screen.Height / 3 / BRICKS.Y);
+			Point brickWrapper = new Point(Screen.Width / BRICKS.X, Screen.Height / 2 / BRICKS.Y);
 			Point brickSize = new Point(brickWrapper.X - 2, brickWrapper.Y - 2);
-			for (int i = 0; i < BRICKS.X; i++)
+			for (int i = 1; i < BRICKS.X - 1; i++)
 			{
-				for (int j = 0; j < BRICKS.Y; j++)
+				for (int j = 1; j < BRICKS.Y; j++)
 				{
 					RegisterGameObject(new BrickGameObject(new Vector2(i * brickWrapper.X + 1, j * brickWrapper.Y + 1), brickSize.ToVector2()));
 				}
@@ -44,7 +44,7 @@ namespace GameNameSpace
 			Racket = RegisterGameObject(new RacketGameObject(new Vector2((Screen.Width - RACKET.X) / 2, Screen.Height - 2 * RACKET.Y), RACKET.ToVector2()));
 
 			// Balle de la scène
-			Ball = RegisterGameObject(new BallGameObject(new Vector2(Racket.Body.Position.X + (RACKET.X - BALL.X) / 2, Racket.Body.Position.Y - BALL.Y), new Vector2(200, -700), BALL.ToVector2()));
+			Ball = RegisterGameObject(new BallGameObject(new Vector2(Racket.Body.Position.X + (RACKET.X - BALL.X) / 2, Racket.Body.Position.Y - BALL.Y), new Vector2(200, -850), BALL.ToVector2()));
 		}
 
 		public override void Update(GameTime gameTime)

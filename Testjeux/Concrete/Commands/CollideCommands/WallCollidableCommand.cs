@@ -1,15 +1,19 @@
 ﻿namespace GameNameSpace
 {
-	public class WallCollidableCommand : BaseCollidableCommand
+	public class WallColliderCommand : BaseColliderCommand
 	{
-		protected IGameObject GameObject;
-		public WallCollidableCommand(IGameObject gameObject) 
+		protected IParticlesEmitter ParticlesEmitter;
+
+		public WallColliderCommand(IGameObject gameObject, IParticlesEmitter particlesEmitter) 
+			: base(gameObject)
 		{
-			GameObject =  gameObject;
+			ParticlesEmitter = particlesEmitter;
 		}
 
-		public override void Execute(ICollidable collidable)
+		public override void Execute(IGameObject gameObject, CollisionTestResult collisionResult)
 		{
+			base.Execute(gameObject, collisionResult);
+			ParticlesEmitter.Emit(collisionResult);
 		}
 	}
 }

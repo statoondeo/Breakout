@@ -32,6 +32,7 @@ namespace GameNameSpace
 			ServiceLocator.Instance.Register<SpriteBatch>(_spriteBatch);
 			ServiceLocator.Instance.Register<ShapeFactory>(new ShapeFactory());
 			ServiceLocator.Instance.Register<Random>(new Random());
+			ServiceLocator.Instance.Register<ParticleService>(new ParticleService(250));
 			InputListener = ServiceLocator.Instance.Register<InputListener>(new InputListener());
 			GameState = ServiceLocator.Instance.Register<GameState>(new GameState());
 

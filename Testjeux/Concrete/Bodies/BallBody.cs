@@ -10,7 +10,7 @@ namespace GameNameSpace
 		public BallBody(Vector2 position, Vector2 size, Vector2 velocity, IColliderCommand command) 
 			: base(position, size.X / 2, velocity, 0.5f, 1.0f, false, command)
 		{
-			//Force = new Vector2(0, 5f);
+			Force = new Vector2(0, 9.81f);
 			Renderable = new CircleFrameRenderable(this);
 		}
 

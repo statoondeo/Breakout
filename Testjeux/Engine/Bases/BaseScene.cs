@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -43,19 +44,14 @@ namespace GameNameSpace
 
 		public virtual void Update(GameTime gameTime)
 		{
-			// Gestion des updates des GameObjects
-			foreach (IGameObject gameObject in GameObjectsCollection.Where(gameObject => gameObject.Status == GameObjectStatus.ACTIVE))
-			{
-				gameObject.Update(gameTime);
-			}
-
 			// Gestion des collisions des GameObjects, et uniquement ceux qui sont actifs et qui dispose d'une collideBox
 			CollisionTestResult collisionResult = null;
 			IGameObject goi = null;
 			IGameObject goj = null;
-			for (int i = 0; i < (GameObjectsCollection.Count - 1); i++)
+			for (int i = 0; i < GameObjectsCollection.Count; i++)
 			{
 				goi = GameObjectsCollection[i];
+				goi.Update(gameTime);
 				if (goi.Status == GameObjectStatus.ACTIVE && !(goi.Body is DummyBody))
 				{
 					for (int j = i + 1; j < GameObjectsCollection.Count; j++)
@@ -76,7 +72,7 @@ namespace GameNameSpace
 			}
 
 			// On purge tous les éléments obsolètes
-			(GameObjectsCollection as List<IGameObject>).RemoveAll(gameObjectStatus => gameObjectStatus.Status == GameObjectStatus.OUTDATED);
+			(GameObjectsCollection as List<IGameObject>).RemoveAll(gameObject => gameObject.Status == GameObjectStatus.OUTDATED);
 
 			// On ajoute à la scène les éléments générés
 			RegisterGameObjects(GeneratedGameObjectsCollection);

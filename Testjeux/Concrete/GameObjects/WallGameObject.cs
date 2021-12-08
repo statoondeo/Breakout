@@ -8,7 +8,7 @@ namespace GameNameSpace
 			: base()
 		{
 			Type = GameObjectType.WALL;
-			Body = new WallBody(position, size);
+			Body = new WallBody(position, size, new WallColliderCommand(this, new WallImpactParticlesEmitter(this, ServiceLocator.Instance.Get<ShapeFactory>().CreateTexture(new Point(15), Color.BlueViolet), 15)));
 			Renderable = new DummyRenderable();
 		}
 	}

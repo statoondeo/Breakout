@@ -89,7 +89,7 @@ namespace GameNameSpace
 			{
 				CollisionTestResult collisionResult = IsCollision(body, compositeBody.CollisionResolverBody);
 				if (null == collisionResult) return (null);
-				return (inverseNormal ? new CollisionTestResult(Vector2.Negate(collisionResult.Normal), collisionResult.Depth) : collisionResult);
+				return (inverseNormal ? new CollisionTestResult(collisionResult.BodyA, collisionResult.BodyB, Vector2.Negate(collisionResult.Normal), collisionResult.Depth) : collisionResult);
 			}
 			return (null);
 		}
@@ -158,7 +158,7 @@ namespace GameNameSpace
 				normal = -normal;
 			}
 
-			return (new CollisionTestResult(normal, depth));
+			return (new CollisionTestResult(circle, box, normal, depth));
 		}
 
 		private static CollisionTestResult IsCircleCollision(ICircleBody circle1, ICircleBody circle2)
@@ -171,7 +171,7 @@ namespace GameNameSpace
 				return (null);
 			}
 
-			return (new CollisionTestResult(Vector2.Normalize(circle2.Center - circle1.Center), radiusSum - distance));
+			return (new CollisionTestResult(circle1, circle2, Vector2.Normalize(circle2.Center - circle1.Center), radiusSum - distance));
 		}
 
 		private static CollisionTestResult IsBoxCollision(IBoxBody box1, IBoxBody box2)
@@ -250,7 +250,7 @@ namespace GameNameSpace
 				normal = -normal;
 			}
 
-			return (new CollisionTestResult(normal, depth));
+			return (new CollisionTestResult(box1, box2, normal, depth));
 		}
 
 		private static Vector2 GetCenter(Vector2[] vectors)
