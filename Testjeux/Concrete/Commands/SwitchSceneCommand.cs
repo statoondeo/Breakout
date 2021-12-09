@@ -12,7 +12,7 @@
 
 		public override void Execute()
 		{
-			ServiceLocator.Instance.Get<ISceneService>().GetCurrent().UnLoad(GotoTargetScene);
+			ServiceLocator.Instance.Get<ISceneService>().UnLoad(GotoTargetScene);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -31,6 +32,7 @@ namespace GameNameSpace
 			ServiceLocator.Instance.Register<IScreenService>(new ScreenService(Window.ClientBounds));
 			ServiceLocator.Instance.Register<IShapeService>(new ShapeService(_spriteBatch));
 			ServiceLocator.Instance.Register<IRandomService>(new RandomService());
+			ServiceLocator.Instance.Register<ITweeningService>(new TweeningService());
 			ServiceLocator.Instance.Register<IParticlesService>(new ParticleService(250));
 			InputListener = ServiceLocator.Instance.Register<IInputListenerService>(new InputListenerService());
 			GameState = ServiceLocator.Instance.Register<ISceneService>(new SceneService());

@@ -31,8 +31,8 @@ namespace GameNameSpace
 					Vector2 particleVelocity = Vector2.Negate(GameObject.Body.Velocity);
 					particleVelocity *= new Vector2((float)Math.Cos(rand.Next()), (float)Math.Sin(rand.Next()));
 					ParticleGameObject particle = ServiceLocator.Instance.Get<IParticlesService>().GetParticle();
-					particle.Init(Texture, position - Size * scale * 0.5f, particleVelocity * particleSpeed, scale, ttl, 0, 0.5f, Vector2.Zero);
-					ServiceLocator.Instance.Get<ISceneService>().GetCurrent().GeneratedGameObjectsCollection.Add(particle);
+					particle.Init(Texture, ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), position - Size * scale * 0.5f, particleVelocity * particleSpeed, scale, ttl, 0, 0.5f, Vector2.Zero);
+					ServiceLocator.Instance.Get<ISceneService>().RegisterGameObject(particle);
 				}
 			}
 		}

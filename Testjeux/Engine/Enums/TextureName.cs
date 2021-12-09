@@ -4,6 +4,7 @@
 	{
         Drawable,
         RedBall,
+        PurpleBall,
         GrayBall
     }
 }

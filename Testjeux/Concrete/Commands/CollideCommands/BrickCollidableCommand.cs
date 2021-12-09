@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace GameNameSpace
+﻿namespace GameNameSpace
 {
 	public class BrickColliderCommand : BaseColliderCommand
 	{
@@ -23,7 +21,7 @@ namespace GameNameSpace
 				{
 					GameObject.Status = GameObjectStatus.OUTDATED;
 				}
-				ParticlesEmitterGameObject.Emit();
+				ParticlesEmitterGameObject.Emit(collisionResult);
 			}
 		}
 	}

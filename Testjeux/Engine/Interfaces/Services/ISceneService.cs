@@ -1,14 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GameNameSpace
+﻿namespace GameNameSpace
 {
-	public interface ISceneService : IService
+	public interface ISceneService : IService, IScene
 	{
-		IScene GetCurrent();
 		IScene ChangeScene(SceneType scene);
-		void Update(GameTime gameTime);
-		void Draw(SpriteBatch spriteBatch);
 	}
 }
 

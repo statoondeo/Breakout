@@ -33,6 +33,7 @@ namespace GameNameSpace
 
             TexturesDictionary.Add(TextureName.RedBall, content.Load<Texture2D>("redball"));
             TexturesDictionary.Add(TextureName.GrayBall, content.Load<Texture2D>("GrayBall"));
+            TexturesDictionary.Add(TextureName.PurpleBall, content.Load<Texture2D>("purpleball"));
             Texture2D DrawableTexture = new Texture2D(graphicDevice, 1, 1, false, SurfaceFormat.Color);
             DrawableTexture.SetData(Enumerable.Repeat(Color.White, 1).ToArray());
             TexturesDictionary.Add(TextureName.Drawable, DrawableTexture);

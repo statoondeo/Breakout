@@ -7,6 +7,7 @@ namespace GameNameSpace
 	public class MenuScene : BaseScene
 	{
 		private static readonly string TITLE = "Menu";
+		protected IGameObject Cursor;
 
 		public MenuScene() : base()
 		{
@@ -21,12 +22,16 @@ namespace GameNameSpace
 			Vector2 buttonSize = new Vector2(400, 100);
 			RegisterGameObject(new ButtonGameObject(new Vector2((screen.X - buttonSize.X) / 2, 2 * (screen.Y - buttonSize.Y) / 3), buttonSize, Color.Coral, ServiceLocator.Instance.Get<IAssetService>().GetFont(FontName.Button), "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY)));
 
-			// AJout du curseur de souris
-			RegisterGameObject(new CursorGameObject());
+			// Ajout du curseur de souris
+			Cursor = RegisterGameObject(new CursorGameObject());
 		}
 
 		public override void Update(GameTime gameTime)
 		{
+			if (ServiceLocator.Instance.Get<IInputListenerService>().IsLeftClick())
+			{
+				(new BallExplosionParticlesEmitter(Cursor, ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.RedBall), 25)).Emit();
+			}
 			if (ServiceLocator.Instance.Get<IInputListenerService>().IsKeyDown(Keys.Escape))
 			{
 				// TODO

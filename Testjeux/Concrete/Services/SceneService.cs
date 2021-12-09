@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
@@ -8,6 +9,26 @@ namespace GameNameSpace
 		protected IScene CurrentScene;
 
 		public SceneService() { }
+
+		public void Load()
+		{
+			CurrentScene.Load();
+		}
+
+		public void UnLoad(ICommand command)
+		{
+			CurrentScene.UnLoad(command);
+		}
+
+		public IGameObject RegisterGameObject(IGameObject gameObject)
+		{
+			return (CurrentScene.RegisterGameObject(gameObject));
+		}
+
+		public IGameObject UnRegisterGameObject(IGameObject gameObject)
+		{
+			return (CurrentScene.UnRegisterGameObject(gameObject));
+		}
 
 		public void Update(GameTime gameTime)
 		{
@@ -40,11 +61,6 @@ namespace GameNameSpace
 					break;
 			}
 			CurrentScene.Load();
-			return (CurrentScene);
-		}
-
-		public IScene GetCurrent()
-		{
 			return (CurrentScene);
 		}
 	}

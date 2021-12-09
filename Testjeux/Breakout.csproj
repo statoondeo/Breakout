@@ -25,6 +25,7 @@
     <None Remove="Old\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Concrete\Scenes\TestScene.cs" />
     <Compile Remove="Engine\Bases\BaseCollidable.cs" />
     <Compile Remove="Engine\Bases\BasePositionable.cs" />
     <Compile Remove="Engine\Interfaces\ICollidable.cs" />
@@ -37,8 +38,6 @@
     <Compile Include="Concrete\Commands\CollideCommands\PhantomGeneratorBallColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\RacketColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\WallCollidableCommand.cs" />
-    <Compile Include="Concrete\GameObjects\BallsGameObjects\OneShotBallGameObject.cs" />
-    <Compile Include="Concrete\GameObjects\BallsGameObjects\PhantomGeneratorBallGameObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />

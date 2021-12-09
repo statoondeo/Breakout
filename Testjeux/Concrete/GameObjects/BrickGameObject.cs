@@ -11,8 +11,9 @@ namespace GameNameSpace
 			: base()
 		{
 			Texture2D texture = ServiceLocator.Instance.Get<IShapeService>().CreateTexture(size.ToPoint(), Color.Gray);
+			Texture2D textureExplosion = ServiceLocator.Instance.Get<IShapeService>().CreateTexture(size.ToPoint(), Color.DarkSlateGray);
 			Type = GameObjectType.BRICK;
-			Body = new BrickBody(position, size, new BrickColliderCommand(this, new BrickExplosionParticlesEmitter(this, texture, 10)));
+			Body = new BrickBody(position, size, new BrickColliderCommand(this, new BrickExplosionParticlesEmitter(this, textureExplosion, 10)));
 			Renderable = new TextureRenderable(this, texture);
 			Health = health;
 		}

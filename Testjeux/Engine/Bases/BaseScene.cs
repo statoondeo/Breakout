@@ -8,8 +8,8 @@ namespace GameNameSpace
 {
 	public abstract class BaseScene : IScene
 	{
-		public IList<IGameObject> GameObjectsCollection { get; protected set; }
-		public IList<IGameObject> GeneratedGameObjectsCollection { get; protected set; }
+		protected IList<IGameObject> GameObjectsCollection { get; set; }
+		protected IList<IGameObject> GeneratedGameObjectsCollection { get; set; }
 		protected ICommand CommandWhenUnloaded;
 
 		protected BaseScene() 
@@ -28,7 +28,7 @@ namespace GameNameSpace
 
 		public virtual IGameObject RegisterGameObject(IGameObject gameObject)
 		{
-			GameObjectsCollection.Add(gameObject);
+			GeneratedGameObjectsCollection.Add(gameObject);
 			return (gameObject);
 		}
 		public virtual void RegisterGameObjects(IList<IGameObject> gameObjects)
