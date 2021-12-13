@@ -17,7 +17,7 @@ namespace GameNameSpace
 		{
 			CollisionResolverOffset = new Vector2(size.X / 2 - RESOLVER_RADIUS, -2);
 			RacketRenderable = new RectFrameRenderable(CollisionCheckerBody as IBoxBody);
-			ControllerRenderable = new CircleFrameRenderable(CollisionResolverBody as ICircleBody);
+			ControllerRenderable = new CircleFrameRenderable(CollisionResolverBody as ICircleBody, Vector2.Zero);
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)

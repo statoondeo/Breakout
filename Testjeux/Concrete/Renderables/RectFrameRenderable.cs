@@ -8,6 +8,7 @@ namespace GameNameSpace
 		protected IBoxBody Body;
 
 		public RectFrameRenderable(IBoxBody body)
+			: base(Vector2.Zero, 1.0f)
 		{
 			Body = body;
 		}

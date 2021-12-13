@@ -23,7 +23,7 @@ namespace GameNameSpace
 				float speed = Vector2.Dot(velocity, ball.Body.Velocity);
 				if (speed < ball.Speed)
 				{
-					speed *= 1.1f;
+					speed *= 1.25f;
 					speed = MathHelper.Clamp(speed, 0, ball.Speed);
 					ball.Body.Velocity = velocity * speed;
 				}

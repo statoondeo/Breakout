@@ -25,7 +25,7 @@ namespace GameNameSpace
 			CurrentTtl = 0;
 			Delay = delay;
 			InnerBody = new DummyBody();
-			Tweening = ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.ElasticOut);
+			Tweening = ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut);
 			Started = Ended = false;
 			Status = GameObjectStatus.ACTIVE;
 		}

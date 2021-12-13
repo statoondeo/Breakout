@@ -1,4 +1,7 @@
-﻿namespace GameNameSpace
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace GameNameSpace
 {
 	public class ParticleService : IParticlesService
 	{
@@ -9,9 +12,17 @@
 			ObjectPool = new ObjectPool<ParticleGameObject>(capacity);
 		}
 
-		public ParticleGameObject GetParticle()
+		public void Create(Texture2D texture, ITweening tweeningMove, Vector2 position, Vector2 velocity, float scale, float ttl, float angleSpeed, float initialAlpha, Vector2 rotationOrigin)
 		{
-			return (ObjectPool.Get());
+			Create(texture, tweeningMove, position, velocity, scale, ttl, angleSpeed, initialAlpha, rotationOrigin, Color.White);
+		}
+
+		public void Create(Texture2D texture, ITweening tweeningMove, Vector2 position, Vector2 velocity, float scale, float ttl, float angleSpeed, float initialAlpha, Vector2 rotationOrigin, Color maskColor)
+		{
+			ParticleGameObject particle = ObjectPool.Get();
+			particle.Init(texture, tweeningMove, position, velocity, scale, ttl, angleSpeed, initialAlpha, rotationOrigin);
+			particle.Renderable.ColorMask = maskColor;
+			ServiceLocator.Instance.Get<ISceneService>().RegisterGameObject(particle);
 		}
 	}
 }

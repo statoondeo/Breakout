@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-	public class BrickBody : BoxBody
+	public class BrickBody : CircleBody
 	{
 		protected IRenderable Renderable;
 
-		public BrickBody(Vector2 position, Vector2 size, IColliderCommand command) 
-			: base(position, size, Vector2.Zero, 1.0f, 1.0f, true, command)
+		public BrickBody(Vector2 position, float radius, IColliderCommand command) 
+			: base(position, radius, Vector2.Zero, 1.0f, 0.9f, true, command)
 		{
-			Renderable = new RectFrameRenderable(this);
+			Renderable = new CircleFrameRenderable(this, Vector2.Zero);
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)

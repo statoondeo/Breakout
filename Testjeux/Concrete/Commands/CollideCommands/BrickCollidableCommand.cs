@@ -16,12 +16,12 @@
 			if (gameObject.Type == GameObjectType.BALL)
 			{
 				BrickGameObject brick = GameObject as BrickGameObject;
-				brick.Health--;
+				brick.Damage();
 				if (brick.Health <= 0)
 				{
 					GameObject.Status = GameObjectStatus.OUTDATED;
+					ParticlesEmitterGameObject.Emit(collisionResult);
 				}
-				ParticlesEmitterGameObject.Emit(collisionResult);
 			}
 		}
 	}

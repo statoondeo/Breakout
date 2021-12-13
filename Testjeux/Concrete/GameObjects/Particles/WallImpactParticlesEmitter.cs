@@ -22,9 +22,7 @@ namespace GameNameSpace
 				float scale = (float)(rand.Next() * 0.7 + 0.2);
 				float particleSpeed = rand.Next() * 250.0f;
 				float particleAngle = (float)(rand.Next() * 2 * Math.PI);
-				ParticleGameObject particle = ServiceLocator.Instance.Get<IParticlesService>().GetParticle();
-				particle.Init(Texture, ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), position - Size * scale * 0.5f, new Vector2(particleSpeed * (float)Math.Cos(particleAngle), particleSpeed * (float)Math.Sin(particleAngle)), scale, ttl, angleSpeed, 1.0f, Vector2.Zero);
-				ServiceLocator.Instance.Get<ISceneService>().RegisterGameObject(particle);
+				ServiceLocator.Instance.Get<IParticlesService>().Create(Texture, ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), position - Size * scale * 0.5f, new Vector2(particleSpeed * (float)Math.Cos(particleAngle), particleSpeed * (float)Math.Sin(particleAngle)), scale, ttl, angleSpeed, 1.0f, Vector2.Zero);
 			}
 		}
 	}

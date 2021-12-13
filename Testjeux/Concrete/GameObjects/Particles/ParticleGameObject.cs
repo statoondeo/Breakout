@@ -18,7 +18,7 @@ namespace GameNameSpace
 		public ParticleGameObject() : base() 
 		{
 			Movable = new TweeningMovable(this);
-			Renderable = new TextureRenderable(this, null);
+			Renderable = new TextureRenderable(this, null, 1.0f, Vector2.Zero);
 		}
 
 		public void Init(Texture2D texture, ITweening tweening, Vector2 position, Vector2 velocity, float scale, float ttl, float angleSpeed, float initialAlpha, Vector2 rotationOrigin)
@@ -33,6 +33,7 @@ namespace GameNameSpace
 			CurrentAlpha = InitialAlpha = initialAlpha;
 			Scale = scale;
 			RotationOrigin = rotationOrigin;
+			Renderable = new TextureRenderable(this, null, 1.0f, Vector2.Zero);
 			(Renderable as TextureRenderable).Texture = texture;
 		}
 

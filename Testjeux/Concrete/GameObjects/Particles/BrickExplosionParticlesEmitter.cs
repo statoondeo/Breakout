@@ -19,13 +19,11 @@ namespace GameNameSpace
 			for (int i = 0; i < Number; i++)
 			{
 				float angleSpeed = (float)(rand.Next() * Math.PI - Math.PI / 2);
-				float ttl = rand.Next() * 0.3f + 0.05f;
-				float scale = rand.Next() * 0.7f + 0.2f;
-				float particleSpeed = rand.Next() * 100.0f * collisionResult.Depth;
+				float ttl = rand.Next() * 0.8f + 0.2f;
+				float scale = rand.Next() * 0.6f + 0.2f;
+				float particleSpeed = rand.Next() * 60 * collisionResult.Depth * 1 / scale;
 				float particleAngle = (float)((rand.Next() - 0.5f) * Math.PI * 0.5f + Math.Atan2(normal.Y, normal.X));
-				ParticleGameObject particle = ServiceLocator.Instance.Get<IParticlesService>().GetParticle();
-				particle.Init(Texture, ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), position - Size * scale * 0.5f, new Vector2(particleSpeed * (float)Math.Cos(particleAngle), particleSpeed * (float)Math.Sin(particleAngle)), scale, ttl, angleSpeed, 1.0f, Vector2.Zero);
-				ServiceLocator.Instance.Get<ISceneService>().RegisterGameObject(particle);
+				ServiceLocator.Instance.Get<IParticlesService>().Create(Texture, ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), position - Size * scale * 0.5f, new Vector2(particleSpeed * (float)Math.Cos(particleAngle), particleSpeed * (float)Math.Sin(particleAngle)), scale, ttl, angleSpeed, 1.0f, Vector2.Zero);
 			}
 		}
 	}

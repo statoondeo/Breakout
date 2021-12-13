@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,11 +11,23 @@ namespace GameNameSpace
 		protected IList<IGameObject> GameObjectsCollection { get; set; }
 		protected IList<IGameObject> GeneratedGameObjectsCollection { get; set; }
 		protected ICommand CommandWhenUnloaded;
+		protected bool PlayerWin;
+		protected bool PlayerLoose;
 
 		protected BaseScene() 
 		{
 			GameObjectsCollection = new List<IGameObject>();
 			GeneratedGameObjectsCollection = new List<IGameObject>();
+			PlayerWin = PlayerLoose = false;
+		}
+
+		public virtual void Win()
+		{
+			PlayerWin = false;
+		}
+		public virtual void Loose()
+		{
+			PlayerLoose = false;
 		}
 
 		public virtual void Load() { }
@@ -24,6 +36,16 @@ namespace GameNameSpace
 		{
 			CommandWhenUnloaded = commandWhenUnloaded;
 			CommandWhenUnloaded.Execute();
+		}
+
+		public IGameObject GetObject(Func<IGameObject, bool> predicate)
+		{
+			return (GameObjectsCollection.FirstOrDefault(predicate));
+		}
+
+		public IList<IGameObject> GetObjects(Func<IGameObject, bool> predicate)
+		{
+			return (GameObjectsCollection.Where(predicate).ToList());
 		}
 
 		public virtual IGameObject RegisterGameObject(IGameObject gameObject)

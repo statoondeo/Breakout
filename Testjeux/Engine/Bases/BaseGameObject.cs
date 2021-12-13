@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
@@ -8,7 +7,7 @@ namespace GameNameSpace
 	{
 		public IMovable Movable { get; set; }
 		public IBody Body { get; protected set; }
-		public IRenderable Renderable { get; protected set; }
+		public IRenderable Renderable { get; set; }
 		public GameObjectStatus Status { get; set; }
 		public GameObjectType Type { get; protected set; }
 
@@ -24,6 +23,7 @@ namespace GameNameSpace
 		public virtual void Update(GameTime gameTime) 
 		{
 			Movable.Move(gameTime);
+			Renderable.Update(gameTime);
 		}
 		public virtual void Draw(SpriteBatch spriteBatch) 
 		{

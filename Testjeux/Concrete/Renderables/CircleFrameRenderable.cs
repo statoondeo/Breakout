@@ -7,7 +7,8 @@ namespace GameNameSpace
 	{
 		protected ICircleBody Body;
 
-		public CircleFrameRenderable(ICircleBody body)
+		public CircleFrameRenderable(ICircleBody body, Vector2 offset)
+			: base(offset, 1.0f)
 		{
 			Body = body;
 		}

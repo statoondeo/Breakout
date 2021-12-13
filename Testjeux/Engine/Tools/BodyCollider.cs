@@ -97,15 +97,15 @@ namespace GameNameSpace
 		private static CollisionTestResult IsCircleBoxCollision(ICircleBody circle, IBoxBody box)
 		{
 			float depth = float.MaxValue;
-			float depthAxis = 0.0f;
+			float depthAxis;
 
-			Vector2 va = Vector2.Zero;
-			Vector2 vb = Vector2.Zero;
-			Vector2 edge = Vector2.Zero;
+			Vector2 va;
+			Vector2 vb;
+			Vector2 edge;
 			Vector2 normal = Vector2.Zero;
-			Vector2 newAxis = Vector2.Zero;
-			Vector2 projectionBox = Vector2.Zero;
-			Vector2 projectionCircle = Vector2.Zero;
+			Vector2 newAxis;
+			Vector2 projectionBox;
+			Vector2 projectionCircle;
 
 			Rectangle box1 = new Rectangle(box.Position.ToPoint(), box.Size.ToPoint());
 			Rectangle box2 = new Rectangle(circle.Position.ToPoint(), new Point((int)circle.Radius * 2));
@@ -179,13 +179,13 @@ namespace GameNameSpace
 			Vector2 normal = Vector2.Zero;
 			float depth = float.MaxValue;
 
-			Vector2 va = Vector2.Zero;
-			Vector2 vb = Vector2.Zero;
-			Vector2 edge = Vector2.Zero;
-			Vector2 newAxis = Vector2.Zero;
-			Vector2 projectionBox1 = Vector2.Zero;
-			Vector2 projectionBox2 = Vector2.Zero;
-			float depthAxis = 0.0f;
+			Vector2 va;
+			Vector2 vb;
+			Vector2 edge;
+			Vector2 newAxis;
+			Vector2 projectionBox1;
+			Vector2 projectionBox2;
+			float depthAxis;
 
 			// Récupération des points constiutant les box
 			Vector2[] box1Vectors = box1.Vectors;

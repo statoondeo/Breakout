@@ -13,7 +13,7 @@ namespace GameNameSpace
 			Vector2 textSize = spriteFont.MeasureString(text);
 			Body = new BoxBody(position, size, Vector2.Zero, 0.0f, 1.0f, true, new ButtonWrapperColliderCommand(this, command));
 			TextRenderable = new TextRenderable(this, new Vector2((size.X - textSize.X) / 2, (size.Y - textSize.Y) / 2), spriteFont, text, textColor);
-			Renderable = new TextureRenderable(this, ServiceLocator.Instance.Get<IShapeService>().CreateTexture(size.ToPoint(), color));
+			Renderable = new TextureRenderable(this, ServiceLocator.Instance.Get<IShapeService>().CreateTexture(size.ToPoint(), color), 1.0f, Vector2.Zero);
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -42,26 +43,41 @@ namespace GameNameSpace
 
 		public IScene ChangeScene(SceneType newScene)
 		{
-			switch (newScene)
+			return (ChangeScene(newScene, 0));
+		}
+
+		public IScene ChangeScene(SceneType newScene, int levelNumber)
+		{
+			CurrentScene = newScene switch
 			{
-				case SceneType.MENU:
-					CurrentScene = new MenuScene();
-					break;
-				case SceneType.GAMEPLAY:
-					CurrentScene = new GameplayScene();
-					break;
-				case SceneType.GAMEOVER:
-					CurrentScene = new GameOverScene();
-					break;
-				case SceneType.VICTORY:
-					CurrentScene = new VictoryScene();
-					break;
-				default:
-					CurrentScene = null;
-					break;
-			}
+				SceneType.MENU => new MenuScene(),
+				SceneType.GAMEPLAY => new GameplayScene(levelNumber),
+				SceneType.GAMEOVER => new GameOverScene(),
+				SceneType.VICTORY => new VictoryScene(),
+				_ => null,
+			};
 			CurrentScene.Load();
 			return (CurrentScene);
+		}
+
+		public IGameObject GetObject(Func<IGameObject, bool> predicate)
+		{
+			return (CurrentScene.GetObject(predicate));
+		}
+
+		public IList<IGameObject> GetObjects(Func<IGameObject, bool> predicate)
+		{
+			return (CurrentScene.GetObjects(predicate));
+		}
+
+		public void Win()
+		{
+			CurrentScene.Win();
+		}
+
+		public void Loose()
+		{
+			CurrentScene.Loose();
 		}
 	}
 }

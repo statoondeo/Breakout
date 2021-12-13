@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-
 	public abstract class BaseGameObjectDecorator : IGameObjectDecorator
 	{
 		public IGameObject DecoratedGameObject { get; protected set; }
@@ -21,7 +21,7 @@ namespace GameNameSpace
 
 		public virtual IBody Body => DecoratedGameObject.Body;
 
-		public virtual IRenderable Renderable => DecoratedGameObject.Renderable;
+		public virtual IRenderable Renderable { get => DecoratedGameObject.Renderable; set => DecoratedGameObject.Renderable = value; }
 
 		public virtual void Draw(SpriteBatch spriteBatch)
 		{

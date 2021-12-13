@@ -9,6 +9,7 @@ namespace GameNameSpace
 		void DrawCircle(Color color, Vector2 center, int radius, int points, SpriteBatch spriteBatch);
 		void DrawLine(Color color, Vector2 from, Vector2 to, SpriteBatch spriteBatch);
 		void DrawRectangle(Color color, Point from, Point size, SpriteBatch spriteBatch);
+		Texture2D CropTexture(Texture2D original, Rectangle source);
 	}
 }
 

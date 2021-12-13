@@ -31,13 +31,23 @@
     <Compile Remove="Engine\Interfaces\ICollidable.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Concrete\Levels\level1.json" />
+    <None Remove="Concrete\Levels\level1.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Concrete\Commands\CollideCommands\BallColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\BrickCollidableCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\ButtonWrapperColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\OneShotBallCollidableCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\PhantomGeneratorBallColliderCommand.cs" />
+    <Compile Include="Concrete\Commands\CollideCommands\BumperColliderCommand.cs" />
+    <Compile Include="Concrete\Commands\CollideCommands\ShieldColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\RacketColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\WallCollidableCommand.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Concrete\Levels\level1.xml" />
+    <EmbeddedResource Include="Concrete\Levels\level1.json" />
   </ItemGroup>
   <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />

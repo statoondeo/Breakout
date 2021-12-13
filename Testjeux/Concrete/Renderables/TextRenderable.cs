@@ -6,15 +6,14 @@ namespace GameNameSpace
 	public class TextRenderable : BaseRenderable
 	{
 		protected IGameObject GameObject;
-		protected Vector2 Offset;
 		protected SpriteFont SpriteFont;
 		protected string Text;
 		protected Color Color;
 
 		public TextRenderable(IGameObject gameObject, Vector2 offset, SpriteFont spriteFont, string text, Color color)
+			: base(offset, 1.0f)
 		{
 			GameObject = gameObject;
-			Offset = offset;
 			SpriteFont = spriteFont;
 			Text = text;
 			Color = color;

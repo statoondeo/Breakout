@@ -20,6 +20,15 @@ namespace GameNameSpace
 			return (newTexture);
 		}
 
+		public Texture2D CropTexture(Texture2D original, Rectangle source)
+		{
+			Texture2D cropTexture = new Texture2D(SpriteBatch.GraphicsDevice, source.Width, source.Height);
+			Color[] data = new Color[source.Width * source.Height];
+			original.GetData(0, source, data, 0, data.Length);
+			cropTexture.SetData(data);
+			return (cropTexture);
+		}
+
 		public void DrawLine(Color color, Vector2 from, Vector2 to, SpriteBatch spriteBatch)
 		{
 			float hLength = to.X - from.X;

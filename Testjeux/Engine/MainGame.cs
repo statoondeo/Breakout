@@ -1,13 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
 	public class MainGame : Game
 	{
-		private GraphicsDeviceManager _graphics;
+		private readonly GraphicsDeviceManager _graphics;
 		private SpriteBatch _spriteBatch;
 		private ISceneService GameState;
 		private IInputListenerService InputListener;
@@ -15,6 +13,7 @@ namespace GameNameSpace
 		public MainGame()
 		{
 			_graphics = new GraphicsDeviceManager(this);
+			_graphics.GraphicsProfile = GraphicsProfile.HiDef;
 			Content.RootDirectory = "Content";
 			IsMouseVisible = true;
 		}
@@ -24,8 +23,8 @@ namespace GameNameSpace
 			base.Initialize();
 
 			// Changement de la résolution du jeu
-			_graphics.PreferredBackBufferWidth = 800;
-			_graphics.PreferredBackBufferHeight = 600;
+			_graphics.PreferredBackBufferWidth = 1280;
+			_graphics.PreferredBackBufferHeight = 800;
 			_graphics.ApplyChanges();
 
 			// Enregistrement des services
@@ -34,6 +33,8 @@ namespace GameNameSpace
 			ServiceLocator.Instance.Register<IRandomService>(new RandomService());
 			ServiceLocator.Instance.Register<ITweeningService>(new TweeningService());
 			ServiceLocator.Instance.Register<IParticlesService>(new ParticleService(250));
+			ServiceLocator.Instance.Register<IGameObjectFactoryService>(new GameObjectFactoryService());
+			ServiceLocator.Instance.Register<ILevelService>(new JSONLevelService());
 			InputListener = ServiceLocator.Instance.Register<IInputListenerService>(new InputListenerService());
 			GameState = ServiceLocator.Instance.Register<ISceneService>(new SceneService());
 

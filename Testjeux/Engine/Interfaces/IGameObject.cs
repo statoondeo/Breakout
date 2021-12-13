@@ -9,7 +9,7 @@ namespace GameNameSpace
 		GameObjectType Type { get; }
 		IMovable Movable { get; set; }
 		IBody Body { get; }
-		IRenderable Renderable { get; }
+		IRenderable Renderable { get; set; }
 		void Update(GameTime gameTime);
 		void Draw(SpriteBatch spriteBatch);
 	}

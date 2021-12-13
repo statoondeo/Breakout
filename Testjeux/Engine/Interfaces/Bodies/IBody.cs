@@ -9,6 +9,8 @@ namespace GameNameSpace
 		Vector2 Force { get; set; }
 		Vector2 Position { get; }
 		Vector2 Velocity { get; set; }
+		Vector2 RotationOrigin { get; set; }
+		float Angle { get; set; }
 		float Mass { get; }
 		float InvMass { get; }
 		float Restitution { get; }

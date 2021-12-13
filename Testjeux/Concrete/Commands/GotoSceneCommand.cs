@@ -3,15 +3,18 @@
 	public class GotoSceneCommand : BaseCommand
 	{
 		protected SceneType TargetScene;
-		public GotoSceneCommand(SceneType targetScene)
+		protected int LevelNumber;
+
+		public GotoSceneCommand(SceneType targetScene, int levelNumber)
 			: base()
 		{
 			TargetScene = targetScene;
+			LevelNumber = levelNumber;
 		}
 
 		public override void Execute()
 		{
-			ServiceLocator.Instance.Get<ISceneService>().ChangeScene(TargetScene);
+			ServiceLocator.Instance.Get<ISceneService>().ChangeScene(TargetScene, LevelNumber);
 		}
 	}
 }

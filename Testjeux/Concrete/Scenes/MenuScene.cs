@@ -20,7 +20,7 @@ namespace GameNameSpace
 
 			// Bouton pour démarrer le jeu
 			Vector2 buttonSize = new Vector2(400, 100);
-			RegisterGameObject(new ButtonGameObject(new Vector2((screen.X - buttonSize.X) / 2, 2 * (screen.Y - buttonSize.Y) / 3), buttonSize, Color.Coral, ServiceLocator.Instance.Get<IAssetService>().GetFont(FontName.Button), "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY)));
+			RegisterGameObject(new ButtonGameObject(new Vector2((screen.X - buttonSize.X) / 2, 2 * (screen.Y - buttonSize.Y) / 3), buttonSize, Color.Coral, ServiceLocator.Instance.Get<IAssetService>().GetFont(FontName.Button), "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, 1)));
 
 			// Ajout du curseur de souris
 			Cursor = RegisterGameObject(new CursorGameObject());
@@ -30,7 +30,7 @@ namespace GameNameSpace
 		{
 			if (ServiceLocator.Instance.Get<IInputListenerService>().IsLeftClick())
 			{
-				(new BallExplosionParticlesEmitter(Cursor, ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.RedBall), 25)).Emit();
+				(new BallExplosionParticlesEmitter(Cursor, ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.RedSpark), 15)).Emit();
 			}
 			if (ServiceLocator.Instance.Get<IInputListenerService>().IsKeyDown(Keys.Escape))
 			{
