@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
@@ -13,12 +12,12 @@ namespace GameNameSpace
 
 		public override void Emit(GameTime gameTime)
 		{
-			IRandomService rand = ServiceLocator.Instance.Get<IRandomService>();
+			IRandomService rand = Services.Instance.Get<IRandomService>();
 			float ttl = 2.0f;
 			float scale = 1.0f;
 			float particleSpeed = 0;
 			Vector2 particleVelocity = Vector2.Zero;
-			ServiceLocator.Instance.Get<IParticlesService>().Create(Texture, ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), (GameObject.Body as ICircleBody).Center - Size * scale * 0.5f, particleVelocity * particleSpeed, scale, ttl, 0, 0.5f, Vector2.Zero);
+			Services.Instance.Get<IParticlesService>().Register(Texture, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), (GameObject.Body as ICircleBody).Center - Size * scale * 0.5f, particleVelocity * particleSpeed, scale, ttl, 0, 0.5f, 0.0f, Vector2.Zero);
 		}
 	}
 }

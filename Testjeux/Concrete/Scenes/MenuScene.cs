@@ -1,42 +1,54 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace GameNameSpace
 {
 	public class MenuScene : BaseScene
 	{
-		private static readonly string TITLE = "Menu";
-		protected IGameObject Cursor;
+		public MenuScene() : base() { }
 
-		public MenuScene() : base()
+		public override void Load(ICommand commandWhenLoaded)
 		{
-			Point screen = ServiceLocator.Instance.Get<IScreenService>().GetScreenSize();
-			SpriteFont spriteFontTitle = ServiceLocator.Instance.Get<IAssetService>().GetFont(FontName.Title);
-			Vector2 textSize = spriteFontTitle.MeasureString(TITLE);
+			Point screen = Services.Instance.Get<IScreenService>().GetScreenSize();
+
+			RegisterGameObject(new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture(TextureName.Stars01), new Vector2(-15, 0), Vector2.Zero));
+			RegisterGameObject(new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture(TextureName.Stars01), new Vector2(-15, 0), new Vector2(screen.X, 0)));
+			RegisterGameObject(new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture(TextureName.Stars02), new Vector2(-7, 0), Vector2.Zero));
+			RegisterGameObject(new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture(TextureName.Stars02), new Vector2(-7, 0), new Vector2(screen.X, 0)));
+			RegisterGameObject(new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture(TextureName.Stars03), new Vector2(-3, 0), Vector2.Zero));
+			RegisterGameObject(new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture(TextureName.Stars03), new Vector2(-3, 0), new Vector2(screen.X, 0)));
+			RegisterGameObject(new RotatingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture(TextureName.Gas3), 0.01f));
+			RegisterGameObject(new BigPanelGameObject());
 
 			//Titre de la scène
-			RegisterGameObject(new TextGameObject(new Vector2((screen.X - textSize.X) / 2, (screen.Y - textSize.Y) / 4), textSize, spriteFontTitle, TITLE, Color.Black));
+			RegisterGameObject(new TextGameObject(new Vector2(95, 730), Vector2.Zero, Services.Instance.Get<IAssetService>().GetFont(FontName.BigTitle), "SPACE", Color.White, -(float)Math.PI / 2));
+			RegisterGameObject(new TextGameObject(new Vector2(260, 60), Vector2.Zero, Services.Instance.Get<IAssetService>().GetFont(FontName.GiantTitle), "BREA", Color.White));
+			RegisterGameObject(new TextGameObject(new Vector2(260, 250), Vector2.Zero, Services.Instance.Get<IAssetService>().GetFont(FontName.BigTitle), "KER", Color.White));
+			RegisterGameObject(new TextGameObject(new Vector2(260, 70), Vector2.Zero, Services.Instance.Get<IAssetService>().GetFont(FontName.Button), "Raphael DUCHOSSOY (gamecodeur.fr)", Color.White));
+
 
 			// Bouton pour démarrer le jeu
-			Vector2 buttonSize = new Vector2(400, 100);
-			RegisterGameObject(new ButtonGameObject(new Vector2((screen.X - buttonSize.X) / 2, 2 * (screen.Y - buttonSize.Y) / 3), buttonSize, Color.Coral, ServiceLocator.Instance.Get<IAssetService>().GetFont(FontName.Button), "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, 1)));
+			RegisterGameObject(new ButtonGameObject(new Vector2(900, 450), "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, 1)));
+			RegisterGameObject(new ButtonGameObject(new Vector2(900, 550), "Sélection", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, 2)));
+			RegisterGameObject(new ButtonGameObject(new Vector2(900, 650), "Quitter", Color.Black, new ExitGameCommand()));
 
 			// Ajout du curseur de souris
-			Cursor = RegisterGameObject(new CursorGameObject());
+			RegisterGameObject(new CursorGameObject());
+
+			RegisterGameObject(new InScreenTransitionGameObject(new CompositeCommand(commandWhenLoaded, new ResetTransitionRequiredCommand())));
+		}
+
+		public override void UnLoad(ICommand commandWhenUnloaded)
+		{
+			RegisterGameObject(new OutScreenTransitionGameObject(new CompositeCommand(commandWhenUnloaded, new ResetTransitionRequiredCommand())));
 		}
 
 		public override void Update(GameTime gameTime)
 		{
-			if (ServiceLocator.Instance.Get<IInputListenerService>().IsLeftClick())
-			{
-				(new BallExplosionParticlesEmitter(Cursor, ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.RedSpark), 15)).Emit();
-			}
-			if (ServiceLocator.Instance.Get<IInputListenerService>().IsKeyDown(Keys.Escape))
-			{
-				// TODO
-				ServiceLocator.Instance.Get<Game>().Exit();
-			}
+			//if (ServiceLocator.Instance.Get<IInputListenerService>().IsLeftClick())
+			//{
+			//	(new BallExplosionParticlesEmitter(Cursor, ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.RedSpark), 15)).Emit();
+			//}
 
 			base.Update(gameTime);
 		}

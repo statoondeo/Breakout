@@ -1,61 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-	public class TextureAnimation
-	{
-		protected int[] FrameList;
-		protected float Speed;
-		protected bool Started;
-		protected bool Loop;
-		protected float CurrentTtl;
-		protected int CurrentFrame;
-		public int Frame => FrameList[CurrentFrame];
-
-		public TextureAnimation(int[] frameList, float speed, bool loop = true)
-		{
-			FrameList = frameList;
-			Speed = speed;
-			CurrentFrame = 0;
-			Started = false;
-			CurrentTtl = 0;
-			Loop = loop;
-		}
-
-		public void Start()
-		{
-			Started = true;
-			CurrentTtl = 0;
-			CurrentFrame = 0;
-		}
-
-		public void Update(GameTime gameTime)
-		{
-			if (Started)
-			{
-				CurrentTtl += (float)gameTime.ElapsedGameTime.TotalSeconds;
-				if (CurrentTtl > (CurrentFrame + 1) * Speed)
-				{
-					CurrentFrame++;
-					if (CurrentFrame >= FrameList.Length)
-					{
-						if (Loop)
-						{
-							Start();
-						}
-						else
-						{
-							Started = false;
-							CurrentFrame = FrameList.Length - 1;
-						}
-					}
-				}
-			}
-		}
-	}
 	public class AnimatedTextureRenderable : TextureRenderable
 	{
 		protected Point FrameSize;
@@ -101,12 +49,12 @@ namespace GameNameSpace
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Texture, GameObject.Body.Position + Offset, new Rectangle(SourcePosition, FrameSize), ColorMask, 0.0f, Vector2.Zero, InitialScale, SpriteEffects.None, 1.0f);
+			spriteBatch.Draw(Texture, GameObject.Body.Position + Offset, new Rectangle(SourcePosition, FrameSize), ColorMask, 0.0f, Vector2.Zero, InitialScale, SpriteEffects.None, Layer);
 		}
 
 		public override void Draw(SpriteBatch spriteBatch, float alpha, float angle, float scale, Vector2 rotationOrigin)
 		{
-			spriteBatch.Draw(Texture, GameObject.Body.Position + Offset, new Rectangle(SourcePosition, FrameSize), ColorMask * alpha, angle, rotationOrigin, scale * InitialScale, SpriteEffects.None, 1.0f);
+			spriteBatch.Draw(Texture, GameObject.Body.Position + Offset, new Rectangle(SourcePosition, FrameSize), ColorMask * alpha, angle, rotationOrigin, scale * InitialScale, SpriteEffects.None, Layer);
 		}
 	}
 }

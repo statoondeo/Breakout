@@ -2,7 +2,9 @@
 {
 	public enum FontName
 	{
-        Title,
-        Button
+		GiantTitle,
+		BigTitle,
+		Title,
+		Button
 	}
 }

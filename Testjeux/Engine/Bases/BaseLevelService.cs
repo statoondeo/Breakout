@@ -22,6 +22,8 @@ namespace GameNameSpace
 		{
 			return (Factory.ReadEmbeddedResource(GetPath(levelNumber)));
 		}
+
+		public virtual int MaxLevel => LevelPathes.Count;
 	}
 }
 

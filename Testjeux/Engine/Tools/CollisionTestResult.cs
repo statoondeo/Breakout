@@ -4,10 +4,10 @@ namespace GameNameSpace
 {
 	public class CollisionTestResult
 	{
-		public IBody BodyA { get; protected set; }
-		public IBody BodyB { get; protected set; }
-		public Vector2 Normal { get; protected set; }
-		public float Depth { get; protected set; }
+		public IBody BodyA { get; set; }
+		public IBody BodyB { get; set; }
+		public Vector2 Normal { get; set; }
+		public float Depth { get; set; }
 
 		public CollisionTestResult(IBody bodyA, IBody bodyB, Vector2 normal, float depth)
 		{

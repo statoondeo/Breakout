@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace GameNameSpace
 {
-	public class QuintOutTweening : BaseTweening
+	public sealed class QuintOutTweening : BaseTweening
 	{
 		public QuintOutTweening() : base() { }
 

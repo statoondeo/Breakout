@@ -12,7 +12,7 @@ namespace GameNameSpace
 		protected float AngleSpeed;
 		protected float Scale;
 		protected float InitialAlpha;
-		protected float CurrentAlpha;
+		public float CurrentAlpha { get; set; }
 		protected Vector2 RotationOrigin;
 
 		public ParticleGameObject() : base() 
@@ -21,14 +21,14 @@ namespace GameNameSpace
 			Renderable = new TextureRenderable(this, null, 1.0f, Vector2.Zero);
 		}
 
-		public void Init(Texture2D texture, ITweening tweening, Vector2 position, Vector2 velocity, float scale, float ttl, float angleSpeed, float initialAlpha, Vector2 rotationOrigin)
+		public void Init(Texture2D texture, ITweening tweening, Vector2 position, Vector2 velocity, float scale, float ttl, float angleSpeed, float initialAlpha, float angle, Vector2 rotationOrigin)
 		{
 			Status = GameObjectStatus.ACTIVE;
 			Body.MoveTo(position);
 			Body.Velocity = velocity;
 			CurrentTtl = MaxTtl = ttl;
-			(Movable as TweeningMovable).Init(tweening, ttl, Body.Position, Body.Position + Body.Velocity * MaxTtl);
-			Angle = 0;
+			(Movable as TweeningMovable).Init(tweening, ttl, Body.Position, Body.Position + velocity * MaxTtl);
+			Angle = angle;
 			AngleSpeed = angleSpeed;
 			CurrentAlpha = InitialAlpha = initialAlpha;
 			Scale = scale;

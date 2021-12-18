@@ -10,11 +10,12 @@ namespace GameNameSpace
 		public Vector2 Origin { get; set; }
 		public Vector2 Destination { get; set; }
 		public Vector2 DestinationOffset { get; set; }
+		protected bool Ended;
 
 		public TweeningMovable(IGameObject gameObject)
 			: base(gameObject)
 		{
-			Tweening = ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.Linear);
+			Tweening = Services.Instance.Get<ITweeningService>().Get(TweeningName.Linear);
 			Ttl = CurrentTtl = 0;
 			Origin = Destination = DestinationOffset = Vector2.Zero;
 		}
@@ -27,13 +28,18 @@ namespace GameNameSpace
 			Origin = origin;
 			Destination = destination;
 			DestinationOffset = Destination - Origin;
+			Ended = false;
 		}
 
 		public override void Move(GameTime gameTime)
 		{
-			base.Move(gameTime);
-			CurrentTtl += (float)gameTime.ElapsedGameTime.TotalSeconds;
-			GameObject.Body.MoveTo(Origin + DestinationOffset * Tweening.GetStep(CurrentTtl / Ttl));
+			if (!Ended)
+			{
+				base.Move(gameTime);
+				CurrentTtl += (float)gameTime.ElapsedGameTime.TotalSeconds;
+				GameObject.Body.MoveTo(Origin + DestinationOffset * Tweening.GetStep(CurrentTtl / Ttl));
+				Ended = CurrentTtl > Ttl;
+			}
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace GameNameSpace
 {
-	public class ElasticEntranceDecorator : BaseGameObjectDecorator
+	public class TweenMoveDecorator : BaseGameObjectDecorator
 	{
 		protected Vector2 Origin;
 		protected Vector2 Destination;
@@ -15,7 +15,7 @@ namespace GameNameSpace
 		protected bool Started;
 		protected bool Ended;
 
-		public ElasticEntranceDecorator(IGameObject gameObject, Vector2 origin, Vector2 destination, float ttl, float delay) 
+		public TweenMoveDecorator(IGameObject gameObject, ITweening tweening, Vector2 origin, Vector2 destination, float ttl, float delay) 
 			: base(gameObject)
 		{
 			Origin = origin;
@@ -24,17 +24,18 @@ namespace GameNameSpace
 			Ttl = ttl;
 			CurrentTtl = 0;
 			Delay = delay;
-			InnerBody = new DummyBody();
-			Tweening = ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut);
+			InnerBody = new InvisibleBody(origin);
+			Tweening = tweening;
 			Started = Ended = false;
 			Status = GameObjectStatus.ACTIVE;
 		}
 
-		public override IBody Body => InnerBody;
+		//public override IBody Body => InnerBody;
 		public override GameObjectStatus Status { get; set; }
 
 		public override void Update(GameTime gameTime)
 		{
+			DecoratedGameObject.Renderable.Update(gameTime);
 			if (!Started)
 			{
 				DecoratedGameObject.Body.MoveTo(Origin);
@@ -49,6 +50,8 @@ namespace GameNameSpace
 				if (Ended)
 				{
 					DecoratedGameObject.Body.MoveTo(Destination);
+					Status = GameObjectStatus.OUTDATED;
+					Services.Instance.Get<ISceneService>().RegisterGameObject(DecoratedGameObject);
 				}
 			}
 		}

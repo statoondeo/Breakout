@@ -2,8 +2,10 @@
 {
 	public interface ISceneService : IService, IScene
 	{
-		IScene ChangeScene(SceneType scene);
-		IScene ChangeScene(SceneType scene, int levelNumber);
+		bool ExitRequired { get; set; }
+		IScene CurrentScene { get; }
+		IScene ChangeScene(SceneType scene, ICommand whenLoadedCommand);
+		IScene ChangeScene(SceneType scene, int levelNumber, ICommand whenLoadedCommand);
 	}
 }
 

@@ -4,8 +4,8 @@ namespace GameNameSpace
 {
 	public class BoxBody : BaseBody, IBoxBody
 	{
-		public BoxBody(Vector2 position, Vector2 size, Vector2 velocity, float mass, float restitution, bool isStatic, IColliderCommand command)
-			: base(position, velocity, mass, restitution, isStatic, command)
+		public BoxBody(Vector2 position, Vector2 size, Vector2 velocity, float restitution, bool isStatic, IColliderCommand command)
+			: base(position, velocity, restitution, isStatic, command)
 		{
 			Size = size;
 

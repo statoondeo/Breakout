@@ -32,7 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Concrete\Levels\level1.json" />
-    <None Remove="Concrete\Levels\level1.xml" />
+    <None Remove="Concrete\Levels\level2.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\Commands\CollideCommands\BallColliderCommand.cs" />
@@ -46,17 +46,22 @@
     <Compile Include="Concrete\Commands\CollideCommands\WallCollidableCommand.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Concrete\Levels\level1.xml" />
+    <EmbeddedResource Include="Concrete\Levels\level2.json" />
     <EmbeddedResource Include="Concrete\Levels\level1.json" />
   </ItemGroup>
   <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="LoveSharp" Version="11.0.51" />
     <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.0.1641" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Musics\" />
+    <Folder Include="Content\Sounds\" />
   </ItemGroup>
 </Project>

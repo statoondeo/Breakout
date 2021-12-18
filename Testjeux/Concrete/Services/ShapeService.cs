@@ -34,12 +34,12 @@ namespace GameNameSpace
 			float hLength = to.X - from.X;
 			float vLength = to.Y - from.Y;
 			float angle = (float)Math.Atan2(vLength, hLength);
-			spriteBatch.Draw(ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.Drawable), new Rectangle(from.ToPoint(), new Point((int)Math.Sqrt(hLength * hLength + vLength * vLength), 1)), null, color, angle, Vector2.Zero, SpriteEffects.None, 1.0f);
+			spriteBatch.Draw(Services.Instance.Get<IAssetService>().GetTexture(TextureName.Drawable), new Rectangle(from.ToPoint(), new Point((int)Math.Sqrt(hLength * hLength + vLength * vLength), 1)), null, color, angle, Vector2.Zero, SpriteEffects.None, 1.0f);
 		}
 
 		public void DrawRectangle(Color color, Point from, Point size, SpriteBatch spriteBatch)
 		{
-			Texture2D texture = ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.Drawable);
+			Texture2D texture = Services.Instance.Get<IAssetService>().GetTexture(TextureName.Drawable);
 			spriteBatch.Draw(texture, new Rectangle(from, new Point(size.X, 1)), color);
 			spriteBatch.Draw(texture, new Rectangle(new Point(from.X + size.X, from.Y), new Point(1, size.Y)), color);
 			spriteBatch.Draw(texture, new Rectangle(from, new Point(1, size.Y)), color);

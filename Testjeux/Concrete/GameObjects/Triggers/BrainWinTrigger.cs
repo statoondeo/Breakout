@@ -7,13 +7,12 @@ namespace GameNameSpace
 		public BrainWinTrigger()
 			: base(new WinTriggerCommand(), false)
 		{
+			Status = GameObjectStatus.IDLE;
 		}
 
 		public override void Update(GameTime gameTime)
 		{
-			base.Update(gameTime);
-
-			if (ServiceLocator.Instance.Get<ISceneService>().GetObjects(item => item is BrainBrickGameObject && item.Status == GameObjectStatus.ACTIVE).Count == 0)
+			if (Services.Instance.Get<ISceneService>().GetObjects(item => item is BrainBrickGameObject && item.Status == GameObjectStatus.ACTIVE).Count == 0)
 			{
 				Command.Execute();
 				Status = GameObjectStatus.OUTDATED;

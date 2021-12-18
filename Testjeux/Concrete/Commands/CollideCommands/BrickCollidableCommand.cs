@@ -2,9 +2,9 @@
 {
 	public class BrickColliderCommand : BaseColliderCommand
 	{
-		protected BrickExplosionParticlesEmitter ParticlesEmitterGameObject;
+		protected IParticlesEmitter ParticlesEmitterGameObject;
 
-		public BrickColliderCommand(IGameObject gameObject, BrickExplosionParticlesEmitter particlesEmitterGameObject) 
+		public BrickColliderCommand(IGameObject gameObject, IParticlesEmitter particlesEmitterGameObject) 
 			: base(gameObject)
 		{
 			ParticlesEmitterGameObject = particlesEmitterGameObject;
@@ -13,7 +13,7 @@
 		public override void Execute(IGameObject gameObject, CollisionTestResult collisionResult)
 		{
 			base.Execute(gameObject, collisionResult);
-			if (gameObject.Type == GameObjectType.BALL)
+			if ((gameObject.Type == GameObjectType.BALL) || (gameObject.Type == GameObjectType.RACKET))
 			{
 				BrickGameObject brick = GameObject as BrickGameObject;
 				brick.Damage();

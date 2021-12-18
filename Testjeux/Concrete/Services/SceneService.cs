@@ -7,13 +7,18 @@ namespace GameNameSpace
 {
 	public class SceneService : ISceneService
 	{
-		protected IScene CurrentScene;
+		public bool ExitRequired { get; set; }
 
-		public SceneService() { }
+		public IScene CurrentScene { get; protected set; }
 
-		public void Load()
+		public SceneService() 
 		{
-			CurrentScene.Load();
+			ExitRequired = false;
+		}
+
+		public void Load(ICommand commandWhenLoaded)
+		{
+			CurrentScene.Load(commandWhenLoaded);
 		}
 
 		public void UnLoad(ICommand command)
@@ -41,22 +46,43 @@ namespace GameNameSpace
 			CurrentScene.Draw(spriteBatch);
 		}
 
-		public IScene ChangeScene(SceneType newScene)
+		public IScene ChangeScene(SceneType newScene, ICommand whenLoadedCommand)
 		{
-			return (ChangeScene(newScene, 0));
+			return (ChangeScene(newScene, 0, whenLoadedCommand));
 		}
 
-		public IScene ChangeScene(SceneType newScene, int levelNumber)
+		public IScene ChangeScene(SceneType newScene, int levelNumber, ICommand whenLoadedCommand)
 		{
-			CurrentScene = newScene switch
+			if ((newScene == SceneType.GAMEPLAY) && (levelNumber > Services.Instance.Get<ILevelService>().MaxLevel))
 			{
-				SceneType.MENU => new MenuScene(),
-				SceneType.GAMEPLAY => new GameplayScene(levelNumber),
-				SceneType.GAMEOVER => new GameOverScene(),
-				SceneType.VICTORY => new VictoryScene(),
-				_ => null,
-			};
-			CurrentScene.Load();
+				newScene = SceneType.VICTORY;
+			}
+			switch(newScene)
+			{
+				case SceneType.MENU:
+					CurrentScene = new MenuScene();
+					break;
+				case SceneType.GAMEPLAY:
+					if (levelNumber > Services.Instance.Get<ILevelService>().MaxLevel)
+					{
+						CurrentScene = new VictoryScene();
+					}
+					else
+					{
+						CurrentScene = new GameplayScene(levelNumber);
+					}
+					break;
+				case SceneType.GAMEOVER:
+					CurrentScene = new GameOverScene();
+					break;
+				case SceneType.VICTORY:
+					CurrentScene = new VictoryScene();
+					break;
+				default:
+					CurrentScene = null;
+					break;
+			}
+			CurrentScene?.Load(whenLoadedCommand);
 			return (CurrentScene);
 		}
 
@@ -78,6 +104,16 @@ namespace GameNameSpace
 		public void Loose()
 		{
 			CurrentScene.Loose();
+		}
+
+		public void ResetTransition()
+		{
+			CurrentScene.ResetTransition();
+		}
+
+		public void RegisterGameObjects(IList<IGameObject> gameObjects)
+		{
+			CurrentScene.RegisterGameObjects(gameObjects);
 		}
 	}
 }

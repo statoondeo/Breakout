@@ -3,53 +3,68 @@ using Microsoft.Xna.Framework;
 
 namespace GameNameSpace
 {
-	public static class BodyCollider
+	public class ColliderService : IColliderService
 	{
-		public static CollisionTestResult IsCollision(IBody body1, IBody body2)
+		public ColliderService()
 		{
-			// Si les 2 éléments sont static, il n'y a pas d'effet
-			if (body1.IsStatic && body2.IsStatic) return (null); 
-			
+		}
+
+		public CollisionTestResult IsCollision(IBody body1, IBody body2)
+		{
+			CollisionTestResult result = null;
+
+			// Si les 2 éléments sont , il n'y a pas d'effet
+			if (body1.IsStatic && body2.IsStatic) return (null);
+
 			if (body1 is IBoxBody)
 			{
 				if (body2 is IBoxBody)
 				{
-					return (IsBoxCollision(body1 as IBoxBody, body2 as IBoxBody));
+					result = IsBoxCollision(body1 as IBoxBody, body2 as IBoxBody);
 				}
 				else if (body2 is ICircleBody)
 				{
-					return (IsCircleBoxCollision(body2 as ICircleBody, body1 as IBoxBody));
+					result = IsCircleBoxCollision(body2 as ICircleBody, body1 as IBoxBody);
 				}
 				else if (body2 is ICompositeIntersecBody)
 				{
-					return (IsCompositeIntersecBodyCollision(body2 as ICompositeIntersecBody, body1));
+					result = IsCompositeIntersecBodyCollision(body2 as ICompositeIntersecBody, body1);
 				}
 			}
 			else if (body1 is ICircleBody)
 			{
 				if (body2 is IBoxBody)
 				{
-					return (IsCircleBoxCollision(body1 as ICircleBody, body2 as IBoxBody));
+					result = IsCircleBoxCollision(body1 as ICircleBody, body2 as IBoxBody);
 				}
 				else if (body2 is ICircleBody)
 				{
-					return (IsCircleCollision(body1 as ICircleBody, body2 as ICircleBody));
+					result = IsCircleCollision(body1 as ICircleBody, body2 as ICircleBody);
 				}
 				else if (body2 is ICompositeIntersecBody)
 				{
-					return (IsCompositeIntersecBodyCollision(body2 as ICompositeIntersecBody, body1));
+					result = IsCompositeIntersecBodyCollision(body2 as ICompositeIntersecBody, body1);
 				}
 			}
 			else if (body1 is ICompositeIntersecBody)
 			{
-				return (IsCompositeIntersecBodyCollision(body1 as ICompositeIntersecBody, body2, true));
+				result = IsCompositeIntersecBodyCollision(body1 as ICompositeIntersecBody, body2, true);
+			}
+			if ((result != null) && Single.IsNaN(result.Depth))
+			{
+
 			}
 
-			return (null);
+			return (result);
 		}
 
-		public static void ResolveCollision(IBody body1, IBody body2, CollisionTestResult collisionResult)
+		public void ResolveCollision(IBody body1, IBody body2, CollisionTestResult collisionResult)
 		{
+			IBody ballBody = Services.Instance.Get<ISceneService>().GetObject(item => item is BallGameObject)?.Body;
+			if ((ballBody != null) && ((ballBody == body1) || (ballBody == body2)))
+			{
+
+			}
 			// Résolution de la collision #1 : Supprimer les chevauchements
 			// (Utilisation de la profondeur de collision)
 			if (body1.IsStatic)
@@ -71,20 +86,20 @@ namespace GameNameSpace
 			float relativeVelocityProduct = Vector2.Dot(relativeVelocity, collisionResult.Normal);
 			if (relativeVelocityProduct > 0.0f) return;
 
-			float minRestitution = Math.Min(body1.Restitution, body2.Restitution);
-
-			float j = -(1.0f + minRestitution) * relativeVelocityProduct;
-			j /= body1.InvMass + body2.InvMass;
+			float j = -(1.0f + Math.Min(body1.Restitution, body2.Restitution)) * relativeVelocityProduct;
+			//j /= body1.InvMass + body2.InvMass;
+			//j /= 2;
 
 			Vector2 impulse = j * collisionResult.Normal;
 
-			body1.Velocity -= impulse * body1.InvMass;
-			body2.Velocity += impulse * body2.InvMass;
+			//body1.Velocity -= impulse * body1.InvMass;
+			//body2.Velocity += impulse * body2.InvMass;
+			body1.Velocity -= impulse;
+			body2.Velocity += impulse;
 		}
 
-		private static CollisionTestResult IsCompositeIntersecBodyCollision(ICompositeIntersecBody compositeBody, IBody body, bool inverseNormal = false)
+		private CollisionTestResult IsCompositeIntersecBodyCollision(ICompositeIntersecBody compositeBody, IBody body, bool inverseNormal = false)
 		{
-			//return (IsCollision(body, compositeBody.CollisionResolverBody));
 			if (null != IsCollision(compositeBody.CollisionCheckerBody, body))
 			{
 				CollisionTestResult collisionResult = IsCollision(body, compositeBody.CollisionResolverBody);
@@ -94,7 +109,7 @@ namespace GameNameSpace
 			return (null);
 		}
 
-		private static CollisionTestResult IsCircleBoxCollision(ICircleBody circle, IBoxBody box)
+		private CollisionTestResult IsCircleBoxCollision(ICircleBody circle, IBoxBody box)
 		{
 			float depth = float.MaxValue;
 			float depthAxis;
@@ -106,9 +121,6 @@ namespace GameNameSpace
 			Vector2 newAxis;
 			Vector2 projectionBox;
 			Vector2 projectionCircle;
-
-			Rectangle box1 = new Rectangle(box.Position.ToPoint(), box.Size.ToPoint());
-			Rectangle box2 = new Rectangle(circle.Position.ToPoint(), new Point((int)circle.Radius * 2));
 
 			// Traitement de la box
 			Vector2[] boxVectors = box.Vectors;
@@ -161,7 +173,7 @@ namespace GameNameSpace
 			return (new CollisionTestResult(circle, box, normal, depth));
 		}
 
-		private static CollisionTestResult IsCircleCollision(ICircleBody circle1, ICircleBody circle2)
+		private CollisionTestResult IsCircleCollision(ICircleBody circle1, ICircleBody circle2)
 		{
 			float distance = Vector2.Distance(circle1.Center, circle2.Center);
 			float radiusSum = circle1.Radius + circle2.Radius;
@@ -174,7 +186,7 @@ namespace GameNameSpace
 			return (new CollisionTestResult(circle1, circle2, Vector2.Normalize(circle2.Center - circle1.Center), radiusSum - distance));
 		}
 
-		private static CollisionTestResult IsBoxCollision(IBoxBody box1, IBoxBody box2)
+		private CollisionTestResult IsBoxCollision(IBoxBody box1, IBoxBody box2)
 		{
 			Vector2 normal = Vector2.Zero;
 			float depth = float.MaxValue;
@@ -253,7 +265,7 @@ namespace GameNameSpace
 			return (new CollisionTestResult(box1, box2, normal, depth));
 		}
 
-		private static Vector2 GetCenter(Vector2[] vectors)
+		private Vector2 GetCenter(Vector2[] vectors)
 		{
 			Vector2 sum = Vector2.Zero;
 			foreach (Vector2 vector in vectors)
@@ -263,7 +275,7 @@ namespace GameNameSpace
 			return (sum / vectors.Length);
 		}
 
-		private static Vector2 ProjectVectorsToAxis(Vector2[] vectors, Vector2 axis)
+		private Vector2 ProjectVectorsToAxis(Vector2[] vectors, Vector2 axis)
 		{
 			float min = float.MaxValue;
 			float max = float.MinValue;
@@ -276,7 +288,7 @@ namespace GameNameSpace
 			return (new Vector2(min, max));
 		}
 
-		private static Vector2 ProjectCircleToAxis(ICircleBody circle, Vector2 axis)
+		private Vector2 ProjectCircleToAxis(ICircleBody circle, Vector2 axis)
 		{
 			Vector2 weigthDirection = Vector2.Normalize(axis) * circle.Radius;
 			float min = Vector2.Dot(circle.Center + weigthDirection, axis);
@@ -292,7 +304,7 @@ namespace GameNameSpace
 			return (new Vector2(min, max));
 		}
 
-		private static Vector2 NearestPolygonPointToCenter(Vector2 center, Vector2[] points)
+		private Vector2 NearestPolygonPointToCenter(Vector2 center, Vector2[] points)
 		{
 			int index = -1;
 			float minDistance = float.MaxValue;

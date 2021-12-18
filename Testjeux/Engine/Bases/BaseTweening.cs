@@ -4,6 +4,6 @@
 	{
 		protected BaseTweening() { }
 
-		public virtual float GetStep(float progress) => progress;
+		public abstract float GetStep(float progress);
 	}
 }

@@ -9,7 +9,8 @@
         public int Radius { get; set; }
         public float Angle { get; set; }
         public float AngleSpeed { get; set; }
+        public float Scale { get; set; }
 
-		public ParsedBrick() { }
+        public ParsedBrick() { }
 	}
 }

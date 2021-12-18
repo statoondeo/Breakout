@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.MediaFoundation;
 
 namespace GameNameSpace
 {
@@ -11,11 +10,9 @@ namespace GameNameSpace
 		Vector2 Velocity { get; set; }
 		Vector2 RotationOrigin { get; set; }
 		float Angle { get; set; }
-		float Mass { get; }
-		float InvMass { get; }
 		float Restitution { get; }
-		bool IsStatic { get; }
-		IColliderCommand CollideCommand { get; }
+		bool IsStatic { get; set; }
+		IColliderCommand CollideCommand { get; set; }
 		void Move(Vector2 offset);
 		void MoveTo(Vector2 newPosition);
 		void Draw(SpriteBatch spriteBatch);

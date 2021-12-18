@@ -12,7 +12,7 @@
 
 		public override void Execute(IGameObject gameObject, CollisionTestResult collisionResult)
 		{
-			if (ServiceLocator.Instance.Get<IInputListenerService>().IsLeftClick())
+			if (Services.Instance.Get<IInputListenerService>().IsLeftClick())
 			{
 				Command.Execute();
 			}

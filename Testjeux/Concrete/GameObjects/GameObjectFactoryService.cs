@@ -10,10 +10,10 @@ namespace GameNameSpace
 
 		public GameObjectFactoryService()
 		{
-			ResetMaxTtl();
+			ResetTtl();
 		}
 
-		public void ResetMaxTtl()
+		public void ResetTtl()
 		{
 			MaxTtl = 0;
 		}
@@ -25,7 +25,7 @@ namespace GameNameSpace
 
 		public IList<IGameObject> CreateLevel(ParsedLevel jsonLevel)
 		{
-			ResetMaxTtl();
+			ResetTtl();
 			IList<IGameObject> gameObjectsCollection = new List<IGameObject>();
 
 			// Chargement des backgrounds du level
@@ -58,10 +58,13 @@ namespace GameNameSpace
 					gameObject = new BrainShield1Trigger();
 					break;
 				case 1:
-					gameObject = null;
-					break; 
+					gameObject = new CommonLooseTrigger();
+					break;
 				case 2:
 					gameObject = new BrainWinTrigger();
+					break;
+				case 3:
+					gameObject = new BlobWinTrigger();
 					break;
 				default:
 					gameObject = null;
@@ -76,10 +79,10 @@ namespace GameNameSpace
 			switch (background.Type)
 			{
 				case 0:
-					gameObject = new BackgroundGameObject(ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.Stars));
+					gameObject = new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), ConvertToVector2(background.Velocity), ConvertToVector2(background.Position));
 					break;
 				case 1:
-					gameObject = new RotatingBackgroundGameObject(ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.Gas3));
+					gameObject = new RotatingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), background.AngleSpeed);
 					break;
 				default:
 					gameObject = null;
@@ -102,31 +105,37 @@ namespace GameNameSpace
 					// Wobbler
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = SetEntranceDecoration(new WobblerBrickGameObject(Vector2.Zero, 1.0f), origin, destination);
+					gameObject = DecorateEntrance(new WobblerBrickGameObject(Vector2.Zero, 1.0f), origin, destination);
 					break;
 				case 2:
 					// Atoms
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = SetEntranceDecoration(new AtomBrickGameObject(Vector2.Zero, 1.0f, ConvertToVector2(jsonBrick.Center), jsonBrick.Radius, jsonBrick.Angle, jsonBrick.AngleSpeed), origin, destination);
+					gameObject = DecorateEntrance(new AtomBrickGameObject(Vector2.Zero, 1.0f, ConvertToVector2(jsonBrick.Center), jsonBrick.Radius, jsonBrick.Angle, jsonBrick.AngleSpeed), origin, destination);
 					break;
 				case 3:
 					// Rocks
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = SetEntranceDecoration(new RockWallGameObject(Vector2.Zero), origin, destination);
+					gameObject = DecorateEntrance(new RockWallGameObject(Vector2.Zero), origin, destination);
 					break;
 				case 4:
 					// Brain
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = SetEntranceDecoration(new BrainBrickGameObject(Vector2.Zero, 1.0f), origin, destination);
+					gameObject = DecorateEntrance(new BrainBrickGameObject(Vector2.Zero, 1.0f), origin, destination);
 					break;
 				case 5:
 					// Shield
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = SetEntranceDecoration(new ShieldBrickGameObject(Vector2.Zero, 2.1f), origin, destination);
+					gameObject = DecorateEntrance(new ShieldBrickGameObject(Vector2.Zero, 2.1f), origin, destination);
+					break;
+				case 6:
+					// Mega Blob
+					destination = ConvertToVector2(jsonBrick.Position);
+					origin = new Vector2(destination.X, -1000.0f);
+					gameObject = DecorateEntrance(new MegaBlobGameObject(Vector2.Zero), origin, destination);
 					break;
 				default:
 					gameObject = null;
@@ -135,12 +144,12 @@ namespace GameNameSpace
 			return (gameObject);
 		}
 
-		public IGameObject SetEntranceDecoration(IGameObject gameObject, Vector2 origin, Vector2 destination)
+		public IGameObject DecorateEntrance(IGameObject gameObject, Vector2 origin, Vector2 destination)
 		{
-			float fallTtl = ServiceLocator.Instance.Get<IRandomService>().Next() * 1.1f + 0.4f;
-			float delay = ServiceLocator.Instance.Get<IRandomService>().Next() * 0.3f + 0.2f;
+			float fallTtl = Services.Instance.Get<IRandomService>().Next() * 1.1f + 0.4f;
+			float delay = Services.Instance.Get<IRandomService>().Next() * 0.3f + 0.2f;
 			MaxTtl = Math.Max(MaxTtl, fallTtl + delay);
-			return (new ElasticEntranceDecorator(gameObject, origin, destination, fallTtl, delay));
+			return (new TweenMoveDecorator(gameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), origin, destination, fallTtl, delay));
 		}
 	}
 }

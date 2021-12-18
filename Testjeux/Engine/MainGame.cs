@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
@@ -28,18 +29,20 @@ namespace GameNameSpace
 			_graphics.ApplyChanges();
 
 			// Enregistrement des services
-			ServiceLocator.Instance.Register<IScreenService>(new ScreenService(Window.ClientBounds));
-			ServiceLocator.Instance.Register<IShapeService>(new ShapeService(_spriteBatch));
-			ServiceLocator.Instance.Register<IRandomService>(new RandomService());
-			ServiceLocator.Instance.Register<ITweeningService>(new TweeningService());
-			ServiceLocator.Instance.Register<IParticlesService>(new ParticleService(250));
-			ServiceLocator.Instance.Register<IGameObjectFactoryService>(new GameObjectFactoryService());
-			ServiceLocator.Instance.Register<ILevelService>(new JSONLevelService());
-			InputListener = ServiceLocator.Instance.Register<IInputListenerService>(new InputListenerService());
-			GameState = ServiceLocator.Instance.Register<ISceneService>(new SceneService());
+			GameNameSpace.Services.Instance.Register<ILogService>(new LogService(new ConsoleLogger()));
+			GameNameSpace.Services.Instance.Register<IScreenService>(new ScreenService(Window.ClientBounds));
+			GameNameSpace.Services.Instance.Register<IShapeService>(new ShapeService(_spriteBatch));
+			GameNameSpace.Services.Instance.Register<IRandomService>(new RandomService());
+			GameNameSpace.Services.Instance.Register<IColliderService>(new ColliderService());
+			GameNameSpace.Services.Instance.Register<ITweeningService>(new TweeningService());
+			GameNameSpace.Services.Instance.Register<IParticlesService>(new ParticleService(250));
+			GameNameSpace.Services.Instance.Register<IGameObjectFactoryService>(new GameObjectFactoryService());
+			GameNameSpace.Services.Instance.Register<ILevelService>(new JSONLevelService());
+			InputListener = GameNameSpace.Services.Instance.Register<IInputListenerService>(new InputListenerService());
+			GameState = GameNameSpace.Services.Instance.Register<ISceneService>(new SceneService());
 
 			// Redirection vers la 1ere scène du jeu
-			GameState.ChangeScene(SceneType.MENU);
+			GameState.ChangeScene(SceneType.MENU, new DummyCommand());
 		}
 
 		protected override void LoadContent()
@@ -49,19 +52,21 @@ namespace GameNameSpace
 			// TODO: use this.Content to load your game content here
 
 			// Chargement des ressources
-			ServiceLocator.Instance.Register<IAssetService>(new AssetService()).Load(Content, _spriteBatch.GraphicsDevice);
+			GameNameSpace.Services.Instance.Register<IAssetService>(new AssetService()).Load(Content, _spriteBatch.GraphicsDevice);
 		}
 
 		protected override void UnloadContent()
 		{
 			base.UnloadContent();
-			ServiceLocator.Instance.Get<IAssetService>().UnLoad();
+			GameNameSpace.Services.Instance.Get<IAssetService>().UnLoad();
 		}
 
 		protected override void Update(GameTime gameTime)
 		{
-			//if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-			//	Exit();
+			if (GameState.ExitRequired)
+			{
+				Exit();
+			}
 
 			// TODO: Add your update logic here
 			GameState.Update(gameTime);
@@ -71,7 +76,7 @@ namespace GameNameSpace
 
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.LightGray);
+			GraphicsDevice.Clear(Color.Black);
 
 			// TODO: Add your drawing code here
 			_spriteBatch.Begin();

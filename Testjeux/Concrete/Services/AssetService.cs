@@ -28,13 +28,21 @@ namespace GameNameSpace
 
         public void Load(ContentManager content, GraphicsDevice graphicDevice)
 		{
+            FontsDictionary.Add(FontName.GiantTitle, content.Load<SpriteFont>("Neuropol1XX"));
+            FontsDictionary.Add(FontName.BigTitle, content.Load<SpriteFont>("Neuropol106"));
             FontsDictionary.Add(FontName.Title, content.Load<SpriteFont>("Neuropol48"));
             FontsDictionary.Add(FontName.Button, content.Load<SpriteFont>("Neuropol24"));
 
-            TexturesDictionary.Add(TextureName.PurpleBall, content.Load<Texture2D>("purpleball"));
+            TexturesDictionary.Add(TextureName.Blob, content.Load<Texture2D>("blob"));
             TexturesDictionary.Add(TextureName.RedSpark, content.Load<Texture2D>("redspark"));
+            TexturesDictionary.Add(TextureName.BlueSpark, content.Load<Texture2D>("bluespark"));
+            TexturesDictionary.Add(TextureName.GreenSpark, content.Load<Texture2D>("greenspark"));
             TexturesDictionary.Add(TextureName.RedBullet, content.Load<Texture2D>("redbullet"));
-            TexturesDictionary.Add(TextureName.Stars, content.Load<Texture2D>("stars"));
+            TexturesDictionary.Add(TextureName.Stars01, content.Load<Texture2D>("stars01"));
+            TexturesDictionary.Add(TextureName.Stars02, content.Load<Texture2D>("stars02"));
+            TexturesDictionary.Add(TextureName.Stars03, content.Load<Texture2D>("stars03"));
+            TexturesDictionary.Add(TextureName.Gas1, content.Load<Texture2D>("gas1"));
+            TexturesDictionary.Add(TextureName.Gas2, content.Load<Texture2D>("gas2"));
             TexturesDictionary.Add(TextureName.Gas3, content.Load<Texture2D>("gas3"));
             TexturesDictionary.Add(TextureName.Platform, content.Load<Texture2D>("platform"));
             TexturesDictionary.Add(TextureName.LaserGlow, content.Load<Texture2D>("laser_glow"));
@@ -43,6 +51,9 @@ namespace GameNameSpace
             TexturesDictionary.Add(TextureName.Brain, content.Load<Texture2D>("brain"));
             TexturesDictionary.Add(TextureName.Shield, content.Load<Texture2D>("shield"));
             TexturesDictionary.Add(TextureName.Rocks, content.Load<Texture2D>("rocks"));
+            TexturesDictionary.Add(TextureName.Thrust, content.Load<Texture2D>("thrust"));
+            TexturesDictionary.Add(TextureName.BigPanel, content.Load<Texture2D>("bigPanel"));
+            TexturesDictionary.Add(TextureName.Button, content.Load<Texture2D>("button"));
 
             Texture2D DrawableTexture = new Texture2D(graphicDevice, 1, 1, false, SurfaceFormat.Color);
             DrawableTexture.SetData(Enumerable.Repeat(Color.White, 1).ToArray());

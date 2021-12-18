@@ -14,7 +14,7 @@
 
 		public override void Execute()
 		{
-			ServiceLocator.Instance.Get<ISceneService>().ChangeScene(TargetScene, LevelNumber);
+			Services.Instance.Get<ISceneService>().ChangeScene(TargetScene, LevelNumber, new DummyCommand());
 		}
 	}
 }

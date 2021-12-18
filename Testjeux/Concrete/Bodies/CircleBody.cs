@@ -6,8 +6,8 @@ namespace GameNameSpace
 	{
 		protected Vector2 CenterOffset;
 
-		public CircleBody(Vector2 position, float radius, Vector2 velocity, float mass, float restitution, bool isStatic, IColliderCommand command)
-			: base(position, velocity, mass, restitution, isStatic, command)
+		public CircleBody(Vector2 position, float radius, Vector2 velocity, float restitution, bool isStatic, IColliderCommand command)
+			: base(position, velocity, restitution, isStatic, command)
 		{
 			Radius = radius;
 			CenterOffset = new Vector2(Radius);

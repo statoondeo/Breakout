@@ -6,7 +6,7 @@
 
 		public override void Execute()
 		{
-			ServiceLocator.Instance.Get<ISceneService>().Win();
+			Services.Instance.Get<ISceneService>().Win();
 		}
 	}
 }

@@ -7,8 +7,8 @@ namespace GameNameSpace
 	{
 		protected IRenderable Renderable;
 
-		public WallBody(Vector2 position, Vector2 size, IColliderCommand command) 
-			: base(position, size, Vector2.Zero, 0.0f, 0.95f, true, command)
+		public WallBody(Vector2 position, Vector2 size, IColliderCommand command)
+			: base(position, size, Vector2.Zero, 0.95f, true, command)
 		{
 			Renderable = new RectFrameRenderable(this);
 		}

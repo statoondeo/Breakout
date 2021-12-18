@@ -11,11 +11,12 @@ namespace GameNameSpace
 			: base(offset, 1.0f)
 		{
 			Body = body;
+			Layer = 1.0f;
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			ServiceLocator.Instance.Get<IShapeService>().DrawCircle(Color.YellowGreen, Body.Center, (int)Body.Radius, 50, spriteBatch);
+			Services.Instance.Get<IShapeService>().DrawCircle(Color.YellowGreen, Body.Center, (int)Body.Radius, 50, spriteBatch);
 		}
 	}
 }

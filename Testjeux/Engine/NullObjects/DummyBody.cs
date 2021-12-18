@@ -6,7 +6,7 @@ namespace GameNameSpace
 	public sealed class DummyBody : BaseBody
 	{
 		public DummyBody()
-			: base(Vector2.Zero, Vector2.Zero, 0.0f, 0.0f, true, new DummyColliderCommand())
+			: base(Vector2.Zero, Vector2.Zero, 1.0f, true, new DummyColliderCommand())
 		{
 		}
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
@@ -17,11 +18,9 @@ namespace GameNameSpace
 		public Vector2 Force { get => CollisionCheckerBody.Force; set => CollisionCheckerBody.Force = value; }
 		public Vector2 Position => CollisionCheckerBody.Position;
 		public Vector2 Velocity { get => CollisionCheckerBody.Velocity; set => CollisionCheckerBody.Velocity = value; }
-		public float Mass => CollisionCheckerBody.Mass;
-		public float InvMass => CollisionCheckerBody.InvMass;
 		public float Restitution => CollisionCheckerBody.Restitution;
-		public bool IsStatic => CollisionCheckerBody.IsStatic;
-		public IColliderCommand CollideCommand => CollisionCheckerBody.CollideCommand;
+		public bool IsStatic { get => CollisionCheckerBody.IsStatic; set => CollisionCheckerBody.IsStatic = value; }
+		public IColliderCommand CollideCommand { get => CollisionCheckerBody.CollideCommand; set => CollisionCheckerBody.CollideCommand = value; }
 		public float Angle { get => CollisionCheckerBody.Angle; set => CollisionCheckerBody.Angle = value; }
 		public Vector2 RotationOrigin { get => CollisionCheckerBody.RotationOrigin; set => CollisionCheckerBody.RotationOrigin = value; }
 
@@ -38,5 +37,15 @@ namespace GameNameSpace
 		}
 
 		public virtual void Draw(SpriteBatch spriteBatch) { }
+
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine("CollisionCheckerBody =>");
+			sb.AppendLine(CollisionCheckerBody.ToString());
+			sb.AppendLine(CollisionResolverBody.ToString());
+
+			return (sb.ToString());
+		}
 	}
 }

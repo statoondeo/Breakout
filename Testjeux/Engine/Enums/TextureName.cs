@@ -3,17 +3,26 @@
 	public enum TextureName
 	{
         Drawable,
+        Thrust,
         RedBullet,
         Rocks,
         Brain,
         Shield,
         LaserGlow,
-        PurpleBall,
+        Blob,
         RedSpark,
+        BlueSpark,
+        GreenSpark,
         Platform,
-        Stars,
+        Stars01,
+        Stars02,
+        Stars03,
         Atom,
         Wobbler,
+        BigPanel,
+        Button,
+        Gas1,
+        Gas2,
         Gas3
     }
 }

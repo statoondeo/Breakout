@@ -2,9 +2,10 @@
 {
 	public enum TweeningName
 	{
-        BouceOut,
-        ElasticOut,
-        Linear,
-        QuintOut
+		BouceOut,
+		ElasticOut,
+		Linear,
+		QuintIn,
+		QuintOut
 	}
 }

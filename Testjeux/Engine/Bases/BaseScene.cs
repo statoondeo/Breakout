@@ -10,32 +10,34 @@ namespace GameNameSpace
 	{
 		protected IList<IGameObject> GameObjectsCollection { get; set; }
 		protected IList<IGameObject> GeneratedGameObjectsCollection { get; set; }
-		protected ICommand CommandWhenUnloaded;
-		protected bool PlayerWin;
-		protected bool PlayerLoose;
+		public bool PlayerWin { get; protected set; }
+		public bool PlayerLoose { get; protected set; }
 
 		protected BaseScene() 
 		{
 			GameObjectsCollection = new List<IGameObject>();
 			GeneratedGameObjectsCollection = new List<IGameObject>();
 			PlayerWin = PlayerLoose = false;
+			ResetTransition();
 		}
 
 		public virtual void Win()
 		{
-			PlayerWin = false;
+			PlayerWin = true;
 		}
 		public virtual void Loose()
 		{
-			PlayerLoose = false;
+			PlayerLoose = true;
 		}
 
-		public virtual void Load() { }
+		public virtual void Load(ICommand commandWhenLoaded) 
+		{
+			RegisterGameObject(new DummyScreenTransition(new CompositeCommand(commandWhenLoaded, new ResetTransitionRequiredCommand())));
+		}
 
 		public virtual void UnLoad(ICommand commandWhenUnloaded) 
 		{
-			CommandWhenUnloaded = commandWhenUnloaded;
-			CommandWhenUnloaded.Execute();
+			RegisterGameObject(new DummyScreenTransition(new CompositeCommand(commandWhenUnloaded, new ResetTransitionRequiredCommand())));
 		}
 
 		public IGameObject GetObject(Func<IGameObject, bool> predicate)
@@ -50,9 +52,10 @@ namespace GameNameSpace
 
 		public virtual IGameObject RegisterGameObject(IGameObject gameObject)
 		{
-			GeneratedGameObjectsCollection.Add(gameObject);
+			GameObjectsCollection.Add(gameObject);
 			return (gameObject);
 		}
+
 		public virtual void RegisterGameObjects(IList<IGameObject> gameObjects)
 		{
 			(GameObjectsCollection as List<IGameObject>).AddRange(gameObjects);
@@ -64,41 +67,49 @@ namespace GameNameSpace
 			return (gameObject);
 		}
 
+		protected void IntegrateGeneratedGameObjects()
+		{
+			(GameObjectsCollection as List<IGameObject>).AddRange(GeneratedGameObjectsCollection);
+		}
+
 		public virtual void Update(GameTime gameTime)
 		{
-			// Gestion des collisions des GameObjects, et uniquement ceux qui sont actifs et qui dispose d'une collideBox
-			CollisionTestResult collisionResult = null;
-			IGameObject goi = null;
-			IGameObject goj = null;
-			for (int i = 0; i < GameObjectsCollection.Count; i++)
-			{
-				goi = GameObjectsCollection[i];
-				goi.Update(gameTime);
-				if (goi.Status == GameObjectStatus.ACTIVE && !(goi.Body is DummyBody))
+
+				IColliderService collider = Services.Instance.Get<IColliderService>();
+				CollisionTestResult collisionResult = null;
+				IGameObject goi = null;
+				IGameObject goj = null;
+				for (int i = 0; i < GameObjectsCollection.Count; i++)
 				{
-					for (int j = i + 1; j < GameObjectsCollection.Count; j++)
+					goi = GameObjectsCollection[i];
+					if (goi.Status == GameObjectStatus.ACTIVE)
 					{
-						goj = GameObjectsCollection[j];
-						if (goj.Status == GameObjectStatus.ACTIVE
-							&& !(goj.Body is DummyBody)
-							//&& goi.Partition != goj.Partition
-							&& (goj.Body is IBoxBody || goj.Body is ICircleBody) 
-							&& (collisionResult = BodyCollider.IsCollision(goi.Body, goj.Body)) != null)
+						goi.Update(gameTime);
+						if (!(goi.Body is InvisibleBody))
 						{
-							BodyCollider.ResolveCollision(goi.Body, goj.Body, collisionResult);
-							goi.Body.CollideCommand.Execute(goj, collisionResult);
-							goj.Body.CollideCommand.Execute(goi, collisionResult);
+							for (int j = i + 1; j < GameObjectsCollection.Count; j++)
+							{
+								goj = GameObjectsCollection[j];
+
+								if (goj.Status == GameObjectStatus.ACTIVE
+									&& !(goj.Body is InvisibleBody)
+									&& (null != (collisionResult = collider.IsCollision(goi.Body, goj.Body))))
+								{
+									collider.ResolveCollision(goi.Body, goj.Body, collisionResult);
+									goi.Body.CollideCommand.Execute(goj, collisionResult);
+									goj.Body.CollideCommand.Execute(goi, collisionResult);
+								}
+							}
 						}
 					}
 				}
-			}
 
-			// On purge tous les éléments obsolètes
-			(GameObjectsCollection as List<IGameObject>).RemoveAll(gameObject => gameObject.Status == GameObjectStatus.OUTDATED);
+				// On purge tous les éléments obsolètes
+				(GameObjectsCollection as List<IGameObject>).RemoveAll(gameObject => gameObject.Status == GameObjectStatus.OUTDATED);
 
-			// On ajoute à la scène les éléments générés
-			RegisterGameObjects(GeneratedGameObjectsCollection);
-			GeneratedGameObjectsCollection.Clear();
+				//// On ajoute à la scène les éléments générés
+				//IntegrateGeneratedGameObjects();
+				//GeneratedGameObjectsCollection.Clear();
 		}
 
 		public virtual void Draw(SpriteBatch spriteBatch)
@@ -108,6 +119,10 @@ namespace GameNameSpace
 			{
 				gameObject.Draw(spriteBatch);
 			}
+		}
+
+		public void ResetTransition()
+		{
 		}
 	}
 }

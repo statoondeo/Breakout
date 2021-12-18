@@ -5,15 +5,20 @@ namespace GameNameSpace
 {
 	public class ButtonGameObject : BaseGameObject
 	{
+		public static readonly Vector2 Size = new Vector2(299, 93);
+
 		protected IRenderable TextRenderable;
 
-		public ButtonGameObject(Vector2 position, Vector2 size, Color color, SpriteFont spriteFont, string text, Color textColor, ICommand command)
+		public ButtonGameObject(Vector2 position, string text, Color textColor, ICommand command)
 		{
+			Texture2D texture = Services.Instance.Get<IAssetService>().GetTexture(TextureName.Button);
+			Vector2 size = new Vector2(texture.Width, texture.Height);
 			Type = GameObjectType.BUTTON;
-			Vector2 textSize = spriteFont.MeasureString(text);
-			Body = new BoxBody(position, size, Vector2.Zero, 0.0f, 1.0f, true, new ButtonWrapperColliderCommand(this, command));
-			TextRenderable = new TextRenderable(this, new Vector2((size.X - textSize.X) / 2, (size.Y - textSize.Y) / 2), spriteFont, text, textColor);
-			Renderable = new TextureRenderable(this, ServiceLocator.Instance.Get<IShapeService>().CreateTexture(size.ToPoint(), color), 1.0f, Vector2.Zero);
+			SpriteFont font = Services.Instance.Get<IAssetService>().GetFont(FontName.Button);
+			Vector2 textSize = font.MeasureString(text);
+			Body = new BoxBody(position, size, Vector2.Zero, 1.0f, true, new ButtonWrapperColliderCommand(this, command));
+			TextRenderable = new TextRenderable(this, new Vector2((size.X - textSize.X) / 2, (size.Y - textSize.Y) / 2 - 10), font, text, textColor);
+			Renderable = new TextureRenderable(this, texture, 1.0f, Vector2.Zero);
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)

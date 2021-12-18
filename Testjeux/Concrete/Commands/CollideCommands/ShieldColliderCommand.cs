@@ -21,8 +21,8 @@ namespace GameNameSpace
 			if ((GameObject as BrickGameObject).Health <= 0)
 			{
 				GameObject.Status = GameObjectStatus.OUTDATED;
-				IRandomService rand = ServiceLocator.Instance.Get<IRandomService>();
-				Texture2D texture = ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.LaserGlow);
+				IRandomService rand = Services.Instance.Get<IRandomService>();
+				Texture2D texture = Services.Instance.Get<IAssetService>().GetTexture(TextureName.LaserGlow);
 				Vector2 textureSize = new Vector2(texture.Width, texture.Height);
 				Vector2 position = GameObject.Body.Position + ShieldBrickGameObject.TextureSize * ShieldBrickGameObject.BodySizeFactor * GameObject.Renderable.Scale * 0.25f;
 				for (int i = 0; i < 5; i++)
@@ -33,7 +33,7 @@ namespace GameNameSpace
 					float particleSpeed = rand.Next() * 250.0f / scale;
 					float particleAngle = rand.Next() * 2.0f * (float)Math.PI;
 
-					ServiceLocator.Instance.Get<IParticlesService>().Create(texture, ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), position - textureSize * scale * 0.5f, new Vector2(particleSpeed * (float)Math.Cos(particleAngle), particleSpeed * (float)Math.Sin(particleAngle)), scale, ttl, angleSpeed, 1.0f, Vector2.Zero);
+					Services.Instance.Get<IParticlesService>().Register(texture, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), position - textureSize * scale * 0.5f, new Vector2(particleSpeed * (float)Math.Cos(particleAngle), particleSpeed * (float)Math.Sin(particleAngle)), scale, ttl, angleSpeed, 1.0f, 0.0f, Vector2.Zero);
 				}
 			}
 			else
@@ -41,7 +41,7 @@ namespace GameNameSpace
 				Vector2 position = GameObject.Body.Position - BrainBrickGameObject.TextureSize * BrainBrickGameObject.BodySizeFactor * GameObject.Renderable.Scale * 0.25f;
 				for (int i = 0; i < 3; i++)
 {
-					ServiceLocator.Instance.Get<ISceneService>().RegisterGameObject(new ElasticZoomGameObject(new BrainAnimatedTextureRenderable(null, 1.0f, Vector2.Zero), position, BrainBrickGameObject.TextureSize, i * 0.2f, i * 0.2f + 0.6f));
+					Services.Instance.Get<ISceneService>().RegisterGameObject(new ElasticZoomGameObject(new BrainAnimatedTextureRenderable(null, 1.0f, Vector2.Zero), position, BrainBrickGameObject.TextureSize, i * 0.2f, i * 0.2f + 0.6f));
 				}
 				ParticlesEmitter.Emit(collisionResult);
 				if (gameObject.Type == GameObjectType.BALL)
@@ -56,14 +56,14 @@ namespace GameNameSpace
 	public class BrainParticlesEmitter : BaseParticlesEmitter
 	{
 		public BrainParticlesEmitter(IGameObject gameObject) 
-			: base(gameObject, ServiceLocator.Instance.Get<IAssetService>().GetTexture(TextureName.RedSpark), 15)
+			: base(gameObject, Services.Instance.Get<IAssetService>().GetTexture(TextureName.RedSpark), 15)
 		{
 		}
 
 		public override void Emit(CollisionTestResult collisionResult)
 		{
 			base.Emit(collisionResult);
-			IRandomService rand = ServiceLocator.Instance.Get<IRandomService>();
+			IRandomService rand = Services.Instance.Get<IRandomService>();
 			Vector2 textureSize = new Vector2(Texture.Width, Texture.Height);
 			float angleSpeed = 0;
 			float ttl;
@@ -78,7 +78,7 @@ namespace GameNameSpace
 				particleSpeed = rand.Next() * 200.0f / scale;
 				particleAngle = rand.Next() * 2.0f * (float)Math.PI;
 
-				ServiceLocator.Instance.Get<IParticlesService>().Create(Texture, ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), GameObject.Body.Position - textureSize * scale * 0.5f, new Vector2(particleSpeed * (float)Math.Cos(particleAngle), particleSpeed * (float)Math.Sin(particleAngle)), scale, ttl, angleSpeed, 1.0f, Vector2.Zero);
+				Services.Instance.Get<IParticlesService>().Register(Texture, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), GameObject.Body.Position - textureSize * scale * 0.5f, new Vector2(particleSpeed * (float)Math.Cos(particleAngle), particleSpeed * (float)Math.Sin(particleAngle)), scale, ttl, angleSpeed, 1.0f, 0.0f, Vector2.Zero);
 			}
 		}
 	}
@@ -96,9 +96,9 @@ namespace GameNameSpace
 			base.Execute(gameObject, collisionResult);
 
 			// Vibration lors du rebond
-			ServiceLocator.Instance.Get<ISceneService>().RegisterGameObject(new ElasticZoomGameObject(new ShieldTextureRenderable(null, 1.0f, Vector2.Zero), GameObject.Body.Position + ShieldBrickGameObject.TextureSize * ShieldBrickGameObject.BodySizeFactor * GameObject.Renderable.Scale * 0.25f, ShieldBrickGameObject.TextureSize, 0.25f, 1.9f));
-			ServiceLocator.Instance.Get<ISceneService>().RegisterGameObject(new ElasticZoomGameObject(new ShieldTextureRenderable(null, 1.0f, Vector2.Zero), GameObject.Body.Position + ShieldBrickGameObject.TextureSize * ShieldBrickGameObject.BodySizeFactor * GameObject.Renderable.Scale * 0.25f, ShieldBrickGameObject.TextureSize, 0.5f, 2.1f));
-			ServiceLocator.Instance.Get<ISceneService>().RegisterGameObject(new ElasticZoomGameObject(new ShieldTextureRenderable(null, 1.0f, Vector2.Zero), GameObject.Body.Position + ShieldBrickGameObject.TextureSize * ShieldBrickGameObject.BodySizeFactor * GameObject.Renderable.Scale * 0.25f, ShieldBrickGameObject.TextureSize, 0.75f, 2.3f));
+			Services.Instance.Get<ISceneService>().RegisterGameObject(new ElasticZoomGameObject(new ShieldTextureRenderable(null, 1.0f, Vector2.Zero), GameObject.Body.Position + ShieldBrickGameObject.TextureSize * ShieldBrickGameObject.BodySizeFactor * GameObject.Renderable.Scale * 0.25f, ShieldBrickGameObject.TextureSize, 0.25f, 1.9f));
+			Services.Instance.Get<ISceneService>().RegisterGameObject(new ElasticZoomGameObject(new ShieldTextureRenderable(null, 1.0f, Vector2.Zero), GameObject.Body.Position + ShieldBrickGameObject.TextureSize * ShieldBrickGameObject.BodySizeFactor * GameObject.Renderable.Scale * 0.25f, ShieldBrickGameObject.TextureSize, 0.5f, 2.1f));
+			Services.Instance.Get<ISceneService>().RegisterGameObject(new ElasticZoomGameObject(new ShieldTextureRenderable(null, 1.0f, Vector2.Zero), GameObject.Body.Position + ShieldBrickGameObject.TextureSize * ShieldBrickGameObject.BodySizeFactor * GameObject.Renderable.Scale * 0.25f, ShieldBrickGameObject.TextureSize, 0.75f, 2.3f));
 
 			if (gameObject.Type == GameObjectType.BALL)
 			{
@@ -118,14 +118,13 @@ namespace GameNameSpace
 
 		public ElasticZoomGameObject(IRenderable renderable, Vector2 position, Vector2 size, float ttl, float targetScale)
 			: base()
-		{
+{
 			Size = size;
 			TargetScale = targetScale;
-			Body = new DummyBody();
-			Body.MoveTo(position);
+			Body = new InvisibleBody(position);
 			Ttl = ttl;
 			CurrentTtl = 0;
-			Tweening = ServiceLocator.Instance.Get<ITweeningService>().Get(TweeningName.ElasticOut);
+			Tweening = Services.Instance.Get<ITweeningService>().Get(TweeningName.ElasticOut);
 			Renderable = renderable;
 			(Renderable as TextureRenderable).GameObject = this;
 		}

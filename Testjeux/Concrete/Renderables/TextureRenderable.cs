@@ -13,16 +13,17 @@ namespace GameNameSpace
 		{
 			GameObject = gameObject;
 			Texture = texture;
+			Layer = 0.5f;
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Texture, GameObject.Body.Position + Offset, null, Color.White, GameObject.Body.Angle, GameObject.Body.RotationOrigin, Scale, SpriteEffects.None, 1.0f);
+			spriteBatch.Draw(Texture, GameObject.Body.Position + Offset, null, ColorMask * Alpha, GameObject.Body.Angle, GameObject.Body.RotationOrigin, Scale, SpriteEffects.None, Layer);
 		}
 
 		public override void Draw(SpriteBatch spriteBatch, float alpha, float angle, float scale, Vector2 rotationOrigin)
 		{
-			spriteBatch.Draw(Texture, GameObject.Body.Position + Offset, null, ColorMask * alpha, angle, rotationOrigin, scale, SpriteEffects.None, 1.0f);
+			spriteBatch.Draw(Texture, GameObject.Body.Position + Offset, null, ColorMask * alpha, angle, rotationOrigin, scale, SpriteEffects.None, Layer);
 		}
 	}
 }

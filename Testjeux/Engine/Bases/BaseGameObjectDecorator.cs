@@ -19,7 +19,7 @@ namespace GameNameSpace
 
 		public virtual IMovable Movable { get => DecoratedGameObject.Movable; set => DecoratedGameObject.Movable = value; }
 
-		public virtual IBody Body => DecoratedGameObject.Body;
+		public virtual IBody Body { get => DecoratedGameObject.Body; set => DecoratedGameObject.Body = value; }
 
 		public virtual IRenderable Renderable { get => DecoratedGameObject.Renderable; set => DecoratedGameObject.Renderable = value; }
 

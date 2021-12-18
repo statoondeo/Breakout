@@ -13,7 +13,7 @@ namespace GameNameSpace
 		{
 			base.Update(gameTime);
 
-			if (ServiceLocator.Instance.Get<ISceneService>().GetObjects(item => item is WobblerBrickGameObject && item.Status == GameObjectStatus.ACTIVE).Count == 0)
+			if (Services.Instance.Get<ISceneService>().GetObjects(item => item is WobblerBrickGameObject && item.Status == GameObjectStatus.ACTIVE).Count == 0)
 			{
 				Command.Execute();
 				Status = GameObjectStatus.OUTDATED;

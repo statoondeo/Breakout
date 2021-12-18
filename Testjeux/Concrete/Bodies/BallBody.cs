@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
@@ -8,7 +9,7 @@ namespace GameNameSpace
 		protected IRenderable Renderable;
 
 		public BallBody(Vector2 position, Vector2 size, Vector2 velocity, IColliderCommand command) 
-			: base(position, size.X / 2, velocity, 0.5f, 1.0f, false, command)
+			: base(position, size.X / 2, velocity, 1.0f, false, command)
 		{
 			Force = new Vector2(0, 7f);
 			Renderable = new CircleFrameRenderable(this, Vector2.Zero);
