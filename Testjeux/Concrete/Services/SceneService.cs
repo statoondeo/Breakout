@@ -8,12 +8,14 @@ namespace GameNameSpace
 	public class SceneService : ISceneService
 	{
 		public bool ExitRequired { get; set; }
+		public CamShake CamShake { get; protected set; }
 
 		public IScene CurrentScene { get; protected set; }
 
 		public SceneService() 
 		{
 			ExitRequired = false;
+			CamShake = new CamShake();
 		}
 
 		public void Load(ICommand commandWhenLoaded)
@@ -39,6 +41,7 @@ namespace GameNameSpace
 		public void Update(GameTime gameTime)
 		{
 			CurrentScene.Update(gameTime);
+			CamShake.Update(gameTime);
 		}
 
 		public void Draw(SpriteBatch spriteBatch)

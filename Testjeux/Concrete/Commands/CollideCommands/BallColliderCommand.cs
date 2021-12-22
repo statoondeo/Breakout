@@ -14,6 +14,7 @@
 		{
 			base.Execute(gameObject, collisionResult);
 			ParticlesEmitterGameObject.Emit(collisionResult);
+			Services.Instance.Get<ISceneService>().CamShake.Value = (collisionResult.Normal * collisionResult.Depth).ToPoint();
 		}
 	}
 }

@@ -50,9 +50,9 @@
     <Compile Include="Concrete\Commands\CollideCommands\WallCollidableCommand.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Concrete\Levels\level2.json" />
     <EmbeddedResource Include="Concrete\Levels\level1.json" />
     <EmbeddedResource Include="Concrete\Levels\level3.json" />
+    <EmbeddedResource Include="Concrete\Levels\level2.json" />
   </ItemGroup>
   <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />

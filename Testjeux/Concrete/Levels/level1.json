@@ -82,8 +82,8 @@
       "Type": 1,
       "Position": null,
       "Velocity": null,
-      "Texture": "Gas0",
-      "AngleSpeed": 0.01
+      "Texture": "Gas1",
+      "AngleSpeed": -0.01
     }
   ],
   "Bricks": [
@@ -133,22 +133,237 @@
       "AngleSpeed": 0
     },
     {
+      "Type": 2,
+      "Position": {
+        "X": 288,
+        "Y": 208
+      },
+      "Size": null,
+      "Center": {
+        "X": 168,
+        "Y": 208
+      },
+      "Radius": 120,
+      "Angle": 0,
+      "AngleSpeed": 0.8
+    },
+    {
+      "Type": 2,
+      "Position": {
+        "X": 168,
+        "Y": 328
+      },
+      "Size": null,
+      "Center": {
+        "X": 168,
+        "Y": 208
+      },
+      "Radius": 120,
+      "Angle": 1.570796,
+      "AngleSpeed": 0.8
+    },
+    {
+      "Type": 2,
+      "Position": {
+        "X": 48,
+        "Y": 208
+      },
+      "Size": null,
+      "Center": {
+        "X": 168,
+        "Y": 208
+      },
+      "Radius": 120,
+      "Angle": 3.141592,
+      "AngleSpeed": 0.8
+    },
+    {
+      "Type": 2,
+      "Position": {
+        "X": 168,
+        "Y": 88
+      },
+      "Size": null,
+      "Center": {
+        "X": 168,
+        "Y": 208
+      },
+      "Radius": 120,
+      "Angle": 4.712388,
+      "AngleSpeed": 0.8
+    },
+    {
+      "Type": 2,
+      "Position": {
+        "X": 1168,
+        "Y": 208
+      },
+      "Size": null,
+      "Center": {
+        "X": 1048,
+        "Y": 208
+      },
+      "Radius": 120,
+      "Angle": 0,
+      "AngleSpeed": -0.8
+    },
+    {
+      "Type": 2,
+      "Position": {
+        "X": 1048,
+        "Y": 328
+      },
+      "Size": null,
+      "Center": {
+        "X": 1048,
+        "Y": 208
+      },
+      "Radius": 120,
+      "Angle": 1.570796,
+      "AngleSpeed": -0.8
+    },
+    {
+      "Type": 2,
+      "Position": {
+        "X": 928,
+        "Y": 208
+      },
+      "Size": null,
+      "Center": {
+        "X": 1048,
+        "Y": 208
+      },
+      "Radius": 120,
+      "Angle": 3.141592,
+      "AngleSpeed": -0.8
+    },
+    {
+      "Type": 2,
+      "Position": {
+        "X": 1048,
+        "Y": 88
+      },
+      "Size": null,
+      "Center": {
+        "X": 1048,
+        "Y": 208
+      },
+      "Radius": 120,
+      "Angle": 4.712388,
+      "AngleSpeed": -0.8
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 0,
+        "Y": 542
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 64,
+        "Y": 545
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 128,
+        "Y": 550
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 1088,
+        "Y": 550
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 1152,
+        "Y": 545
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 1216,
+        "Y": 542
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 416,
+        "Y": 378
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 480,
+        "Y": 373
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 544,
+        "Y": 370
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
       "Type": 3,
       "Position": {
         "X": 608,
-        "Y": 168
-      },
-      "Size": null,
-      "Center": null,
-      "Radius": 0,
-      "Angle": 0,
-      "AngleSpeed": 0
-    },
-
-    {
-      "Type": 3,
-      "Position": {
-        "X": 1008,
         "Y": 368
       },
       "Size": null,
@@ -160,8 +375,8 @@
     {
       "Type": 3,
       "Position": {
-        "X": 208,
-        "Y": 368
+        "X": 672,
+        "Y": 370
       },
       "Size": null,
       "Center": null,
@@ -170,10 +385,34 @@
       "AngleSpeed": 0
     },
     {
-      "Type": 5,
+      "Type": 3,
       "Position": {
-        "X": 1760,
-        "Y": 32
+        "X": 736,
+        "Y": 373
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 800,
+        "Y": 378
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 4,
+      "Position": {
+        "X": 557,
+        "Y": 122
       },
       "Size": null,
       "Center": null,

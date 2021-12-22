@@ -17,7 +17,6 @@ namespace GameNameSpace
 		public override void Update(GameTime gameTime)
 		{
 			int wobblerCount = Services.Instance.Get<ISceneService>().GetObjects(item => item is WobblerBrickGameObject).Count;
-			Services.Instance.Get<ILogService>().Log("Wobbler=" + wobblerCount.ToString());
 			if ((Step == 1) && (wobblerCount == 1))
 			{
 				Step++;
