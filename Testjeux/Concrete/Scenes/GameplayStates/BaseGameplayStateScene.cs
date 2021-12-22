@@ -1,15 +1,20 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace GameNameSpace
 {
-	public abstract class BaseGameplayStateScene : IGameplayStateScene
+	public abstract class BaseGameplayStateScene : IGameplayStateScene, IStateItem
 	{
-		protected GameplayScene GameplayScene;
 
-		public BaseGameplayStateScene(GameplayScene gameplayScene)
+		public BaseGameplayStateScene(IStateContainer container)
 		{
-			GameplayScene = gameplayScene;
+			Transitions = new List<IStateItem>();
+			Container = container;
 		}
+
+		public IList<IStateItem> Transitions { get; protected set; }
+
+		public IStateContainer Container { get; protected set; }
 
 		public virtual void Enter() { }
 		public virtual void Exit() { }

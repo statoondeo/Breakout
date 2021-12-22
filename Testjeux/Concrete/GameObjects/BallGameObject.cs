@@ -29,9 +29,11 @@ namespace GameNameSpace
 			BallExplosionParticlesEmitter = new BallExplosionParticlesEmitter(this, Services.Instance.Get<IAssetService>().GetTexture(TextureName.RedSpark), 25);
 			Exploded = false;
 			Texture2D texture = Services.Instance.Get<IAssetService>().GetTexture(TextureName.LaserGlow);
-			HaloRenderable = new TextureRenderable(this, texture, 1.0f, 0.5f * (new Vector2(64) - (new Vector2(texture.Width, texture.Height))));
-			HaloRenderable.Alpha = 0.1f;
-			HaloRenderable.ColorMask = Color.OrangeRed;
+			HaloRenderable = new TextureRenderable(this, texture, 1.0f, 0.5f * (new Vector2(64) - (new Vector2(texture.Width, texture.Height))))
+			{
+				Alpha = 0.1f,
+				ColorMask = Color.OrangeRed
+			};
 		}
 
 		public override void Update(GameTime gameTime)

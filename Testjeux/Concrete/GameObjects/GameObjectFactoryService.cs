@@ -28,19 +28,19 @@ namespace GameNameSpace
 			ResetTtl();
 			IList<IGameObject> gameObjectsCollection = new List<IGameObject>();
 
-			// Chargement des backgrounds du level
+			// Chargement des backgrounds
 			foreach (ParsedBackground background in jsonLevel.Backgrounds)
 			{
 				gameObjectsCollection.Add(CreateBackground(background));
 			}
 
-			// Chargement des briques du level
+			// Chargement des briques
 			foreach (ParsedBrick brick in jsonLevel.Bricks)
 			{
 				gameObjectsCollection.Add(CreateBrick(brick));
 			}
 
-			// Chargement des trigger du level
+			// Chargement des triggers
 			foreach (ParsedTrigger trigger in jsonLevel.Triggers)
 			{
 				gameObjectsCollection.Add(CreateTrigger(trigger));
@@ -51,43 +51,22 @@ namespace GameNameSpace
 
 		public IGameObject CreateTrigger(ParsedTrigger trigger)
 		{
-			IGameObject gameObject;
-			switch (trigger.Type)
+			IGameObject gameObject = trigger.Type switch
 			{
-				case 0:
-					gameObject = new BrainShield1Trigger();
-					break;
-				case 1:
-					gameObject = new CommonLooseTrigger();
-					break;
-				case 2:
-					gameObject = new BrainWinTrigger();
-					break;
-				case 3:
-					gameObject = new BlobWinTrigger();
-					break;
-				default:
-					gameObject = null;
-					break;
-			}
+				1 => new CommonLooseTrigger(),
+				_ => null,
+			};
 			return (gameObject);
 		}
 
 		public IGameObject CreateBackground(ParsedBackground background)
 		{
-			IGameObject gameObject;
-			switch (background.Type)
+			IGameObject gameObject = background.Type switch
 			{
-				case 0:
-					gameObject = new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), ConvertToVector2(background.Velocity), ConvertToVector2(background.Position));
-					break;
-				case 1:
-					gameObject = new RotatingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), background.AngleSpeed);
-					break;
-				default:
-					gameObject = null;
-					break;
-			}
+				0 => new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), ConvertToVector2(background.Velocity), ConvertToVector2(background.Position)),
+				1 => new RotatingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), background.AngleSpeed),
+				_ => null,
+			};
 			return (gameObject);
 		}
 
@@ -126,10 +105,10 @@ namespace GameNameSpace
 					gameObject = DecorateEntrance(new BrainBrickGameObject(Vector2.Zero, 1.0f), origin, destination);
 					break;
 				case 5:
-					// Shield
+					// Snake
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new ShieldBrickGameObject(Vector2.Zero, 2.1f), origin, destination);
+					gameObject = DecorateEntrance(new SnakeHeadGameObject(Vector2.Zero), origin, destination);
 					break;
 				case 6:
 					// Mega Blob
@@ -146,8 +125,8 @@ namespace GameNameSpace
 
 		public IGameObject DecorateEntrance(IGameObject gameObject, Vector2 origin, Vector2 destination)
 		{
-			float fallTtl = Services.Instance.Get<IRandomService>().Next() * 1.1f + 0.4f;
-			float delay = Services.Instance.Get<IRandomService>().Next() * 0.3f + 0.2f;
+			float fallTtl = 1.0f; // Services.Instance.Get<IRandomService>().Next() * 1.1f + 0.4f;
+			float delay = 0.0f; // Services.Instance.Get<IRandomService>().Next() * 0.3f + 0.2f;
 			MaxTtl = Math.Max(MaxTtl, fallTtl + delay);
 			return (new TweenMoveDecorator(gameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), origin, destination, fallTtl, delay));
 		}

@@ -9,8 +9,7 @@ namespace GameNameSpace
 
 		public override void Execute()
 		{
-			ShieldBrickGameObject shield = Services.Instance.Get<ISceneService>().GetObject(item => item is ShieldBrickGameObject && item.Status == GameObjectStatus.ACTIVE) as ShieldBrickGameObject;
-			if (shield != null)
+			if (Services.Instance.Get<ISceneService>().GetObject(item => item is ShieldBrickGameObject && item.Status == GameObjectStatus.ACTIVE) is ShieldBrickGameObject shield)
 			{
 				Vector2 center = shield.Body.Position + ShieldBrickGameObject.TextureSize * ShieldBrickGameObject.BodySizeFactor * shield.Renderable.Scale * 0.25f;
 				IRandomService rand = Services.Instance.Get<IRandomService>();

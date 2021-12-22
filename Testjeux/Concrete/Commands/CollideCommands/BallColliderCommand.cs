@@ -10,10 +10,10 @@
 			ParticlesEmitterGameObject = particlesEmitterGameObject;
 		}
 
-	public override void Execute(IGameObject gameObject, CollisionTestResult collisionResult)
-	{
-		base.Execute(gameObject, collisionResult);
-		ParticlesEmitterGameObject.Emit(collisionResult);
+		public override void Execute(IGameObject gameObject, CollisionTestResult collisionResult)
+		{
+			base.Execute(gameObject, collisionResult);
+			ParticlesEmitterGameObject.Emit(collisionResult);
+		}
 	}
-}
 }

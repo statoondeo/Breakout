@@ -22,7 +22,7 @@ namespace GameNameSpace
 			Vector2 screen = Services.Instance.Get<IScreenService>().GetScreenSize().ToVector2();
 			OnScreenPosition = new Vector2((screen.X - size.X) * 0.5f, (screen.X - size.X) / 3.0f);
 			OutScreenPosition = new Vector2(OnScreenPosition.X, -300);
-			MessageGameObject = new TextGameObject(OutScreenPosition, size, font, label, Color.White);
+			MessageGameObject = new TextGameObject(OutScreenPosition, font, label, Color.White);
 			Ttl = 0.25f;    
 		}
 
@@ -32,19 +32,19 @@ namespace GameNameSpace
 			{
 				DecoratedMessageGameObject.Status = GameObjectStatus.OUTDATED;
 			}
-			DecoratedMessageGameObject = GameplayScene.RegisterGameObject(new TweenMoveDecorator(MessageGameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), OutScreenPosition, OnScreenPosition, 0.25f, 0.0f));
+			DecoratedMessageGameObject = (Container as IScene).RegisterGameObject(new TweenMoveDecorator(MessageGameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), OutScreenPosition, OnScreenPosition, 0.25f, 0.0f));
 			// Balle de la scène
 			Vector2 screen = Services.Instance.Get<IScreenService>().GetScreenSize().ToVector2();
 			Vector2 origin = new Vector2((screen.X - 32) / 2, -300);
 			Vector2 destination = new Vector2((screen.X - 32) / 2, 2 * (screen.Y - 32) / 3);
 			IGameObject ball = new InvisibleBodyDecorator(new BallGameObject(Vector2.Zero, 850, new Vector2(32)));
-			GameplayScene.RegisterGameObject(new TweenMoveDecorator(new WaitClickDecoratorGameObject(ball, new RemoveInvisibleBodyDecoratorCommand(ball)), Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), origin, destination, 0.25f, 0.0f));
+			(Container as IScene).RegisterGameObject(new TweenMoveDecorator(new WaitClickDecoratorGameObject(ball, new RemoveInvisibleBodyDecoratorCommand(ball)), Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), origin, destination, 0.25f, 0.0f));
 		}
 
 		public override void Exit()
 		{
 			DecoratedMessageGameObject.Status = GameObjectStatus.OUTDATED;
-			DecoratedMessageGameObject = GameplayScene.RegisterGameObject(new TweenMoveDecorator(MessageGameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintIn), OnScreenPosition, OutScreenPosition, 0.25f, 0.0f));
+			DecoratedMessageGameObject = (Container as IScene).RegisterGameObject(new TweenMoveDecorator(MessageGameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintIn), OnScreenPosition, OutScreenPosition, 0.25f, 0.0f));
 		}
 
 		public override void Update(GameTime gameTime)
@@ -54,7 +54,7 @@ namespace GameNameSpace
 				if (Services.Instance.Get<IInputListenerService>().IsLeftClick())
 				{
 					// On change d'état : StartedState
-					GameplayScene.GotoState(GameplayStateNames.Started);
+					Container.CurrentState = this.Transitions[0];
 				}
 			}
 			else

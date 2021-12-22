@@ -33,8 +33,11 @@ namespace GameNameSpace
 			CurrentAlpha = InitialAlpha = initialAlpha;
 			Scale = scale;
 			RotationOrigin = rotationOrigin;
-			Renderable = new TextureRenderable(this, null, 1.0f, Vector2.Zero);
-			(Renderable as TextureRenderable).Texture = texture;
+			Renderable = new TextureRenderable(this, null, 1.0f, Vector2.Zero)
+			{
+				Layer = 0.5f,
+				Texture = texture
+			};
 		}
 
 		public override void Update(GameTime gameTime)

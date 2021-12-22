@@ -12,7 +12,6 @@ namespace GameNameSpace
 
 		public override void Emit(GameTime gameTime)
 		{
-			IRandomService rand = Services.Instance.Get<IRandomService>();
 			float ttl = 2.0f;
 			float scale = 1.0f;
 			float particleSpeed = 0;

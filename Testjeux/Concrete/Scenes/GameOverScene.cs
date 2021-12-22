@@ -24,7 +24,7 @@ namespace GameNameSpace
 			Vector2 textSize = spriteFont.MeasureString(TITLE);
 
 			// Titre de la scène
-			RegisterGameObject(new TextGameObject(new Vector2((screen.X - textSize.X) / 2, (screen.Y - textSize.Y) / 4), textSize, spriteFont, TITLE, Color.Black));
+			RegisterGameObject(new TextGameObject(new Vector2((screen.X - textSize.X) / 2, (screen.Y - textSize.Y) / 4), spriteFont, TITLE, Color.Black));
 
 			RegisterGameObject(new InScreenTransitionGameObject(new CompositeCommand(commandWhenLoaded, new ResetTransitionRequiredCommand())));
 		}

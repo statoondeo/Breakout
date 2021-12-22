@@ -7,7 +7,6 @@ namespace GameNameSpace
 		public BrainWinTrigger()
 			: base(new WinTriggerCommand(), false)
 		{
-			Status = GameObjectStatus.IDLE;
 		}
 
 		public override void Update(GameTime gameTime)

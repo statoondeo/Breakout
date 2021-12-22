@@ -6,7 +6,6 @@ namespace GameNameSpace
 	public class RacketTrailParticlesEmitter : BaseParticlesEmitter
 	{
 		protected Vector2 Velocity;
-		protected Vector2 Size;
 		protected float Angle;
 		protected Vector2 Offset;
 		protected float MaxTtl;
@@ -19,7 +18,6 @@ namespace GameNameSpace
 			Velocity = new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
 			Offset = offset;
 			MaxTtl = Ttl = 0.0f;
-			Size = new Vector2(Texture.Width, Texture.Height);
 		}
 
 		public override void Emit(GameTime gameTime)

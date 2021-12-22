@@ -1,13 +1,21 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace GameNameSpace
 {
-	public class GameplayScene : BaseScene
+	public class GameplayScene : BaseScene, IStateContainer
 	{
-		protected IDictionary<GameplayStateNames, BaseGameplayStateScene> GameplayStates;
-		protected IGameplayStateScene CurrentState;
+		protected IStateItem mCurrentState;
+		public IStateItem CurrentState 
+		{
+			get => mCurrentState;
+			set
+			{
+				(mCurrentState as IGameplayStateScene)?.Exit();
+				mCurrentState = value;
+				(mCurrentState as IGameplayStateScene).Enter();
+			}
+		}
 
 		public int Life { get; set; }
 
@@ -16,7 +24,7 @@ namespace GameNameSpace
 		public override void Load(ICommand commandWhenLoaded)
 		{
 			Life = 2;
-			CurrentState.Load();
+			(CurrentState as IGameplayStateScene).Load();
 			RegisterGameObject(new InScreenTransitionGameObject(new CompositeCommand(commandWhenLoaded, new ResetTransitionRequiredCommand())));
 		}
 
@@ -29,26 +37,22 @@ namespace GameNameSpace
 			: base()
 		{
 			Level = level;
-			GameplayStates = new Dictionary<GameplayStateNames, BaseGameplayStateScene>
-			{
-				{ GameplayStateNames.Created, new CreatedGameplayStateScene(this) },
-				{ GameplayStateNames.Initialized, new InitializedGameplayStateScene(this) },
-				{ GameplayStateNames.Started, new StartedGameplayStateScene(this) }
-			};
-			GotoState(GameplayStateNames.Created);
-		}
 
-		public void GotoState(GameplayStateNames newState)
-		{
-			CurrentState?.Exit();
-			CurrentState = GameplayStates[newState];
-			CurrentState.Enter();
+			IStateItem createdState = new CreatedGameplayStateScene(this);
+			IStateItem InitializedState = new InitializedGameplayStateScene(this);
+			IStateItem startedState = new StartedGameplayStateScene(this);
+
+			createdState.Transitions.Add(InitializedState);
+			InitializedState.Transitions.Add(startedState);
+			startedState.Transitions.Add(InitializedState);
+
+			CurrentState = createdState;
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
-			CurrentState.Update(gameTime);
+			(CurrentState as IGameplayStateScene).Update(gameTime);
 			if (Services.Instance.Get<IInputListenerService>().IsKeyDown(Keys.Escape))
 			{
 				(new SwitchSceneCommand(SceneType.MENU)).Execute();

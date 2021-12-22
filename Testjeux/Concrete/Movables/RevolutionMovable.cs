@@ -6,7 +6,7 @@ namespace GameNameSpace
 	{
 		protected float AngleSpeed;
 
-		public RevolutionMovable(IGameObject gameObject, Vector2 rotationOrigin, float currentAngle, float angleSpeed)
+		public RevolutionMovable(IGameObject gameObject, Vector2 rotationOrigin, float angleSpeed)
 			: base(gameObject)
 		{
 			GameObject.Body.RotationOrigin = rotationOrigin;

@@ -37,10 +37,12 @@ namespace GameNameSpace
             TexturesDictionary.Add(TextureName.RedSpark, content.Load<Texture2D>("redspark"));
             TexturesDictionary.Add(TextureName.BlueSpark, content.Load<Texture2D>("bluespark"));
             TexturesDictionary.Add(TextureName.GreenSpark, content.Load<Texture2D>("greenspark"));
+            TexturesDictionary.Add(TextureName.PurpleSpark, content.Load<Texture2D>("purplespark"));
             TexturesDictionary.Add(TextureName.RedBullet, content.Load<Texture2D>("redbullet"));
             TexturesDictionary.Add(TextureName.Stars01, content.Load<Texture2D>("stars01"));
             TexturesDictionary.Add(TextureName.Stars02, content.Load<Texture2D>("stars02"));
             TexturesDictionary.Add(TextureName.Stars03, content.Load<Texture2D>("stars03"));
+            TexturesDictionary.Add(TextureName.Gas0, content.Load<Texture2D>("gas0"));
             TexturesDictionary.Add(TextureName.Gas1, content.Load<Texture2D>("gas1"));
             TexturesDictionary.Add(TextureName.Gas2, content.Load<Texture2D>("gas2"));
             TexturesDictionary.Add(TextureName.Gas3, content.Load<Texture2D>("gas3"));
@@ -54,6 +56,10 @@ namespace GameNameSpace
             TexturesDictionary.Add(TextureName.Thrust, content.Load<Texture2D>("thrust"));
             TexturesDictionary.Add(TextureName.BigPanel, content.Load<Texture2D>("bigPanel"));
             TexturesDictionary.Add(TextureName.Button, content.Load<Texture2D>("button"));
+            TexturesDictionary.Add(TextureName.SerpentBody, content.Load<Texture2D>("serpentbody"));
+            TexturesDictionary.Add(TextureName.SerpentHead, content.Load<Texture2D>("serpenthead"));
+            TexturesDictionary.Add(TextureName.SerpentRear, content.Load<Texture2D>("serpentrear"));
+            TexturesDictionary.Add(TextureName.PurpleLaser, content.Load<Texture2D>("purplelaser"));
 
             Texture2D DrawableTexture = new Texture2D(graphicDevice, 1, 1, false, SurfaceFormat.Color);
             DrawableTexture.SetData(Enumerable.Repeat(Color.White, 1).ToArray());

@@ -115,7 +115,7 @@ namespace GameNameSpace
 		public virtual void Draw(SpriteBatch spriteBatch)
 		{
 			// On n'affiche que les éléments actifs
-			foreach (IGameObject gameObject in GameObjectsCollection.Where(gameObject => gameObject.Status == GameObjectStatus.ACTIVE))
+			foreach (IGameObject gameObject in GameObjectsCollection.Where(gameObject => gameObject.Status == GameObjectStatus.ACTIVE).OrderBy(item => item.Renderable.Layer))
 			{
 				gameObject.Draw(spriteBatch);
 			}

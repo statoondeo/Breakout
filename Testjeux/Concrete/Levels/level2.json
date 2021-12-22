@@ -133,30 +133,6 @@
       "AngleSpeed": 0
     },
     {
-      "Type": 1,
-      "Position": {
-        "X": 168,
-        "Y": 208
-      },
-      "Size": null,
-      "Center": null,
-      "Radius": 0,
-      "Angle": 0,
-      "AngleSpeed": 0
-    },
-    {
-      "Type": 1,
-      "Position": {
-        "X": 1048,
-        "Y": 208
-      },
-      "Size": null,
-      "Center": null,
-      "Radius": 0,
-      "Angle": 0,
-      "AngleSpeed": 0
-    },
-    {
       "Type": 2,
       "Position": {
         "X": 288,
@@ -443,29 +419,11 @@
       "Radius": 0,
       "Angle": 0,
       "AngleSpeed": 0
-    },
-    {
-      "Type": 5,
-      "Position": {
-        "X": 522,
-        "Y": 88
-      },
-      "Size": null,
-      "Center": null,
-      "Radius": 0,
-      "Angle": 0,
-      "AngleSpeed": 0
     }
   ],
   "Triggers": [
     {
-      "Type": 0
-    },
-    {
       "Type": 1
-    },
-    {
-      "Type": 2
     }
   ]
 }

@@ -7,7 +7,6 @@ namespace GameNameSpace
 		public CommonLooseTrigger()
 			: base(new LooseTriggerCommand(), false)
 		{
-			Status = GameObjectStatus.IDLE;
 		}
 
 		public override void Update(GameTime gameTime)

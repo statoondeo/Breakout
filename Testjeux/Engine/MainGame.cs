@@ -13,8 +13,10 @@ namespace GameNameSpace
 
 		public MainGame()
 		{
-			_graphics = new GraphicsDeviceManager(this);
-			_graphics.GraphicsProfile = GraphicsProfile.HiDef;
+			_graphics = new GraphicsDeviceManager(this)
+			{
+				GraphicsProfile = GraphicsProfile.HiDef
+			};
 			Content.RootDirectory = "Content";
 			IsMouseVisible = true;
 		}
@@ -35,7 +37,7 @@ namespace GameNameSpace
 			GameNameSpace.Services.Instance.Register<IRandomService>(new RandomService());
 			GameNameSpace.Services.Instance.Register<IColliderService>(new ColliderService());
 			GameNameSpace.Services.Instance.Register<ITweeningService>(new TweeningService());
-			GameNameSpace.Services.Instance.Register<IParticlesService>(new ParticleService(250));
+			GameNameSpace.Services.Instance.Register<IParticlesService>(new ParticleService(1000));
 			GameNameSpace.Services.Instance.Register<IGameObjectFactoryService>(new GameObjectFactoryService());
 			GameNameSpace.Services.Instance.Register<ILevelService>(new JSONLevelService());
 			InputListener = GameNameSpace.Services.Instance.Register<IInputListenerService>(new InputListenerService());

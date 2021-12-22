@@ -23,6 +23,7 @@ namespace GameNameSpace
 				Alpha = 0.5f,
 				Layer = 0.4f
 			};
+
 			MaxForkBlob = 23;
 			Body = new InvisibleBody(position);
 			InitialPosition = position;
@@ -65,7 +66,9 @@ namespace GameNameSpace
 				sortedList.Add(rand.Next(), factoryService.DecorateEntrance(new TweenMoveDecorator(new ForkBlobBrickGameObject(originOrigin, 0.9f), tween, origin, destination, rand.Next() * 5.0f, 0.0f), originOrigin, origin));
 			}
 
-			Services.Instance.Get<ISceneService>().CurrentScene.RegisterGameObjects(sortedList.Values);
+			Services.Instance.Get<ISceneService>().RegisterGameObjects(sortedList.Values);
+
+			Services.Instance.Get<ISceneService>().RegisterGameObject(new BlobWinTrigger());
 		}
 	}
 }

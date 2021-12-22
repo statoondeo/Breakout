@@ -49,7 +49,7 @@ namespace GameNameSpace
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Texture, GameObject.Body.Position + Offset, new Rectangle(SourcePosition, FrameSize), ColorMask, 0.0f, Vector2.Zero, InitialScale, SpriteEffects.None, Layer);
+			spriteBatch.Draw(Texture, GameObject.Body.Position + Offset, new Rectangle(SourcePosition, FrameSize), ColorMask, GameObject.Body.Angle, GameObject.Body.RotationOrigin, InitialScale, SpriteEffects.None, Layer);
 		}
 
 		public override void Draw(SpriteBatch spriteBatch, float alpha, float angle, float scale, Vector2 rotationOrigin)

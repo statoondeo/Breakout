@@ -5,14 +5,14 @@ namespace GameNameSpace
 	public class InScreenTransitionGameObject : TweenScreenTransitionGameObject
 	{
 		public InScreenTransitionGameObject(ICommand whenEndedCommand)
-			: base(Services.Instance.Get<ITweeningService>().Get(TweeningName.Linear), 0.03125f, ScreenTransitionDirection.Show, whenEndedCommand)
+			: base(Services.Instance.Get<ITweeningService>().Get(TweeningName.Linear), 0.250f, ScreenTransitionDirection.Show, whenEndedCommand)
 		{
 		}
 	}
 	public class OutScreenTransitionGameObject : TweenScreenTransitionGameObject
 	{
 		public OutScreenTransitionGameObject(ICommand whenEndedCommand)
-			: base(Services.Instance.Get<ITweeningService>().Get(TweeningName.Linear), 0.03125f, ScreenTransitionDirection.Hide, whenEndedCommand)
+			: base(Services.Instance.Get<ITweeningService>().Get(TweeningName.Linear), 0.250f, ScreenTransitionDirection.Hide, whenEndedCommand)
 		{
 		}
 	}

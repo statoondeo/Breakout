@@ -27,18 +27,24 @@ namespace GameNameSpace
 			RightTrailParticlesEmitter = new RacketTrailParticlesEmitter(this, (float)Math.PI / 4, new Vector2(123, 46));
 
 			texture = Services.Instance.Get<IAssetService>().GetTexture(TextureName.LaserGlow);
-			
-			HaloRenderable = new TextureRenderable(this, texture, 3.0f, 0.5f * (Size - 3.0f * (new Vector2(texture.Width, texture.Height))));
-			HaloRenderable.Alpha = 0.10f;
-			HaloRenderable.ColorMask = Color.LightGoldenrodYellow;
 
-			Reactor1Renderable = new TextureRenderable(this, texture, 0.5f, (new Vector2(-8, 46) - 0.5f * (new Vector2(texture.Width, texture.Height))) * 0.5f);
-			Reactor1Renderable.Alpha = 0.4f;
-			Reactor1Renderable.ColorMask = Color.OrangeRed;
+			HaloRenderable = new TextureRenderable(this, texture, 3.0f, 0.5f * (Size - 3.0f * (new Vector2(texture.Width, texture.Height))))
+			{
+				Alpha = 0.10f,
+				ColorMask = Color.LightGoldenrodYellow
+			};
 
-			Reactor2Renderable = new TextureRenderable(this, texture, 0.5f, new Vector2(123, 46) - 0.25f * (new Vector2(texture.Width, texture.Height)));
-			Reactor2Renderable.Alpha = 0.4f;
-			Reactor2Renderable.ColorMask = Color.OrangeRed;
+			Reactor1Renderable = new TextureRenderable(this, texture, 0.5f, (new Vector2(-8, 46) - 0.5f * (new Vector2(texture.Width, texture.Height))) * 0.5f)
+			{
+				Alpha = 0.4f,
+				ColorMask = Color.OrangeRed
+			};
+
+			Reactor2Renderable = new TextureRenderable(this, texture, 0.5f, new Vector2(123, 46) - 0.25f * (new Vector2(texture.Width, texture.Height)))
+			{
+				Alpha = 0.4f,
+				ColorMask = Color.OrangeRed
+			};
 		}
 
 		public override void Update(GameTime gameTime)

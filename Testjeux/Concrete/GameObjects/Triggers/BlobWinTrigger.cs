@@ -5,9 +5,8 @@ namespace GameNameSpace
 	public class BlobWinTrigger : BaseTriggerGameObject
 	{
 		public BlobWinTrigger()
-			: base(new LooseTriggerCommand(), false)
+			: base(new WinTriggerCommand(), false)
 		{
-			Status = GameObjectStatus.IDLE;
 		}
 
 		public override void Update(GameTime gameTime)

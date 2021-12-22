@@ -30,7 +30,6 @@ namespace GameNameSpace
 			Status = GameObjectStatus.ACTIVE;
 		}
 
-		//public override IBody Body => InnerBody;
 		public override GameObjectStatus Status { get; set; }
 
 		public override void Update(GameTime gameTime)

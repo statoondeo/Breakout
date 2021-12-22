@@ -21,10 +21,10 @@ namespace GameNameSpace
 			RegisterGameObject(new BigPanelGameObject());
 
 			//Titre de la scène
-			RegisterGameObject(new TextGameObject(new Vector2(95, 730), Vector2.Zero, Services.Instance.Get<IAssetService>().GetFont(FontName.BigTitle), "SPACE", Color.White, -(float)Math.PI / 2));
-			RegisterGameObject(new TextGameObject(new Vector2(260, 60), Vector2.Zero, Services.Instance.Get<IAssetService>().GetFont(FontName.GiantTitle), "BREA", Color.White));
-			RegisterGameObject(new TextGameObject(new Vector2(260, 250), Vector2.Zero, Services.Instance.Get<IAssetService>().GetFont(FontName.BigTitle), "KER", Color.White));
-			RegisterGameObject(new TextGameObject(new Vector2(260, 70), Vector2.Zero, Services.Instance.Get<IAssetService>().GetFont(FontName.Button), "Raphael DUCHOSSOY (gamecodeur.fr)", Color.White));
+			RegisterGameObject(new TextGameObject(new Vector2(95, 730), Services.Instance.Get<IAssetService>().GetFont(FontName.BigTitle), "SPACE", Color.White, -(float)Math.PI / 2));
+			RegisterGameObject(new TextGameObject(new Vector2(260, 60), Services.Instance.Get<IAssetService>().GetFont(FontName.GiantTitle), "BREA", Color.White));
+			RegisterGameObject(new TextGameObject(new Vector2(260, 250), Services.Instance.Get<IAssetService>().GetFont(FontName.BigTitle), "KER", Color.White));
+			RegisterGameObject(new TextGameObject(new Vector2(260, 70), Services.Instance.Get<IAssetService>().GetFont(FontName.Button), "Raphael DUCHOSSOY (gamecodeur.fr)", Color.White));
 
 
 			// Bouton pour démarrer le jeu

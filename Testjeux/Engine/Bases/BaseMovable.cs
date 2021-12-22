@@ -4,7 +4,7 @@ namespace GameNameSpace
 {
 	public abstract class BaseMovable : IMovable
 	{
-		protected IGameObject GameObject;
+		public IGameObject GameObject { get; set; }
 
 		protected BaseMovable(IGameObject gameObject)
 		{

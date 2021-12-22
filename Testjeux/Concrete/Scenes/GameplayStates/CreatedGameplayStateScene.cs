@@ -22,9 +22,9 @@ namespace GameNameSpace
 			Services.Instance.Get<IGameObjectFactoryService>().ResetTtl();
 
 			// Chargement du niveau
-			foreach (IGameObject gameObject in Services.Instance.Get<IGameObjectFactoryService>().CreateLevel(Services.Instance.Get<ILevelService>().GetLevel(GameplayScene.Level)))
+			foreach (IGameObject gameObject in Services.Instance.Get<IGameObjectFactoryService>().CreateLevel(Services.Instance.Get<ILevelService>().GetLevel((Container as GameplayScene).Level)))
 			{
-				GameplayScene.RegisterGameObject(gameObject);
+				(Container as IScene).RegisterGameObject(gameObject);
 			}
 
 			// Raquette du joueur
@@ -32,7 +32,7 @@ namespace GameNameSpace
 			Vector2 racketSize = new Vector2(racketTexture.Width, racketTexture.Height);
 			Vector2 origin = new Vector2((Screen.X - racketSize.X) / 2, -300);
 			Vector2 destination = new Vector2((Screen.X - racketSize.X) / 2, Screen.Y - 2 * racketSize.Y);
-			GameplayScene.RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(new RacketGameObject(Vector2.Zero), origin, destination));
+			(Container as IScene).RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(new RacketGameObject(Vector2.Zero), origin, destination));
 
 			Ttl = Services.Instance.Get<IGameObjectFactoryService>().MaxTtl;
 		}
@@ -43,7 +43,7 @@ namespace GameNameSpace
 			if (Ttl < 0)
 			{
 				// On change d'état : InitializedState
-				GameplayScene.GotoState(GameplayStateNames.Initialized);
+				Container.CurrentState = this.Transitions[0];
 			}
 		}
 	}

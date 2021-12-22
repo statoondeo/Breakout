@@ -15,7 +15,7 @@
 			base.Execute(gameObject, collisionResult);
 			if ((gameObject.Type == GameObjectType.BALL) || (gameObject.Type == GameObjectType.RACKET))
 			{
-				BrickGameObject brick = GameObject as BrickGameObject;
+				IBrickGameObject brick = GameObject as IBrickGameObject;
 				brick.Damage();
 				if (brick.Health <= 0)
 				{

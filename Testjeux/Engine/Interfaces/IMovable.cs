@@ -4,6 +4,7 @@ namespace GameNameSpace
 {
 	public interface IMovable
 	{
+		IGameObject GameObject { get; set; }
 		void Move(GameTime gameTime);
 	}
 }

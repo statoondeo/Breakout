@@ -10,6 +10,7 @@
 		{
 			Command = command;
 			Recurrent = recurrent;
+			Status = GameObjectStatus.IDLE;
 		}
 	}
 }
