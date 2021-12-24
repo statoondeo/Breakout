@@ -1,4 +1,8 @@
 {
+  "Music": 
+    {
+      "Type":  1
+    },
   "Backgrounds": [
     {
       "Type": 0,
@@ -16,19 +20,6 @@
     {
       "Type": 0,
       "Position": {
-        "X": 1280,
-        "Y": 0
-      },
-      "Velocity": {
-        "X": -3,
-        "Y": 0
-      },
-      "Texture": "Stars01",
-      "AngleSpeed": 0
-    },
-    {
-      "Type": 0,
-      "Position": {
         "X": 0,
         "Y": 0
       },
@@ -42,33 +33,7 @@
     {
       "Type": 0,
       "Position": {
-        "X": 1280,
-        "Y": 0
-      },
-      "Velocity": {
-        "X": -7,
-        "Y": 0
-      },
-      "Texture": "Stars02",
-      "AngleSpeed": 0
-    },
-    {
-      "Type": 0,
-      "Position": {
         "X": 0,
-        "Y": 0
-      },
-      "Velocity": {
-        "X": -15,
-        "Y": 0
-      },
-      "Texture": "Stars03",
-      "AngleSpeed": 0
-    },
-    {
-      "Type": 0,
-      "Position": {
-        "X": 1280,
         "Y": 0
       },
       "Velocity": {
@@ -87,6 +52,21 @@
     }
   ],
   "Bricks": [
+    {
+      "Type": 0,
+      "Position": {
+        "X": -50,
+        "Y": 800
+      },
+      "Size": {
+        "X": 1380,
+        "Y": 50
+      },
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
     {
       "Type": 0,
       "Position": {
@@ -256,7 +236,7 @@
       "Type": 3,
       "Position": {
         "X": 0,
-        "Y": 542
+        "Y": 550
       },
       "Size": null,
       "Center": null,
@@ -268,7 +248,7 @@
       "Type": 3,
       "Position": {
         "X": 64,
-        "Y": 545
+        "Y": 600
       },
       "Size": null,
       "Center": null,
@@ -280,7 +260,7 @@
       "Type": 3,
       "Position": {
         "X": 128,
-        "Y": 550
+        "Y": 625
       },
       "Size": null,
       "Center": null,
@@ -292,7 +272,7 @@
       "Type": 3,
       "Position": {
         "X": 1088,
-        "Y": 550
+        "Y": 625
       },
       "Size": null,
       "Center": null,
@@ -304,7 +284,7 @@
       "Type": 3,
       "Position": {
         "X": 1152,
-        "Y": 545
+        "Y": 600
       },
       "Size": null,
       "Center": null,
@@ -316,7 +296,7 @@
       "Type": 3,
       "Position": {
         "X": 1216,
-        "Y": 542
+        "Y": 550
       },
       "Size": null,
       "Center": null,
@@ -328,7 +308,7 @@
       "Type": 3,
       "Position": {
         "X": 416,
-        "Y": 378
+        "Y": 438
       },
       "Size": null,
       "Center": null,
@@ -340,7 +320,7 @@
       "Type": 3,
       "Position": {
         "X": 480,
-        "Y": 373
+        "Y": 398
       },
       "Size": null,
       "Center": null,
@@ -352,7 +332,7 @@
       "Type": 3,
       "Position": {
         "X": 544,
-        "Y": 370
+        "Y": 378
       },
       "Size": null,
       "Center": null,
@@ -376,7 +356,7 @@
       "Type": 3,
       "Position": {
         "X": 672,
-        "Y": 370
+        "Y": 378
       },
       "Size": null,
       "Center": null,
@@ -388,7 +368,7 @@
       "Type": 3,
       "Position": {
         "X": 736,
-        "Y": 373
+        "Y": 398
       },
       "Size": null,
       "Center": null,
@@ -400,7 +380,7 @@
       "Type": 3,
       "Position": {
         "X": 800,
-        "Y": 378
+        "Y": 418
       },
       "Size": null,
       "Center": null,

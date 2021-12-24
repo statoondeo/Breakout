@@ -12,11 +12,12 @@ namespace GameNameSpace
 		{
 			Step = 1;
 			Trigger2Command = new BrainShield2TriggerCommand();
+			int wobblerCount = Services.Instance.Get<ISceneService>().GetObjects(item => item is WobblerGameObject).Count;
 		}
 
 		public override void Update(GameTime gameTime)
 		{
-			int wobblerCount = Services.Instance.Get<ISceneService>().GetObjects(item => item is WobblerBrickGameObject).Count;
+			int wobblerCount = Services.Instance.Get<ISceneService>().GetObjects(item => item is WobblerGameObject).Count;
 			if ((Step == 1) && (wobblerCount == 1))
 			{
 				Step++;

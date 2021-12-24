@@ -12,9 +12,14 @@ namespace GameNameSpace
 			ObjectPool = new ObjectPool<ParticleGameObject>(capacity);
 		}
 
+		public void Reset()
+		{
+			ObjectPool.Reset();
+		}
+
 		public IGameObject Create(Texture2D texture, ITweening tweeningMove, Vector2 position, Vector2 velocity, float scale, float ttl, float angleSpeed, float initialAlpha, float angle, Vector2 rotationOrigin, Color maskColor)
 		{
-			ParticleGameObject particle = ObjectPool.Get();
+			IParticleGameObject particle = ObjectPool.Get();
 			particle.Init(texture, tweeningMove, position, velocity, scale, ttl, angleSpeed, initialAlpha, angle, rotationOrigin);
 			particle.Renderable.ColorMask = maskColor;
 			return (particle);

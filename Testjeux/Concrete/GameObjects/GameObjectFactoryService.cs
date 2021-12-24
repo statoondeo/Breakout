@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 
 namespace GameNameSpace
 {
@@ -59,11 +60,24 @@ namespace GameNameSpace
 			return (gameObject);
 		}
 
+		public Song CreateMusic(ParsedMusic music)
+		{
+			Song song = music.Type switch
+			{
+				0 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.SpaceUtopia),
+				1 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.SpaceDifficulties),
+				2 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.SwampChase),
+				3 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.SubterraneanMonster),
+				_ => null,
+			};
+			return (song);
+		}
+
 		public IGameObject CreateBackground(ParsedBackground background)
 		{
 			IGameObject gameObject = background.Type switch
 			{
-				0 => new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), ConvertToVector2(background.Velocity), ConvertToVector2(background.Position)),
+				0 => new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), ConvertToVector2(background.Velocity)),
 				1 => new RotatingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), background.AngleSpeed),
 				_ => null,
 			};
@@ -84,7 +98,7 @@ namespace GameNameSpace
 					// Wobbler
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new WobblerBrickGameObject(Vector2.Zero, 1.0f), origin, destination);
+					gameObject = DecorateEntrance(new WobblerGameObject(Vector2.Zero, 1.0f), origin, destination);
 					break;
 				case 2:
 					// Atoms
@@ -96,13 +110,13 @@ namespace GameNameSpace
 					// Rocks
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new RockWallGameObject(Vector2.Zero), origin, destination);
+					gameObject = DecorateEntrance(new CubeGameObject(Vector2.Zero), origin, destination);
 					break;
 				case 4:
 					// Brain
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new BrainBrickGameObject(Vector2.Zero, 1.0f), origin, destination);
+					gameObject = DecorateEntrance(new BrainGameObject(Vector2.Zero, 1.0f), origin, destination);
 					break;
 				case 5:
 					// Snake

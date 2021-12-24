@@ -1,66 +1,79 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace GameNameSpace
 {
 	public class AssetService : IAssetService
     {
+        // Stockage des ressources
         protected IDictionary<TextureName, Texture2D> TexturesDictionary;
+        protected IDictionary<SoundName, SoundEffect> SoundsDictionary;
+        protected IDictionary<MusicName, Song> MusicsDictionary;
         protected IDictionary<FontName, SpriteFont> FontsDictionary;
 
         public AssetService() 
         {
             TexturesDictionary = new Dictionary<TextureName, Texture2D>();
+            SoundsDictionary = new Dictionary<SoundName, SoundEffect>();
+            MusicsDictionary = new Dictionary<MusicName, Song>();
             FontsDictionary = new Dictionary<FontName, SpriteFont>();
         }
+
         public Texture2D GetTexture(TextureName name)
 		{
             return (TexturesDictionary[name]);
 		}
 
+        public SoundEffect GetSound(SoundName name)
+        {
+            return (SoundsDictionary[name]);
+        }
+        public Song GetMusic(MusicName name)
+        {
+            return (MusicsDictionary[name]);
+        }
+
         public SpriteFont GetFont(FontName name)
-		{
+        {
             return (FontsDictionary[name]);
         }
 
         public void Load(ContentManager content, GraphicsDevice graphicDevice)
 		{
-            FontsDictionary.Add(FontName.GiantTitle, content.Load<SpriteFont>("Neuropol1XX"));
-            FontsDictionary.Add(FontName.BigTitle, content.Load<SpriteFont>("Neuropol106"));
-            FontsDictionary.Add(FontName.Title, content.Load<SpriteFont>("Neuropol48"));
-            FontsDictionary.Add(FontName.Button, content.Load<SpriteFont>("Neuropol24"));
+            // Chargement des fonts
+            foreach (FontName fontName in (FontName[])Enum.GetValues(typeof(FontName)))
+            {
+                FontsDictionary.Add(fontName, content.Load<SpriteFont>("Fonts/" + fontName.ToString()));
+            }
 
-            TexturesDictionary.Add(TextureName.Blob, content.Load<Texture2D>("blob"));
-            TexturesDictionary.Add(TextureName.RedSpark, content.Load<Texture2D>("redspark"));
-            TexturesDictionary.Add(TextureName.BlueSpark, content.Load<Texture2D>("bluespark"));
-            TexturesDictionary.Add(TextureName.GreenSpark, content.Load<Texture2D>("greenspark"));
-            TexturesDictionary.Add(TextureName.PurpleSpark, content.Load<Texture2D>("purplespark"));
-            TexturesDictionary.Add(TextureName.RedBullet, content.Load<Texture2D>("redbullet"));
-            TexturesDictionary.Add(TextureName.Stars01, content.Load<Texture2D>("stars01"));
-            TexturesDictionary.Add(TextureName.Stars02, content.Load<Texture2D>("stars02"));
-            TexturesDictionary.Add(TextureName.Stars03, content.Load<Texture2D>("stars03"));
-            TexturesDictionary.Add(TextureName.Gas0, content.Load<Texture2D>("gas0"));
-            TexturesDictionary.Add(TextureName.Gas1, content.Load<Texture2D>("gas1"));
-            TexturesDictionary.Add(TextureName.Gas2, content.Load<Texture2D>("gas2"));
-            TexturesDictionary.Add(TextureName.Gas3, content.Load<Texture2D>("gas3"));
-            TexturesDictionary.Add(TextureName.Platform, content.Load<Texture2D>("platform"));
-            TexturesDictionary.Add(TextureName.LaserGlow, content.Load<Texture2D>("laser_glow"));
-            TexturesDictionary.Add(TextureName.Atom, content.Load<Texture2D>("atom"));
-            TexturesDictionary.Add(TextureName.Wobbler, content.Load<Texture2D>("wobbler"));
-            TexturesDictionary.Add(TextureName.Brain, content.Load<Texture2D>("brain"));
-            TexturesDictionary.Add(TextureName.Shield, content.Load<Texture2D>("shield"));
-            TexturesDictionary.Add(TextureName.Rocks, content.Load<Texture2D>("rocks"));
-            TexturesDictionary.Add(TextureName.Thrust, content.Load<Texture2D>("thrust"));
-            TexturesDictionary.Add(TextureName.BigPanel, content.Load<Texture2D>("bigPanel"));
-            TexturesDictionary.Add(TextureName.Button, content.Load<Texture2D>("button"));
-            TexturesDictionary.Add(TextureName.SerpentBody, content.Load<Texture2D>("serpentbody"));
-            TexturesDictionary.Add(TextureName.SerpentHead, content.Load<Texture2D>("serpenthead"));
-            TexturesDictionary.Add(TextureName.SerpentRear, content.Load<Texture2D>("serpentrear"));
-            TexturesDictionary.Add(TextureName.PurpleLaser, content.Load<Texture2D>("purplelaser"));
+            // Chargement des sons
+            foreach (SoundName soundName in (SoundName[])Enum.GetValues(typeof(SoundName)))
+            {
+                SoundsDictionary.Add(soundName, content.Load<SoundEffect>("Sounds/" + soundName.ToString()));
+            }
 
+            // Chargement des musics
+            foreach (MusicName musicName in (MusicName[])Enum.GetValues(typeof(MusicName)))
+            {
+                MusicsDictionary.Add(musicName, content.Load<Song>("Musics/" + musicName.ToString()));
+            }
+
+            // Chargement des textures
+            foreach (TextureName textureName in (TextureName[])Enum.GetValues(typeof(TextureName)))
+            {
+                if (textureName != TextureName.Drawable)
+                {
+                    TexturesDictionary.Add(textureName, content.Load<Texture2D>("Textures/" + textureName.ToString()));
+                }
+            }
+
+            // Texture manuelle pour les collideBox
             Texture2D DrawableTexture = new Texture2D(graphicDevice, 1, 1, false, SurfaceFormat.Color);
             DrawableTexture.SetData(Enumerable.Repeat(Color.White, 1).ToArray());
             TexturesDictionary.Add(TextureName.Drawable, DrawableTexture);
@@ -68,8 +81,15 @@ namespace GameNameSpace
 
         public void UnLoad()
 		{
-			foreach (KeyValuePair<TextureName, Texture2D> kvp in TexturesDictionary)
-			{
+            // Libération des textures
+            foreach (KeyValuePair<TextureName, Texture2D> kvp in TexturesDictionary)
+            {
+                kvp.Value.Dispose();
+            }
+
+            // Libération des sons
+            foreach (KeyValuePair<SoundName, SoundEffect> kvp in SoundsDictionary)
+            {
                 kvp.Value.Dispose();
             }
         }

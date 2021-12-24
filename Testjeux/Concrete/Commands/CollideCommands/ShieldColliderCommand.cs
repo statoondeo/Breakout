@@ -25,6 +25,7 @@ namespace GameNameSpace
 				BallGameObject ball = gameObject as BallGameObject;
 				Vector2 velocity = Vector2.Normalize(ball.Body.Velocity);
 				ball.Body.Velocity = velocity * ball.Speed;
+				(GameObject as IBrickGameObject).Damage();
 			}
 		}
 	}

@@ -6,6 +6,7 @@
 		ElasticOut,
 		Linear,
 		QuintIn,
-		QuintOut
+		QuintOut,
+		QuintInOutTweening
 	}
 }

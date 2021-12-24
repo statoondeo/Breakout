@@ -1,4 +1,7 @@
 {
+  "Music": {
+    "Type": 2
+  },
   "Backgrounds": [
     {
       "Type": 0,
@@ -16,19 +19,6 @@
     {
       "Type": 0,
       "Position": {
-        "X": 1280,
-        "Y": 0
-      },
-      "Velocity": {
-        "X": -3,
-        "Y": 0
-      },
-      "Texture": "Stars01",
-      "AngleSpeed": 0
-    },
-    {
-      "Type": 0,
-      "Position": {
         "X": 0,
         "Y": 0
       },
@@ -42,33 +32,7 @@
     {
       "Type": 0,
       "Position": {
-        "X": 1280,
-        "Y": 0
-      },
-      "Velocity": {
-        "X": -7,
-        "Y": 0
-      },
-      "Texture": "Stars02",
-      "AngleSpeed": 0
-    },
-    {
-      "Type": 0,
-      "Position": {
         "X": 0,
-        "Y": 0
-      },
-      "Velocity": {
-        "X": -15,
-        "Y": 0
-      },
-      "Texture": "Stars03",
-      "AngleSpeed": 0
-    },
-    {
-      "Type": 0,
-      "Position": {
-        "X": 1280,
         "Y": 0
       },
       "Velocity": {
@@ -135,7 +99,7 @@
     {
       "Type": 3,
       "Position": {
-        "X": 448,
+        "X": 248,
         "Y": 234
       },
       "Size": null,
@@ -147,7 +111,7 @@
     {
       "Type": 3,
       "Position": {
-        "X": 768,
+        "X": 968,
         "Y": 234
       },
       "Size": null,
@@ -159,8 +123,20 @@
     {
       "Type": 3,
       "Position": {
-        "X": 608,
-        "Y": 74
+        "X": 508,
+        "Y": 374
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 708,
+        "Y": 374
       },
       "Size": null,
       "Center": null,

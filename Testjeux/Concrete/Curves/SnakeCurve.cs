@@ -73,7 +73,6 @@ namespace GameNameSpace
 			pt8 = new Vector2(MaxWidth * 1.5f, MinHeight);
 
 			// Calculs des trajectoires unitaires
-			IRandomService rand = Services.Instance.Get<IRandomService>();
 			Curve0 = new BezierCurve(DefaultTtl, pt8, pt0, pt1);
 			Curve1 = new BezierCurve(DefaultTtl, pt1, pt2, pt3);
 			Curve2 = new BezierCurve(DefaultTtl, pt3, pt7, pt4);

@@ -65,6 +65,9 @@ namespace GameNameSpace
 				case SceneType.MENU:
 					CurrentScene = new MenuScene();
 					break;
+				case SceneType.SELECTION:
+					CurrentScene = new SelectionScene();
+					break;
 				case SceneType.GAMEPLAY:
 					if (levelNumber > Services.Instance.Get<ILevelService>().MaxLevel)
 					{

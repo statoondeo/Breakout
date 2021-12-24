@@ -8,9 +8,9 @@ namespace GameNameSpace
 		protected static readonly float Scale = 2.0f;
 		protected static readonly float BodySizeFactor = 0.5f;
 
-		protected IParticlesEmitter TrailParticlesEmitter;
-		protected IParticlesEmitter BallExplosionParticlesEmitter;
-		protected IRenderable HaloRenderable;
+		protected readonly IParticlesEmitter TrailParticlesEmitter;
+		protected readonly IParticlesEmitter BallExplosionParticlesEmitter;
+		protected readonly IGameObject BallHalo;
 
 		public bool Exploded { get; set; }
 
@@ -28,16 +28,14 @@ namespace GameNameSpace
 			TrailParticlesEmitter = new BallTrailParticlesEmitter(this, Services.Instance.Get<IShapeService>().CropTexture(Services.Instance.Get<IAssetService>().GetTexture(TextureName.RedBullet), new Rectangle(new Point(224, 0), new Point(32))));
 			BallExplosionParticlesEmitter = new BallExplosionParticlesEmitter(this, Services.Instance.Get<IAssetService>().GetTexture(TextureName.RedSpark), 25);
 			Exploded = false;
-			Texture2D texture = Services.Instance.Get<IAssetService>().GetTexture(TextureName.LaserGlow);
-			HaloRenderable = new TextureRenderable(this, texture, 1.0f, 0.5f * (new Vector2(64) - (new Vector2(texture.Width, texture.Height))))
-			{
-				Alpha = 0.1f,
-				ColorMask = Color.OrangeRed
-			};
+
+			BallHalo = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.OrangeRed, 0.15f, 1.0f));
+			BallHalo.Renderable.Alpha = 0.1f;
 		}
 
 		public override void Update(GameTime gameTime)
 		{
+			BallHalo.Body.MoveTo(Body.Position + new Vector2(32));
 			base.Update(gameTime);
 			TrailParticlesEmitter.Emit(gameTime);
 			if (Exploded)
@@ -45,12 +43,6 @@ namespace GameNameSpace
 				BallExplosionParticlesEmitter.Emit();
 				Status = GameObjectStatus.OUTDATED;
 			}
-		}
-
-		public override void Draw(SpriteBatch spriteBatch)
-		{
-			HaloRenderable.Draw(spriteBatch);
-			base.Draw(spriteBatch);
 		}
 	}
 }

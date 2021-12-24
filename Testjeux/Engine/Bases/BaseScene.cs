@@ -32,12 +32,11 @@ namespace GameNameSpace
 
 		public virtual void Load(ICommand commandWhenLoaded) 
 		{
-			RegisterGameObject(new DummyScreenTransition(new CompositeCommand(commandWhenLoaded, new ResetTransitionRequiredCommand())));
+			Services.Instance.Get<IParticlesService>().Reset();
 		}
 
 		public virtual void UnLoad(ICommand commandWhenUnloaded) 
 		{
-			RegisterGameObject(new DummyScreenTransition(new CompositeCommand(commandWhenUnloaded, new ResetTransitionRequiredCommand())));
 		}
 
 		public IGameObject GetObject(Func<IGameObject, bool> predicate)

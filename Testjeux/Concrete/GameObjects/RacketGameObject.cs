@@ -4,15 +4,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-	public class RacketGameObject : BaseGameObject
+	public sealed class RacketGameObject : BaseGameObject
 	{
-		protected IParticlesEmitter LeftTrailParticlesEmitter;
-		protected IParticlesEmitter RightTrailParticlesEmitter;
-		protected IRenderable HaloRenderable;
-		protected IRenderable Reactor1Renderable;
-		protected IRenderable Reactor2Renderable;
+		private readonly IParticlesEmitter LeftTrailParticlesEmitter;
+		private readonly IParticlesEmitter RightTrailParticlesEmitter;
+		private readonly IGameObject HaloRenderable;
+		private readonly IGameObject Reactor1Renderable;
+		private readonly IGameObject Reactor2Renderable;
 
-		public Vector2 Size { get; protected set; }
+		public Vector2 Size { get; private set; }
 
 		public RacketGameObject(Vector2 position)
 			: base()
@@ -23,43 +23,28 @@ namespace GameNameSpace
 			Movable = new RacketMouseMovable(this);
 			Body = new RacketBody(position, Size, new RacketColliderCommand(this, new DummyParticlesEmitter()));
 			Renderable = new TextureRenderable(this, texture, 1.0f, Vector2.Zero);
+
 			LeftTrailParticlesEmitter = new RacketTrailParticlesEmitter(this, 3 * (float)Math.PI / 4, new Vector2(-8, 46));
-			RightTrailParticlesEmitter = new RacketTrailParticlesEmitter(this, (float)Math.PI / 4, new Vector2(123, 46));
+			RightTrailParticlesEmitter = new RacketTrailParticlesEmitter(this, (float)Math.PI / 4, new Vector2(128, 46));
 
-			texture = Services.Instance.Get<IAssetService>().GetTexture(TextureName.LaserGlow);
+			HaloRenderable = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.White, 0.1f));
+			HaloRenderable.Renderable.Alpha = 0.1f;
 
-			HaloRenderable = new TextureRenderable(this, texture, 3.0f, 0.5f * (Size - 3.0f * (new Vector2(texture.Width, texture.Height))))
-			{
-				Alpha = 0.10f,
-				ColorMask = Color.LightGoldenrodYellow
-			};
+			Reactor1Renderable = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.OrangeRed, 0.2f, 0.5f));
+			Reactor1Renderable.Renderable.Alpha = 0.25f;
 
-			Reactor1Renderable = new TextureRenderable(this, texture, 0.5f, (new Vector2(-8, 46) - 0.5f * (new Vector2(texture.Width, texture.Height))) * 0.5f)
-			{
-				Alpha = 0.4f,
-				ColorMask = Color.OrangeRed
-			};
-
-			Reactor2Renderable = new TextureRenderable(this, texture, 0.5f, new Vector2(123, 46) - 0.25f * (new Vector2(texture.Width, texture.Height)))
-			{
-				Alpha = 0.4f,
-				ColorMask = Color.OrangeRed
-			};
+			Reactor2Renderable = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.OrangeRed, -0.2f, 0.5f));
+			Reactor2Renderable.Renderable.Alpha = 0.25f;
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
+			HaloRenderable.Body.MoveTo(Body.Position + Size * 0.5f);
+			Reactor1Renderable.Body.MoveTo(Body.Position + new Vector2(10, 26));
+			Reactor2Renderable.Body.MoveTo(Body.Position + new Vector2(110, 26));
 			LeftTrailParticlesEmitter.Emit(gameTime);
 			RightTrailParticlesEmitter.Emit(gameTime);
-		}
-
-		public override void Draw(SpriteBatch spriteBatch)
-		{
-			HaloRenderable.Draw(spriteBatch);
-			Reactor1Renderable.Draw(spriteBatch);
-			Reactor2Renderable.Draw(spriteBatch);
-			base.Draw(spriteBatch);
 		}
 	}
 }

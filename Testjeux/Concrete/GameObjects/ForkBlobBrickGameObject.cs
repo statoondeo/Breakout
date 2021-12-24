@@ -10,5 +10,11 @@ namespace GameNameSpace
 			Body = new BrickBody(position, 64 * 0.5f * scale * 1.0f, new BrickColliderCommand(this, new CompositeParticulesEmitter(this, new BrickExplosionParticlesEmitter(this, Services.Instance.Get<IAssetService>().GetTexture(TextureName.GreenSpark), 25), new BlobExplosionParticlesEmitter(this))));
 			Renderable = new BlobAnimatedTextureRenderable(this, scale);
 		}
+
+		public override void Damage()
+		{
+			base.Damage();
+			Services.Instance.Get<IAssetService>().GetSound(SoundName.Blob2).Play();
+		}
 	}
 }

@@ -1,4 +1,7 @@
 {
+  "Music": {
+    "Type": 3
+  },
   "Backgrounds": [
     {
       "Type": 0,
@@ -16,19 +19,6 @@
     {
       "Type": 0,
       "Position": {
-        "X": 1280,
-        "Y": 0
-      },
-      "Velocity": {
-        "X": -3,
-        "Y": 0
-      },
-      "Texture": "Stars01",
-      "AngleSpeed": 0
-    },
-    {
-      "Type": 0,
-      "Position": {
         "X": 0,
         "Y": 0
       },
@@ -42,33 +32,7 @@
     {
       "Type": 0,
       "Position": {
-        "X": 1280,
-        "Y": 0
-      },
-      "Velocity": {
-        "X": -7,
-        "Y": 0
-      },
-      "Texture": "Stars02",
-      "AngleSpeed": 0
-    },
-    {
-      "Type": 0,
-      "Position": {
         "X": 0,
-        "Y": 0
-      },
-      "Velocity": {
-        "X": -15,
-        "Y": 0
-      },
-      "Texture": "Stars03",
-      "AngleSpeed": 0
-    },
-    {
-      "Type": 0,
-      "Position": {
-        "X": 1280,
         "Y": 0
       },
       "Velocity": {

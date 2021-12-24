@@ -17,6 +17,8 @@ namespace GameNameSpace
 
 		public override void Load(ICommand commandWhenLoaded)
 		{
+			base.Load(commandWhenLoaded);
+
 			RegisterGameObject(new BackgroundGameObject(Services.Instance.Get<IShapeService>().CreateTexture(Services.Instance.Get<IScreenService>().GetScreenSize(), Color.LightGray)));
 
 			Point screen = Services.Instance.Get<IScreenService>().GetScreenSize();

@@ -8,6 +8,7 @@
 		{
 			LevelPathes.Add(1, "Breakout.Concrete.Levels.level1.json");
 			LevelPathes.Add(2, "Breakout.Concrete.Levels.level2.json");
+			LevelPathes.Add(3, "Breakout.Concrete.Levels.level3.json");
 		}
 	}
 }

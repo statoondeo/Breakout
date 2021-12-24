@@ -16,6 +16,8 @@ namespace GameNameSpace
 
 		public override void Load(ICommand commandWhenLoaded)
 		{
+			base.Load(commandWhenLoaded);
+
 			RegisterGameObject(new BackgroundGameObject(Services.Instance.Get<IShapeService>().CreateTexture(Services.Instance.Get<IScreenService>().GetScreenSize(), Color.LightGray)));
 
 			Point screen = Services.Instance.Get<IScreenService>().GetScreenSize();
@@ -25,7 +27,6 @@ namespace GameNameSpace
 			// Titre de la scène
 			RegisterGameObject(new TextGameObject(new Vector2((screen.X - textSize.X) / 2, (screen.Y - textSize.Y) / 4), spriteFont, TITLE, Color.Black));
 			RegisterGameObject(new InScreenTransitionGameObject(new CompositeCommand(commandWhenLoaded, new ResetTransitionRequiredCommand())));
-
 		}
 
 		public override void UnLoad(ICommand commandWhenUnloaded)

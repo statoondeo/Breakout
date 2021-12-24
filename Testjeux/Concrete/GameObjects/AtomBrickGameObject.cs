@@ -10,5 +10,14 @@ namespace GameNameSpace
 			Movable = new RotationMovable(this, center, radius, currentAngle, angleSpeed);
 			Renderable = new AtomAnimatedTextureRenderable(this, scale);
 		}
+
+		public override void Damage()
+		{
+			base.Damage();
+			if (Health <= 0)
+			{
+				Services.Instance.Get<IAssetService>().GetSound(SoundName.Explosion2).Play();
+			}
+		}
 	}
 }

@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
@@ -16,20 +15,6 @@ namespace GameNameSpace
 			Force = Vector2.Zero;
 			Angle = 0.0f;
 		}
-
-		//public override string ToString()
-		//{
-		//	StringBuilder sb = new StringBuilder();
-		//	sb.AppendLine("Body =>");
-		//	sb.AppendLine("\tPosition=" + Position.ToString());
-		//	sb.AppendLine("\tVelocity=" + Velocity.ToString());
-		//	sb.AppendLine("\tForce=" + Force.ToString());
-		//	sb.AppendLine("\tRestitution=" + Restitution.ToString());
-		//	sb.AppendLine("\tIsStatic=" + IsStatic.ToString());
-		//	sb.AppendLine("\tAngle=" + Angle.ToString());
-		//	sb.AppendLine("\tRotationOrigin=" + RotationOrigin.ToString());
-		//	return (sb.ToString());
-		//}
 
 		public virtual Vector2 Force { get; set; }
 		public virtual Vector2 Position { get; protected set; }

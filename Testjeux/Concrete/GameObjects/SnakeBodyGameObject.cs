@@ -42,6 +42,7 @@ namespace GameNameSpace
 		{
 			base.Damage();
 			Health++;
+			Services.Instance.Get<IAssetService>().GetSound(SoundName.Metal).Play();
 		}
 
 		public override void Update(GameTime gameTime)

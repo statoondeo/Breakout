@@ -22,6 +22,14 @@ namespace GameNameSpace
 			CurrentIndex = 0;
 		}
 
+		public void Reset()
+		{
+			foreach(T item in GameObjects)
+			{
+				(item as IGameObject).Status = GameObjectStatus.OUTDATED;
+			}
+		}
+
 		public T Get()
 		{
 			int read = 0;

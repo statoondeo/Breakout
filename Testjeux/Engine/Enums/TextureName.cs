@@ -3,9 +3,10 @@
 	public enum TextureName
 	{
         Drawable,
+        Card,
         Thrust,
         RedBullet,
-        Rocks,
+        Cube,
         Brain,
         Shield,
         LaserGlow,

@@ -4,13 +4,13 @@ namespace GameNameSpace
 {
 	public class SnakeHeadRenderable : AnimatedTextureRenderable
 	{
-		public SnakeHeadRenderable(IGameObject gameObject)
+		public SnakeHeadRenderable(IGameObject gameObject, float scale = 1.0f)
 			: base(
 				  gameObject,
 				  Services.Instance.Get<IAssetService>().GetTexture(TextureName.SerpentHead),
 				  new Vector2(32.0f),
 				  new Point(64),
-				  1.0f,
+				  scale,
 				  new TextureAnimation(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, 0.05f, true))
 		{ }
 	}

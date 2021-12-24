@@ -3,34 +3,30 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-	public sealed class HaloGameObject : IGameObject
+	public sealed class HaloGameObject : BaseGameObject
 	{
-		public HaloGameObject(Color colorMask)
+		private readonly float AngleSpeed;
+
+		public HaloGameObject(Color colorMask, float angleSpeed = 0.0f, float scale = 1.0f)
+			: base()
 		{
+			AngleSpeed = angleSpeed;
 			Texture2D texture = Services.Instance.Get<IAssetService>().GetTexture(TextureName.LaserGlow);
-			Renderable = new TextureRenderable(this, texture, 1.0f, new Vector2(texture.Width, texture.Height) * -0.5f)
+			Renderable = new TextureRenderable(this, texture, scale, Vector2.Zero)
 			{
 				ColorMask = colorMask,
 				Layer = 0.4f
 			};
-			Body = new InvisibleBody(Vector2.Zero);
+			Body = new InvisibleBody(Vector2.Zero)
+			{
+				RotationOrigin = texture.Bounds.Size.ToVector2() * 0.5f
+			};
 		}
 
-		public GameObjectStatus Status { get; set; }
-
-		public GameObjectType Type => GameObjectType.NONE;
-
-		public IMovable Movable { get; set; }
-		public IBody Body { get; set; }
-		public IRenderable Renderable { get; set; }
-
-		public void Draw(SpriteBatch spriteBatch)
+		public override void Update(GameTime gameTime)
 		{
-			Renderable.Draw(spriteBatch);
-		}
-
-		public void Update(GameTime gameTime)
-		{
+			base.Update(gameTime);
+			Body.Angle += (float)gameTime.ElapsedGameTime.TotalSeconds * AngleSpeed;
 		}
 	}
 }

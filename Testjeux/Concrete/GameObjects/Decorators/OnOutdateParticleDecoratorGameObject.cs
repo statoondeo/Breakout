@@ -15,7 +15,7 @@ namespace GameNameSpace
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
-			(DecoratedGameObject as ParticleGameObject).CurrentAlpha = 1.0f;
+			(DecoratedGameObject as IParticleGameObject).CurrentAlpha = 1.0f;
 			if (DecoratedGameObject.Status == GameObjectStatus.OUTDATED)
 			{
 				CommandWhenOudate.Execute();

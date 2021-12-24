@@ -14,6 +14,7 @@
 		{
 			if (Services.Instance.Get<IInputListenerService>().IsLeftClick())
 			{
+				Services.Instance.Get<IAssetService>().GetSound(SoundName.Click).Play();
 				Command.Execute();
 			}
 		}

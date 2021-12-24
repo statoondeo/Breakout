@@ -5,6 +5,7 @@
 		GiantTitle,
 		BigTitle,
 		Title,
+		Base,
 		Button
 	}
 }

@@ -6,5 +6,7 @@ namespace GameNameSpace
 	{
 		IList<IStateItem> Transitions { get; }
 		IStateContainer Container { get; }
+		void Enter();
+		void Exit();
 	}
 }

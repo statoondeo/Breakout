@@ -14,9 +14,8 @@ namespace GameNameSpace
 				Vector2 center = shield.Body.Position + ShieldBrickGameObject.TextureSize * ShieldBrickGameObject.BodySizeFactor * shield.Renderable.Scale * 0.25f;
 				IRandomService rand = Services.Instance.Get<IRandomService>();
 				Texture2D texture = Services.Instance.Get<IAssetService>().GetTexture(TextureName.LaserGlow);
-				Vector2 textureSize = new Vector2(texture.Width, texture.Height);
 				Vector2 position = shield.Body.Position + ShieldBrickGameObject.TextureSize * ShieldBrickGameObject.BodySizeFactor * shield.Renderable.Scale * 0.25f;
-				if (Services.Instance.Get<ISceneService>().GetObjects(item => item is WobblerBrickGameObject && item.Status == GameObjectStatus.ACTIVE).Count == 0)
+				if (Services.Instance.Get<ISceneService>().GetObjects(item => item is WobblerGameObject && item.Status == GameObjectStatus.ACTIVE).Count == 0)
 				{
 					for (int i = 1; i <= 5; i++)
 					{
@@ -27,9 +26,9 @@ namespace GameNameSpace
 					shield.Status = GameObjectStatus.OUTDATED;
 
 					// On change l'animation du méchant
-					BrainBrickGameObject brain = Services.Instance.Get<ISceneService>().GetObject(item => item is BrainBrickGameObject) as BrainBrickGameObject;
-					brain.HaloActivated = true;
-					(brain.Renderable as AnimatedTextureRenderable).ChangeAnimation(new TextureAnimation(new int[] { 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 }, 0.05f, true));
+					BrainGameObject brain = Services.Instance.Get<ISceneService>().GetObject(item => item is BrainGameObject) as BrainGameObject;
+					IStateContainer container = brain as IStateContainer;
+					container.CurrentState = container.CurrentState.Transitions[0];
 				}
 			}
 		}

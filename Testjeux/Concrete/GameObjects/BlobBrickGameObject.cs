@@ -19,6 +19,12 @@ namespace GameNameSpace
 			CurrentTtl = Ttl = 3.0f;
 		}
 
+		public override void Damage()
+		{
+			base.Damage();
+			Services.Instance.Get<IAssetService>().GetSound(SoundName.Blob1).Play();
+		}
+
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);

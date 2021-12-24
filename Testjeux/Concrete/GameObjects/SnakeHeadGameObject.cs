@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
@@ -16,7 +15,8 @@ namespace GameNameSpace
 		private int NumberOfBodies;
 		private readonly CircularArray<Vector2> TailPositions;
 		private readonly IParticlesEmitter TrailParticlesEmitter;
-		private readonly IGameObject Halo;
+		private readonly IGameObject Halo1;
+		private readonly IGameObject Halo2;
 
 		public IList<IGameObject> Bodies { get; private set; }
 		public IGameObject Tail { get; private set; }
@@ -41,9 +41,14 @@ namespace GameNameSpace
 			Bodies = new List<IGameObject>();
 			TailPositions = new CircularArray<Vector2>((int)Math.Ceiling((MaxNumberOfBodies + 2) * Ttl * 60));
 			TrailParticlesEmitter = new SnakeTrailParticlesEmitter(this, 0.25f);
-			Halo = new HaloGameObject(Color.DeepPink);
-			Halo.Renderable.Offset += new Vector2(32 * 0.8f);
-			Halo.Renderable.Alpha = 0.5f;
+
+			Halo1 = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.DeepPink, 0.1f, 1.0f));
+			Halo1.Renderable.Offset += new Vector2(32 * 0.8f);
+			Halo1.Renderable.Alpha = 0.3f;
+
+			Halo2 = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.DeepPink, -0.2f, 0.8f));
+			Halo2.Renderable.Offset += new Vector2(32 * 0.8f * 0.8f);
+			Halo2.Renderable.Alpha = 0.5f;
 
 			Services.Instance.Get<ISceneService>().RegisterGameObject(new SnakeWinTrigger());
 		}
@@ -63,7 +68,8 @@ namespace GameNameSpace
 		{
 			PreviousPosition = Body.Position;
 			base.Update(gameTime);
-			Halo.Body.MoveTo(Body.Position);
+			Halo1.Body.MoveTo(Body.Position);
+			Halo2.Body.MoveTo(Body.Position);
 			TrailParticlesEmitter.Emit(gameTime);
 			TailPositions.Set(Body.Position);
 			Body.Angle = (float)Math.Atan2((double)(Body.Position.Y - PreviousPosition.Y), (double)(Body.Position.X - PreviousPosition.X));
@@ -92,12 +98,6 @@ namespace GameNameSpace
 				}
 			}
 			(Bodies as List<IGameObject>).RemoveAll(item => item.Status == GameObjectStatus.OUTDATED);
-		}
-
-		public override void Draw(SpriteBatch spriteBatch)
-		{
-			Halo.Draw(spriteBatch);
-			base.Draw(spriteBatch);
 		}
 	}
 }

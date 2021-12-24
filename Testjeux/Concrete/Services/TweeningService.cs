@@ -15,7 +15,8 @@ namespace GameNameSpace
 				{ TweeningName.ElasticOut, new ElasticOutTweening() },
 				{ TweeningName.Linear, new LinearTweening() },
 				{ TweeningName.QuintIn, new QuintInTweening() },
-				{ TweeningName.QuintOut, new QuintOutTweening() }
+				{ TweeningName.QuintOut, new QuintOutTweening() },
+				{ TweeningName.QuintInOutTweening, new QuintInOutTweening() }
 			};
 		}
 

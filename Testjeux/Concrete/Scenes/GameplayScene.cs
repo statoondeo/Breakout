@@ -1,11 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace GameNameSpace
 {
-	public class GameplayScene : BaseScene, IStateContainer
+	public sealed class GameplayScene : BaseScene, IStateContainer
 	{
-		protected IStateItem mCurrentState;
+		private IStateItem mCurrentState;
+		public Song Music { get; set; }
+
 		public IStateItem CurrentState 
 		{
 			get => mCurrentState;
@@ -19,18 +22,22 @@ namespace GameNameSpace
 
 		public int Life { get; set; }
 
-		public int Level { get; protected set; }
+		public int Level { get; private set; }
 
 		public override void Load(ICommand commandWhenLoaded)
 		{
 			Life = 2;
+			base.Load(commandWhenLoaded);
 			(CurrentState as IGameplayStateScene).Load();
+			MediaPlayer.IsRepeating = true;
+			MediaPlayer.Play(Music);
 			RegisterGameObject(new InScreenTransitionGameObject(new CompositeCommand(commandWhenLoaded, new ResetTransitionRequiredCommand())));
 		}
 
 		public override void UnLoad(ICommand commandWhenUnloaded)
 		{
 			RegisterGameObject(new OutScreenTransitionGameObject(new CompositeCommand(commandWhenUnloaded, new ResetTransitionRequiredCommand())));
+			MediaPlayer.Stop();
 		}
 
 		public GameplayScene(int level) 
@@ -38,9 +45,9 @@ namespace GameNameSpace
 		{
 			Level = level;
 
-			IStateItem createdState = new CreatedGameplayStateScene(this);
-			IStateItem InitializedState = new InitializedGameplayStateScene(this);
-			IStateItem startedState = new StartedGameplayStateScene(this);
+			IStateItem createdState = new GameplayCreatedState(this);
+			IStateItem InitializedState = new GameplayInitializedState(this);
+			IStateItem startedState = new GameplayStartedState(this);
 
 			createdState.Transitions.Add(InitializedState);
 			InitializedState.Transitions.Add(startedState);
