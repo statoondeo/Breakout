@@ -42,11 +42,15 @@ namespace GameNameSpace
 			TailPositions = new CircularArray<Vector2>((int)Math.Ceiling((MaxNumberOfBodies + 2) * Ttl * 60));
 			TrailParticlesEmitter = new SnakeTrailParticlesEmitter(this, 0.25f);
 
-			Halo1 = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.DeepPink, 0.1f, 1.0f));
+			Halo1 = new HaloGameObject(Color.DeepPink, 0.1f, 1.0f);
+			Halo1.Body.MoveTo(position);
+			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(Halo1, position, position));
 			Halo1.Renderable.Offset += new Vector2(32 * 0.8f);
 			Halo1.Renderable.Alpha = 0.3f;
 
-			Halo2 = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.DeepPink, -0.2f, 0.8f));
+			Halo2 = new HaloGameObject(Color.DeepPink, -0.2f, 0.8f);
+			Halo2.Body.MoveTo(position);
+			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(Halo2, position, position));
 			Halo2.Renderable.Offset += new Vector2(32 * 0.8f * 0.8f);
 			Halo2.Renderable.Alpha = 0.5f;
 

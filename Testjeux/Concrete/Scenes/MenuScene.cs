@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
@@ -12,7 +11,7 @@ namespace GameNameSpace
 		public MenuScene() 
 			: base() 
 		{
-			Music = Services.Instance.Get<IAssetService>().GetMusic(MusicName.SpaceUtopia);
+			Music = Services.Instance.Get<IAssetService>().GetMusic(MusicName.SpaceDifficulties);
 		}
 
 		public override void Load(ICommand commandWhenLoaded)
@@ -26,24 +25,39 @@ namespace GameNameSpace
 			RegisterGameObject(new RotatingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture(TextureName.Gas3), 0.01f));
 			RegisterGameObject(new BigPanelGameObject());
 
+			IGameObjectFactoryService factory = Services.Instance.Get<IGameObjectFactoryService>();
+
 			//Titre de la scène
 			SpriteFont font = Services.Instance.Get<IAssetService>().GetFont(FontName.GiantTitle);
 			Vector2 textSize = font.MeasureString("SPACE");
-			RegisterGameObject(new TextGameObject(new Vector2((screen.X - textSize.X) * 0.5f, 125), Services.Instance.Get<IAssetService>().GetFont(FontName.GiantTitle), "SPACE", Color.Silver));
+			Vector2 destination = new Vector2((screen.X - textSize.X) * 0.5f, 125);
+			Vector2 origin = new Vector2(destination.X, -800.0f);
+			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.GiantTitle), "SPACE", Color.Silver), origin, destination));
 
 			font = Services.Instance.Get<IAssetService>().GetFont(FontName.BigTitle);
 			textSize = font.MeasureString("BREAKER");
-			RegisterGameObject(new TextGameObject(new Vector2((screen.X - textSize.X) * 0.5f, 320), font, "BREAKER", Color.Silver));
+			destination = new Vector2((screen.X - textSize.X) * 0.5f, 320);
+			origin = new Vector2(destination.X, -800.0f);
+			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, font, "BREAKER", Color.Silver), origin, destination));
 
 			font = Services.Instance.Get<IAssetService>().GetFont(FontName.Button);
 			textSize = font.MeasureString("Raphael DUCHOSSOY (gamecodeur.fr)");
-			RegisterGameObject(new TextGameObject(new Vector2((screen.X - textSize.X) * 0.5f, 120), font, "Raphael DUCHOSSOY (gamecodeur.fr)", Color.Silver));
-
+			destination = new Vector2((screen.X - textSize.X) * 0.5f, 120);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, font, "Raphael DUCHOSSOY (gamecodeur.fr)", Color.Silver), origin, destination));
 
 			// Bouton pour démarrer le jeu
-			RegisterGameObject(new ButtonGameObject(new Vector2(900, 550), "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, 1)));
-			RegisterGameObject(new ButtonGameObject(new Vector2(900, 650), "Sélection", Color.Black, new SwitchSceneCommand(SceneType.SELECTION)));
-			RegisterGameObject(new ButtonGameObject(new Vector2(125, 650), "Quitter", Color.Black, new ExitGameCommand()));
+			destination = new Vector2(900, 550);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, 1)), origin, destination));
+
+			destination = new Vector2(900, 650);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Sélection", Color.Black, new SwitchSceneCommand(SceneType.SELECTION)), origin, destination));
+
+			destination = new Vector2(125, 650);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Quitter", Color.Black, new ExitGameCommand()), origin, destination));
 
 			// Ajout du curseur de souris
 			RegisterGameObject(new CursorGameObject());

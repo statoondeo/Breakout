@@ -13,7 +13,7 @@ namespace GameNameSpace
 		protected Vector2 OnScreenPosition;
 		protected float Ttl;
 
-		public GameplayInitializedState(GameplayScene gameplayScene)
+		public GameplayInitializedState(IStateContainer gameplayScene)
 			: base(gameplayScene)
 		{
 			string label = "Cliquez pour démarrer";

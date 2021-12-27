@@ -5,6 +5,7 @@
 		SpaceDifficulties,
 		SubterraneanMonster,
 		SwampChase,
+		BusyBeat,
 		SpaceUtopia
 	}
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
@@ -9,7 +10,7 @@ namespace GameNameSpace
 		private float Ttl;
 		private Point Screen;
 
-		public GameplayCreatedState(GameplayScene gameplayScene)
+		public GameplayCreatedState(IStateContainer gameplayScene)
 			: base(gameplayScene)
 		{
 			Ttl = 0;
@@ -24,6 +25,8 @@ namespace GameNameSpace
 			IGameObjectFactoryService factory = Services.Instance.Get<IGameObjectFactoryService>();
 			ParsedLevel level = Services.Instance.Get<ILevelService>().GetLevel((Container as GameplayScene).Level);
 			(Container as GameplayScene).Music = factory.CreateMusic(level.Music);
+			(Container as GameplayScene).VictoryText = level.Texts.FirstOrDefault(item => item.Type == 0).Text;
+			(Container as GameplayScene).DefeatText = level.Texts.FirstOrDefault(item => item.Type == 1).Text;
 			foreach (IGameObject gameObject in factory.CreateLevel(level))
 			{
 				(Container as IScene).RegisterGameObject(gameObject);

@@ -68,6 +68,7 @@ namespace GameNameSpace
 				1 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.SpaceDifficulties),
 				2 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.SwampChase),
 				3 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.SubterraneanMonster),
+				4 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.BusyBeat),
 				_ => null,
 			};
 			return (song);
@@ -139,7 +140,7 @@ namespace GameNameSpace
 
 		public IGameObject DecorateEntrance(IGameObject gameObject, Vector2 origin, Vector2 destination)
 		{
-			float fallTtl = 1.0f; // Services.Instance.Get<IRandomService>().Next() * 1.1f + 0.4f;
+			float fallTtl = 2.0f; // Services.Instance.Get<IRandomService>().Next() * 1.1f + 0.4f;
 			float delay = 0.0f; // Services.Instance.Get<IRandomService>().Next() * 0.3f + 0.2f;
 			MaxTtl = Math.Max(MaxTtl, fallTtl + delay);
 			return (new TweenMoveDecorator(gameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), origin, destination, fallTtl, delay));

@@ -2,6 +2,16 @@
   "Music": {
     "Type": 2
   },
+  "Texts": [
+    {
+      "Type": 0,
+      "Text": "Vous avez vaincu The Blob!"
+    },
+    {
+      "Type": 1,
+      "Text": "The Blob est plus fort que vous!"
+    }
+  ],
   "Backgrounds": [
     {
       "Type": 0,

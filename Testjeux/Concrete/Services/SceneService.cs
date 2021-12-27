@@ -56,38 +56,13 @@ namespace GameNameSpace
 
 		public IScene ChangeScene(SceneType newScene, int levelNumber, ICommand whenLoadedCommand)
 		{
-			if ((newScene == SceneType.GAMEPLAY) && (levelNumber > Services.Instance.Get<ILevelService>().MaxLevel))
+			CurrentScene = newScene switch
 			{
-				newScene = SceneType.VICTORY;
-			}
-			switch(newScene)
-			{
-				case SceneType.MENU:
-					CurrentScene = new MenuScene();
-					break;
-				case SceneType.SELECTION:
-					CurrentScene = new SelectionScene();
-					break;
-				case SceneType.GAMEPLAY:
-					if (levelNumber > Services.Instance.Get<ILevelService>().MaxLevel)
-					{
-						CurrentScene = new VictoryScene();
-					}
-					else
-					{
-						CurrentScene = new GameplayScene(levelNumber);
-					}
-					break;
-				case SceneType.GAMEOVER:
-					CurrentScene = new GameOverScene();
-					break;
-				case SceneType.VICTORY:
-					CurrentScene = new VictoryScene();
-					break;
-				default:
-					CurrentScene = null;
-					break;
-			}
+				SceneType.MENU => new MenuScene(),
+				SceneType.SELECTION => new SelectionScene(),
+				SceneType.GAMEPLAY => new GameplayScene(levelNumber),
+				_ => null,
+			};
 			CurrentScene?.Load(whenLoadedCommand);
 			return (CurrentScene);
 		}

@@ -7,7 +7,7 @@ namespace GameNameSpace
 	{
 		protected Point Screen;
 
-		public GameplayStartedState(GameplayScene gameplayScene)
+		public GameplayStartedState(IStateContainer gameplayScene)
 			: base(gameplayScene)
 		{
 			Screen = Services.Instance.Get<IScreenService>().GetScreenSize();
@@ -38,20 +38,25 @@ namespace GameNameSpace
 			// Est-ce que le joueur a gagné?
 			if ((Container as GameplayScene).PlayerWin)
 			{
-				Services.Instance.Get<ISceneService>().ChangeScene(SceneType.VICTORY, new DummyCommand());
+				// On change d'état : WonState
+				Container.CurrentState = this.Transitions[1];
 			}
 			else
 			{
 				IGameObject ball = (Container as IScene).GetObject(item => item is BallGameObject);
+
 				// Est-ce que le joueur perd 1 vie?
 				if ((ball != null) && (ball.Body.Position.Y > Screen.Y))
 				{
+					(Container as GameplayScene).RegisterGameObject(new FlashScreenGameObject());
+					Services.Instance.Get<IAssetService>().GetSound(SoundName.Explosion3).Play();
 					(Container as GameplayScene).Life--;
 
 					// Est-ce que le joueur a perdu?
 					if ((Container as GameplayScene).PlayerLoose)
 					{
-						Services.Instance.Get<ISceneService>().ChangeScene(SceneType.GAMEOVER, new DummyCommand());
+						// On change d'état : LostState
+						Container.CurrentState = this.Transitions[2];
 					}
 					else
 					{

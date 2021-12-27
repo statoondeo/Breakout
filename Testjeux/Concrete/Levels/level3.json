@@ -2,6 +2,16 @@
   "Music": {
     "Type": 3
   },
+  "Texts": [
+    {
+      "Type": 0,
+      "Text": "Vous avez vaincu The Snake, et battu le challenge de SPACE Breaker!"
+    },
+    {
+      "Type": 1,
+      "Text": "The Snake est plus fort que vous!"
+    }
+  ],
   "Backgrounds": [
     {
       "Type": 0,

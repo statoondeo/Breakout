@@ -8,6 +8,8 @@ namespace GameNameSpace
 	{
 		private IStateItem mCurrentState;
 		public Song Music { get; set; }
+		public string VictoryText { get; set; }
+		public string DefeatText { get; set; }
 
 		public IStateItem CurrentState 
 		{
@@ -48,10 +50,14 @@ namespace GameNameSpace
 			IStateItem createdState = new GameplayCreatedState(this);
 			IStateItem InitializedState = new GameplayInitializedState(this);
 			IStateItem startedState = new GameplayStartedState(this);
+			IStateItem wonState = new GameplayWonState(this);
+			IStateItem lostState = new GameplayLostState(this);
 
 			createdState.Transitions.Add(InitializedState);
 			InitializedState.Transitions.Add(startedState);
 			startedState.Transitions.Add(InitializedState);
+			startedState.Transitions.Add(wonState);
+			startedState.Transitions.Add(lostState);
 
 			CurrentState = createdState;
 		}

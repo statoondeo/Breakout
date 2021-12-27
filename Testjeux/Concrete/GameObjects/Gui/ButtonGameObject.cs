@@ -4,10 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
 {
-	public interface IButtonGameObject : IGameObject
-	{
-		bool Hover { get; set; }
-	}
 	public sealed class ButtonGameObject : BaseGameObject, IButtonGameObject
 	{
 		public static readonly Vector2 Size = new Vector2(299, 93);
@@ -62,7 +58,7 @@ namespace GameNameSpace
 			SpriteFont font = Services.Instance.Get<IAssetService>().GetFont(FontName.Button);
 			Vector2 textSize = font.MeasureString(text);
 			Body = new BoxBody(position, size, Vector2.Zero, 1.0f, true, new ButtonWrapperColliderCommand(this, command));
-			TextRenderable = new TextRenderable(this, new Vector2((size.X - textSize.X) / 2, (size.Y - textSize.Y) / 2 - 10), font, text, textColor)
+			TextRenderable = new TextRenderable(this, new Vector2((size.X - textSize.X) / 2, (size.Y - textSize.Y) / 2 - 5), font, text, textColor)
 			{
 				Alpha = BaseAlpha,
 				Layer = 0.81f

@@ -8,7 +8,7 @@ namespace GameNameSpace
 		protected IRenderable Renderable;
 
 		public BrickBody(Vector2 position, float radius, IColliderCommand command)
-			: base(position, radius, Vector2.Zero, 0.9f, true, command)
+			: base(position, radius, Vector2.Zero, 1.0f, true, command)
 		{
 			Renderable = new CircleFrameRenderable(this, Vector2.Zero);
 		}

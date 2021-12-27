@@ -4,8 +4,6 @@
 	{
 		MENU,
 		SELECTION,
-		GAMEPLAY,
-		GAMEOVER,
-		VICTORY
+		GAMEPLAY
 	}
 }

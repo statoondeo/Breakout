@@ -48,6 +48,12 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Title.spritefont
 
+#begin Musics/BusyBeat.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/BusyBeat.mp3
+
 #begin Musics/SpaceDifficulties.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
