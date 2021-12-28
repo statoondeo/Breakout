@@ -4,6 +4,10 @@ namespace GameNameSpace
 {
 	public interface ISceneService : IService, IScene
 	{
+		int Life { get; set; }
+		int MaxLife { get; }
+		int Level { get; set; }
+		SceneModeNames Mode { get; set; }
 		bool ExitRequired { get; set; }
 		IScene CurrentScene { get; }
 		IScene ChangeScene(SceneType scene, ICommand whenLoadedCommand);

@@ -31,6 +31,7 @@ namespace GameNameSpace
 		}
 
 		public override GameObjectStatus Status { get; set; }
+		public override IBody Body { get => InnerBody; set => InnerBody = value; }
 
 		public override void Update(GameTime gameTime)
 		{

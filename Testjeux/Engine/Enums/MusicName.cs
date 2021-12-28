@@ -6,6 +6,8 @@
 		SubterraneanMonster,
 		SwampChase,
 		BusyBeat,
+		TheThroneRoom,
+		ZombieMarch,
 		SpaceUtopia
 	}
 }

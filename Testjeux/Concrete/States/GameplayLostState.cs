@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace GameNameSpace
 {
@@ -24,7 +25,7 @@ namespace GameNameSpace
 			}
 
 			// Suppression des balles et de la raquette
-			objects = (Container as IScene).GetObjects(item => item is RacketGameObject || item is BallGameObject || item is IBrickGameObject);
+			objects = (Container as IScene).GetObjects(item => item is RacketGameObject || item is IBallGameObject || item is IBrickGameObject);
 			foreach (IGameObject gameObject in objects)
 			{
 				gameObject.Status = GameObjectStatus.OUTDATED;
@@ -43,7 +44,7 @@ namespace GameNameSpace
 
 			destination = new Vector2(900.0f, 650.0f);
 			origin = new Vector2(destination.X, -300.0f);
-			(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Rejouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, (Container as GameplayScene).Level)), origin, destination));
+			(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Rejouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, Services.Instance.Get<ISceneService>().Level)), origin, destination));
 
 			SpriteFont font = Services.Instance.Get<IAssetService>().GetFont(FontName.BigTitle);
 			Vector2 textSize = font.MeasureString("DEFAITE");
@@ -56,6 +57,11 @@ namespace GameNameSpace
 			destination = new Vector2((screen.X - textSize.X) * 0.5f, 120);
 			origin = new Vector2(destination.X, -300.0f);
 			(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, font, (Container as GameplayScene).DefeatText, Color.Silver), origin, destination));
+
+			MediaPlayer.Stop();
+			MediaPlayer.IsRepeating = true;
+			MediaPlayer.Volume = 0.5f;
+			MediaPlayer.Play(Services.Instance.Get<IAssetService>().GetMusic(MusicName.ZombieMarch));
 		}
 
 		public override void Exit()

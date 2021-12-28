@@ -17,6 +17,7 @@ namespace GameNameSpace
 		private readonly IParticlesEmitter TrailParticlesEmitter;
 		private readonly IGameObject Halo1;
 		private readonly IGameObject Halo2;
+		private readonly IParticlesEmitter ParticlesEmitter;
 
 		public IList<IGameObject> Bodies { get; private set; }
 		public IGameObject Tail { get; private set; }
@@ -41,6 +42,7 @@ namespace GameNameSpace
 			Bodies = new List<IGameObject>();
 			TailPositions = new CircularArray<Vector2>((int)Math.Ceiling((MaxNumberOfBodies + 2) * Ttl * 60));
 			TrailParticlesEmitter = new SnakeTrailParticlesEmitter(this, 0.25f);
+			ParticlesEmitter = new SnakeExplosionParticlesEmitter(this, Services.Instance.Get<IAssetService>().GetTexture(TextureName.PurpleSpark), 75);
 
 			Halo1 = new HaloGameObject(Color.DeepPink, 0.1f, 1.0f);
 			Halo1.Body.MoveTo(position);
@@ -59,8 +61,6 @@ namespace GameNameSpace
 
 		public override void Damage()
 		{
-			base.Damage();
-			Health++;
 			for (int i = 0; i < Bodies.Count; i++)
 			{
 				IGameObject item = Bodies[i];
@@ -102,6 +102,12 @@ namespace GameNameSpace
 				}
 			}
 			(Bodies as List<IGameObject>).RemoveAll(item => item.Status == GameObjectStatus.OUTDATED);
+			if ((Bodies.Count == 0) && (null != Tail))
+			{
+				Tail.Status = Status = GameObjectStatus.OUTDATED;
+				Services.Instance.Get<IAssetService>().GetSound(SoundName.Explosion3).Play();
+				ParticlesEmitter.Emit();
+			}
 		}
 	}
 }

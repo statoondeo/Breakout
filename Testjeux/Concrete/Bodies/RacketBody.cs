@@ -5,7 +5,7 @@ namespace GameNameSpace
 {
 	public class RacketBody : BaseCompositeBody
 	{
-		protected static readonly float RESOLVER_RADIUS = 250;
+		protected static readonly float RESOLVER_RADIUS = 200;
 
 		protected IRenderable RacketRenderable;
 		protected IRenderable ControllerRenderable;

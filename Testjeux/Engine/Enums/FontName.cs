@@ -6,6 +6,7 @@
 		BigTitle,
 		Title,
 		Base,
+		Mini,
 		Button
 	}
 }

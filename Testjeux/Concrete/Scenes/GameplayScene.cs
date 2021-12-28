@@ -22,16 +22,12 @@ namespace GameNameSpace
 			}
 		}
 
-		public int Life { get; set; }
-
-		public int Level { get; private set; }
-
 		public override void Load(ICommand commandWhenLoaded)
 		{
-			Life = 2;
 			base.Load(commandWhenLoaded);
 			(CurrentState as IGameplayStateScene).Load();
 			MediaPlayer.IsRepeating = true;
+			MediaPlayer.Volume = 0.5f;
 			MediaPlayer.Play(Music);
 			RegisterGameObject(new InScreenTransitionGameObject(new CompositeCommand(commandWhenLoaded, new ResetTransitionRequiredCommand())));
 		}
@@ -45,7 +41,7 @@ namespace GameNameSpace
 		public GameplayScene(int level) 
 			: base()
 		{
-			Level = level;
+			Services.Instance.Get<ISceneService>().Level = level;
 
 			IStateItem createdState = new GameplayCreatedState(this);
 			IStateItem InitializedState = new GameplayInitializedState(this);

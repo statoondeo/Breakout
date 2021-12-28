@@ -14,6 +14,7 @@ namespace GameNameSpace
 		private readonly int FrameDelay;
 		private readonly CircularArray<Vector2> FramePositions;
 		private readonly IParticlesEmitter TrailParticlesEmitter;
+
 		public IList<float> Waves { get; set; }
 
 		public SnakeBodyGameObject(Vector2 position, CircularArray<Vector2> framePositions, int frameDelay)
@@ -65,6 +66,7 @@ namespace GameNameSpace
 					if (this == serpentHead.Bodies[serpentHead.Bodies.Count - 1])
 					{
 						Status = GameObjectStatus.OUTDATED;
+						Services.Instance.Get<IAssetService>().GetSound(SoundName.Explosion2).Play();
 						ParticlesEmitter.Emit();
 						(serpentHead.Tail as SnakeTailGameObject).FrameDelay = FrameDelay;
 					}

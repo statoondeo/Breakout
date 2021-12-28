@@ -143,7 +143,7 @@ namespace GameNameSpace
 			float fallTtl = 2.0f; // Services.Instance.Get<IRandomService>().Next() * 1.1f + 0.4f;
 			float delay = 0.0f; // Services.Instance.Get<IRandomService>().Next() * 0.3f + 0.2f;
 			MaxTtl = Math.Max(MaxTtl, fallTtl + delay);
-			return (new TweenMoveDecorator(gameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), origin, destination, fallTtl, delay));
+			return (gameObject is IBrickGameObject ? new BrickTweenMoveDecorator(gameObject as IBrickGameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), origin, destination, fallTtl, delay) : new TweenMoveDecorator(gameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), origin, destination, fallTtl, delay));
 		}
 	}
 }

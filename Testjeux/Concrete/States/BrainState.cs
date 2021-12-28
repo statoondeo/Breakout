@@ -19,6 +19,7 @@ namespace GameNameSpace
 
 		public virtual void Enter() { }
 		public virtual void Exit() { }
+		public virtual bool Damage() => false;
 
 		public virtual void Update(GameTime gameTime)
 		{

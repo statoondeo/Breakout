@@ -22,13 +22,11 @@ namespace GameNameSpace
 			Body.RotationOrigin = new Vector2(32);
 			FramePositions = framePositions;
 			FrameDelay = frameDelay;
-			TrailParticlesEmitter = new SnakeTrailParticlesEmitter(this, 1.0f);
+			TrailParticlesEmitter = new SnakeTrailParticlesEmitter(this, 1.5f);
 		}
 
 		public override void Damage()
 		{
-			base.Damage();
-			Health++;
 		}
 
 		public override void Update(GameTime gameTime)

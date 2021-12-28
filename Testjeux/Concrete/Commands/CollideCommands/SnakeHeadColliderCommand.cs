@@ -19,7 +19,7 @@ namespace GameNameSpace
 			{
 				IBrickGameObject brick = GameObject as IBrickGameObject;
 				brick.Damage();
-				BallGameObject ball = gameObject as BallGameObject;
+				IBallGameObject ball = gameObject as IBallGameObject;
 				Vector2 velocity = Vector2.Normalize(ball.Body.Velocity);
 				float speed = Vector2.Dot(velocity, ball.Body.Velocity);
 				if (speed < ball.Speed)

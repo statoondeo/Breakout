@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,11 +34,16 @@ namespace GameNameSpace
 				DecoratedMessageGameObject.Status = GameObjectStatus.OUTDATED;
 			}
 			DecoratedMessageGameObject = (Container as IScene).RegisterGameObject(new TweenMoveDecorator(MessageGameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), OutScreenPosition, OnScreenPosition, 0.25f, 0.0f));
+			
 			// Balle de la scène
+			Services.Instance.Get<ISceneService>().Life--;
+			IList<IGameObject> lifes = Services.Instance.Get<ISceneService>().GetObjects(item => item is LifeMiniatureGameObject);
+			lifes[lifes.Count - 1].Status = GameObjectStatus.OUTDATED;
+
 			Vector2 screen = Services.Instance.Get<IScreenService>().GetScreenSize().ToVector2();
 			Vector2 origin = new Vector2((screen.X - 32) / 2, -300);
-			Vector2 destination = new Vector2((screen.X - 32) / 2, 2 * (screen.Y - 32) / 3);
-			IGameObject ball = new InvisibleBodyDecorator(new BallGameObject(Vector2.Zero, 850, new Vector2(32)));
+			Vector2 destination = new Vector2(screen.X / 2, 2 * screen.Y / 3);
+			IGameObject ball = new InvisibleBodyDecorator(new SingleBallGameObject(origin, 700, new Vector2(32)));
 			(Container as IScene).RegisterGameObject(new TweenMoveDecorator(new WaitClickDecoratorGameObject(ball, new RemoveInvisibleBodyDecoratorCommand(ball)), Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), origin, destination, 0.25f, 0.0f));
 		}
 

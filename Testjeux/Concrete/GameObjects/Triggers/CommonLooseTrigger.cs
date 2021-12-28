@@ -11,7 +11,7 @@ namespace GameNameSpace
 
 		public override void Update(GameTime gameTime)
 		{
-			if ((Services.Instance.Get<ISceneService>().CurrentScene as GameplayScene).Life <= 0)
+			if (Services.Instance.Get<ISceneService>().Life <= 0)
 			{
 				Command.Execute();
 				Status = GameObjectStatus.OUTDATED;

@@ -11,11 +11,18 @@ namespace GameNameSpace
 		public CamShake CamShake { get; protected set; }
 
 		public IScene CurrentScene { get; protected set; }
+		public int MaxLife { get; protected set; }
+		public int Life { get; set; }
+		public int Level { get; set; }
+		public SceneModeNames Mode { get; set; }
 
 		public SceneService() 
 		{
 			ExitRequired = false;
 			CamShake = new CamShake();
+			Mode = SceneModeNames.None;
+			Life = Level = 0;
+			MaxLife = 3;
 		}
 
 		public void Load(ICommand commandWhenLoaded)

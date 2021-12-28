@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
@@ -20,7 +21,7 @@ namespace GameNameSpace
 		}
 
 		public BrainGameObject(Vector2 position, float scale)
-			: base(position, TextureSize.X * 0.5f * scale * BodySizeFactor, 6)
+			: base(position, TextureSize.X * 0.5f * scale * BodySizeFactor, 10)
 		{
 			Vector2 offset = (TextureSize * BodySizeFactor - TextureSize) * 0.5f + new Vector2(-5, 20);
 			Body = new BrickBody(position, TextureSize.X * 0.5f * scale * BodySizeFactor, new BrainColliderCommand(this, new BrickExplosionParticlesEmitter(this, Services.Instance.Get<IAssetService>().GetTexture(TextureName.RedSpark), 25)));
@@ -37,8 +38,11 @@ namespace GameNameSpace
 		}
 
 		public override void Damage()
-		{
-			base.Damage();
+{
+			if ((CurrentState as BrainState).Damage())
+			{
+				base.Damage();
+			}
 			Services.Instance.Get<IAssetService>().GetSound(SoundName.Explosion3).Play();
 		}
 

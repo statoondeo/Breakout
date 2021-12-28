@@ -50,21 +50,12 @@ namespace GameNameSpace
 			{
 				result = IsCompositeIntersecBodyCollision(body1 as ICompositeIntersecBody, body2, true);
 			}
-			if ((result != null) && Single.IsNaN(result.Depth))
-			{
-
-			}
 
 			return (result);
 		}
 
 		public void ResolveCollision(IBody body1, IBody body2, CollisionTestResult collisionResult)
 		{
-			IBody ballBody = Services.Instance.Get<ISceneService>().GetObject(item => item is BallGameObject)?.Body;
-			if ((ballBody != null) && ((ballBody == body1) || (ballBody == body2)))
-			{
-
-			}
 			// Résolution de la collision #1 : Supprimer les chevauchements
 			// (Utilisation de la profondeur de collision)
 			if (body1.IsStatic)

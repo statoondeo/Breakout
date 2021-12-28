@@ -66,49 +66,43 @@ namespace GameNameSpace
 			return (gameObject);
 		}
 
-		protected void IntegrateGeneratedGameObjects()
-		{
-			(GameObjectsCollection as List<IGameObject>).AddRange(GeneratedGameObjectsCollection);
-		}
-
 		public virtual void Update(GameTime gameTime)
 		{
-
-				IColliderService collider = Services.Instance.Get<IColliderService>();
-				CollisionTestResult collisionResult = null;
-				IGameObject goi = null;
-				IGameObject goj = null;
-				for (int i = 0; i < GameObjectsCollection.Count; i++)
+			IColliderService collider = Services.Instance.Get<IColliderService>();
+			CollisionTestResult collisionResult = null;
+			IGameObject goi = null;
+			IGameObject goj = null;
+			for (int i = 0; i < GameObjectsCollection.Count; i++)
+			{
+				goi = GameObjectsCollection[i];
+				if (goi.Status == GameObjectStatus.ACTIVE)
 				{
-					goi = GameObjectsCollection[i];
-					if (goi.Status == GameObjectStatus.ACTIVE)
+					goi.Update(gameTime);
+					if (!(goi.Body is InvisibleBody))
 					{
-						goi.Update(gameTime);
-						if (!(goi.Body is InvisibleBody))
+						for (int j = i + 1; j < GameObjectsCollection.Count; j++)
 						{
-							for (int j = i + 1; j < GameObjectsCollection.Count; j++)
-							{
-								goj = GameObjectsCollection[j];
+							goj = GameObjectsCollection[j];
 
-								if (goj.Status == GameObjectStatus.ACTIVE
-									&& !(goj.Body is InvisibleBody)
-									&& (null != (collisionResult = collider.IsCollision(goi.Body, goj.Body))))
+							if (goj.Status == GameObjectStatus.ACTIVE
+								&& !(goj.Body is InvisibleBody)
+								&& (goi.Type != goj.Type)
+								&& (null != (collisionResult = collider.IsCollision(goi.Body, goj.Body))))
+							{
+								if (!(goi is IButtonGameObject) && !(goj is IButtonGameObject))
 								{
 									collider.ResolveCollision(goi.Body, goj.Body, collisionResult);
-									goi.Body.CollideCommand.Execute(goj, collisionResult);
-									goj.Body.CollideCommand.Execute(goi, collisionResult);
 								}
+								goi.Body.CollideCommand.Execute(goj, collisionResult);
+								goj.Body.CollideCommand.Execute(goi, collisionResult);
 							}
 						}
 					}
 				}
+			}
 
-				// On purge tous les éléments obsolètes
-				(GameObjectsCollection as List<IGameObject>).RemoveAll(gameObject => gameObject.Status == GameObjectStatus.OUTDATED);
-
-				//// On ajoute à la scène les éléments générés
-				//IntegrateGeneratedGameObjects();
-				//GeneratedGameObjectsCollection.Clear();
+			// On purge tous les éléments obsolètes
+			(GameObjectsCollection as List<IGameObject>).RemoveAll(gameObject => gameObject.Status == GameObjectStatus.OUTDATED);
 		}
 
 		public virtual void Draw(SpriteBatch spriteBatch)

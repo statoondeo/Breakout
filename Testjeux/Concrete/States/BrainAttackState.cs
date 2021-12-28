@@ -27,6 +27,8 @@ namespace GameNameSpace
 			Halo2.Body.MoveTo((Container as IGameObject).Body.Position + new Vector2(128));
 		}
 
+		public override bool Damage() => true;
+
 		public override void Enter()
 		{
 			base.Enter();

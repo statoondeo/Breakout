@@ -41,6 +41,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/GiantTitle.spritefont
 
+#begin Fonts/Mini.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Mini.spritefont
+
 #begin Fonts/Title.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -77,6 +84,18 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/SwampChase.mp3
+
+#begin Musics/TheThroneRoom.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/TheThroneRoom.mp3
+
+#begin Musics/ZombieMarch.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/ZombieMarch.mp3
 
 #begin Sounds/blob1.wav
 /importer:WavImporter
@@ -167,6 +186,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/blob.png
+
+#begin Textures/bluebullet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/bluebullet.png
 
 #begin Textures/bluespark.png
 /importer:TextureImporter
@@ -299,6 +330,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/laserglow.png
+
+#begin Textures/life.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/life.PNG
 
 #begin Textures/platform.png
 /importer:TextureImporter

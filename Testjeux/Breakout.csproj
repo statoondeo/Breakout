@@ -43,6 +43,7 @@
     <Compile Include="Concrete\Commands\CollideCommands\ButtonWrapperColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\BumperColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\ElasticZoomGameObject.cs" />
+    <Compile Include="Concrete\Commands\CollideCommands\MultiBallColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\SnakeBodyColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\SnakeHeadColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\ShieldColliderCommand.cs" />

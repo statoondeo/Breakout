@@ -11,6 +11,10 @@ namespace GameNameSpace
 		public MenuScene() 
 			: base() 
 		{
+			ISceneService gameState = Services.Instance.Get<ISceneService>();
+			gameState.Mode = SceneModeNames.None;
+			gameState.Life = gameState.Level = 0;
+
 			Music = Services.Instance.Get<IAssetService>().GetMusic(MusicName.SpaceDifficulties);
 		}
 
@@ -46,10 +50,14 @@ namespace GameNameSpace
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, font, "Raphael DUCHOSSOY (gamecodeur.fr)", Color.Silver), origin, destination));
 
+
+			// Ajout du curseur de souris
+			RegisterGameObject(new CursorGameObject());
+
 			// Bouton pour démarrer le jeu
 			destination = new Vector2(900, 550);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, 1)), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new FollowSerieSceneCommand(SceneType.GAMEPLAY, 1)), origin, destination));
 
 			destination = new Vector2(900, 650);
 			origin = new Vector2(destination.X, -300.0f);
@@ -59,15 +67,13 @@ namespace GameNameSpace
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Quitter", Color.Black, new ExitGameCommand()), origin, destination));
 
-			// Ajout du curseur de souris
-			RegisterGameObject(new CursorGameObject());
-
 			// Animation de fond
 			RegisterGameObject(new SnakeHeadGameObject(new Vector2(1600, 32)));
 
 			RegisterGameObject(new InScreenTransitionGameObject(new CompositeCommand(commandWhenLoaded, new ResetTransitionRequiredCommand())));
 
 			MediaPlayer.IsRepeating = true;
+			MediaPlayer.Volume = 0.5f;
 			MediaPlayer.Play(Music);
 		}
 

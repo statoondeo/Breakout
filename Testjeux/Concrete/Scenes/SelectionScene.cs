@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 namespace GameNameSpace
@@ -87,15 +88,23 @@ namespace GameNameSpace
 			// Boutons
 			destination = new Vector2(125, 550);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, 1)), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 1)), origin, destination));
 
 			destination = new Vector2(490, 550);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, 2)), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 2)), origin, destination));
 
 			destination = new Vector2(855, 550);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, 3)), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 3)), origin, destination));
+
+			destination = new Vector2(490, 650);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Charger", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 2)), origin, destination));
+
+			destination = new Vector2(855, 650);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Créer", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 3)), origin, destination));
 
 			destination = new Vector2(125, 650);
 			origin = new Vector2(destination.X, -300.0f);
@@ -110,6 +119,7 @@ namespace GameNameSpace
 			RegisterGameObject(new InScreenTransitionGameObject(new CompositeCommand(commandWhenLoaded, new ResetTransitionRequiredCommand())));
 
 			MediaPlayer.IsRepeating = true;
+			MediaPlayer.Volume = 0.5f;
 			MediaPlayer.Play(Music);
 		}
 
@@ -117,6 +127,15 @@ namespace GameNameSpace
 		{
 			RegisterGameObject(new OutScreenTransitionGameObject(new CompositeCommand(commandWhenUnloaded, new ResetTransitionRequiredCommand())));
 			MediaPlayer.Stop();
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			base.Update(gameTime);
+			if (Services.Instance.Get<IInputListenerService>().IsKeyDown(Keys.Escape))
+			{
+				(new SwitchSceneCommand(SceneType.MENU)).Execute();
+			}
 		}
 	}
 }

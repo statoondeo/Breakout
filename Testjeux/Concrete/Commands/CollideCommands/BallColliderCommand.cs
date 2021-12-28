@@ -1,4 +1,6 @@
-﻿namespace GameNameSpace
+﻿using Microsoft.Xna.Framework;
+
+namespace GameNameSpace
 {
 	public class BallColliderCommand : BaseColliderCommand
 	{
@@ -15,7 +17,9 @@
 			base.Execute(gameObject, collisionResult);
 			ParticlesEmitterGameObject.Emit(collisionResult);
 			Services.Instance.Get<IAssetService>().GetSound(SoundName.Collision).Play();
-			Services.Instance.Get<ISceneService>().CamShake.Value = (collisionResult.Normal * collisionResult.Depth).ToPoint();
+			Vector2 velocity = Vector2.Normalize(GameObject.Body.Velocity);
+			float speed = Vector2.Dot(velocity, GameObject.Body.Velocity);
+			Services.Instance.Get<ISceneService>().CamShake.Value = (velocity * speed / 50.0f).ToPoint();
 		}
 	}
 }

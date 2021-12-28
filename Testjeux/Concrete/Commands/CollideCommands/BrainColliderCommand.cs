@@ -45,7 +45,7 @@ namespace GameNameSpace
 				ParticlesEmitter.Emit(collisionResult);
 				if (gameObject.Type == GameObjectType.BALL)
 				{
-					BallGameObject ball = gameObject as BallGameObject;
+					IBallGameObject ball = gameObject as IBallGameObject;
 					Vector2 velocity = Vector2.Normalize(ball.Body.Velocity);
 					ball.Body.Velocity = velocity * ball.Speed;
 				}
