@@ -18,7 +18,7 @@ namespace GameNameSpace
 
 		public override void Execute()
 		{
-			Services.Instance.Get<ISceneService>().RegisterGameObject(new BlobBrickGameObject(GameObject.Body.Position, 1.0f, Destination, Ttl));
+			Services.Instance.Get<ISceneService>().RegisterGameObject(new BlobGameObject(GameObject.Body.Position, 1.0f, Destination, Ttl));
 		}
 	}
 }

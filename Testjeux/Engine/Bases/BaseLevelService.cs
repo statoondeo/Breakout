@@ -13,6 +13,16 @@ namespace GameNameSpace
 			LevelPathes = new Dictionary<int, string>();
 		}
 
+		public virtual ParsedLevel Load(string resourceName)
+		{
+			return (Factory.ReadLocalResource(resourceName));
+		}
+
+		public virtual void Save(ParsedLevel level, string resourceName)
+		{
+			Factory.SaveToLocalResource(level, resourceName);
+		}
+
 		public virtual string GetPath(int levelNumber)
 		{
 			return (LevelPathes[levelNumber]);

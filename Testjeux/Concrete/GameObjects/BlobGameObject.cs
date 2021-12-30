@@ -2,13 +2,21 @@
 
 namespace GameNameSpace
 {
-	public sealed class BlobBrickGameObject : BaseBrickGameObject
+	public sealed class BlobGameObject : BaseBrickGameObject
 	{
 		private bool Ended;
 		private float CurrentTtl;
 		private readonly float Ttl;
 
-		public BlobBrickGameObject(Vector2 position, float scale, Vector2 destination, float ttl)
+		public BlobGameObject(Vector2 position, float scale)
+			: base(position, 32, 3)
+		{
+			Body = new BrickBody(position, 64 * 0.5f * scale * 1.0f, new BrickColliderCommand(this, new BrickExplosionParticlesEmitter(this, Services.Instance.Get<IAssetService>().GetTexture(TextureName.GreenSpark), 25)));
+			Renderable = new BlobAnimatedTextureRenderable(this, scale);
+			Ended = true;
+		}
+
+		public BlobGameObject(Vector2 position, float scale, Vector2 destination, float ttl)
 			: base(position, 32, 1)
 		{
 			Body = new BrickBody(position, 64 * 0.5f * scale * 1.0f, new BrickColliderCommand(this, new BrickExplosionParticlesEmitter(this, Services.Instance.Get<IAssetService>().GetTexture(TextureName.PurpleSpark), 25)));

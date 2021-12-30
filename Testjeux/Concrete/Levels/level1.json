@@ -300,9 +300,6 @@
         "Angle": 0,
         "AngleSpeed": 0
       },
-
-
-
       {
         "Type": 3,
         "Position": {
@@ -316,7 +313,7 @@
         "AngleSpeed": 0
       },
       {
-        "Type": 3,
+        "Type": 9,
         "Position": {
           "X": 448,
           "Y": 398
@@ -339,10 +336,6 @@
         "Angle": 0,
         "AngleSpeed": 0
       },
-
-
-
-
       {
         "Type": 3,
         "Position": {
@@ -356,7 +349,7 @@
         "AngleSpeed": 0
       },
       {
-        "Type": 3,
+        "Type": 9,
         "Position": {
           "X": 768,
           "Y": 398

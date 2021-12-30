@@ -5,18 +5,18 @@ namespace GameNameSpace
 {
 	public class ObjectPool<T> where T : class, new()
 	{
-		protected IList<T> GameObjects;
+		protected T[] GameObjects;
 		protected int CurrentIndex;
 		public int Capacity { get; protected set; }
 		
 		public ObjectPool(int capacity)
 		{
 			Capacity = capacity;
-			GameObjects = new List<T>();
+			GameObjects = new T[Capacity];
 			for (int i = 0; i < Capacity; i++)
 			{
 				T newObject = new T();
-				GameObjects.Add(newObject);
+				GameObjects[i] = newObject;
 				(newObject as IGameObject).Status = GameObjectStatus.OUTDATED;
 			}
 			CurrentIndex = 0;
@@ -24,9 +24,9 @@ namespace GameNameSpace
 
 		public void Reset()
 		{
-			foreach(T item in GameObjects)
+			for (int i = 0; i < Capacity; i++)
 			{
-				(item as IGameObject).Status = GameObjectStatus.OUTDATED;
+				(GameObjects[i] as IGameObject).Status = GameObjectStatus.OUTDATED;
 			}
 		}
 
@@ -43,10 +43,7 @@ namespace GameNameSpace
 			{
 				// Pool mal dimensionné
 				Trace.WriteLine("Pool mal dimensionné : " + Capacity);
-				T newObject = new T();
-				Capacity++;
-				GameObjects.Add(newObject);
-				return (newObject);
+				return (new T());
 			}
 			else
 			{

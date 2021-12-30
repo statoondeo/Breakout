@@ -2,7 +2,6 @@
 {
 	public class ExitGameCommand : BaseCommand
 	{
-
 		public ExitGameCommand() : base() { }
 
 		public override void Execute()

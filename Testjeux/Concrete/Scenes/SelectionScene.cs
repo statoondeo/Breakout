@@ -100,11 +100,23 @@ namespace GameNameSpace
 
 			destination = new Vector2(490, 650);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Charger", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 2)), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Charger", Color.Black, new GenericCommand(delegate 
+			{
+				System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog()
+				{
+					Filter = "JSON Level|*.json",
+					Title = "Enregistrer un niveau Space Breaker"
+				};
+				openFileDialog.ShowDialog();
+				if (!string.IsNullOrWhiteSpace(openFileDialog.FileName))
+				{
+					(new SwitchSceneCommand(SceneType.GAMEPLAY, Services.Instance.Get<ILevelService>().Load(openFileDialog.FileName))).Execute();
+				}
+			})), origin, destination));
 
 			destination = new Vector2(855, 650);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Créer", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 3)), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Créer", Color.Black, new SwitchSceneCommand(SceneType.EDITOR)), origin, destination));
 
 			destination = new Vector2(125, 650);
 			origin = new Vector2(destination.X, -300.0f);

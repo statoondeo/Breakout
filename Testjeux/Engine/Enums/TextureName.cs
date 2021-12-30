@@ -3,6 +3,8 @@
 	public enum TextureName
 	{
         Drawable,
+
+        Bonus,
         Card,
         Thrust,
         RedBullet,

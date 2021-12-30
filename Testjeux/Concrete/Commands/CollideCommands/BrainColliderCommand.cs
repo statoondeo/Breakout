@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -48,11 +49,11 @@ namespace GameNameSpace
 					IBallGameObject ball = gameObject as IBallGameObject;
 					Vector2 velocity = Vector2.Normalize(ball.Body.Velocity);
 					ball.Body.Velocity = velocity * ball.Speed;
-				}
+}
 
-				if ((GameObject as IBrickGameObject).Health % 2 == 0)
+				IStateContainer container = GameObject as IStateContainer;
+				if (((GameObject as IBrickGameObject).Health % 2 == 0) && (container.CurrentState is BrainAttackState))
 				{
-					IStateContainer container = GameObject as IStateContainer;
 					container.CurrentState = container.CurrentState.Transitions[0];
 				}
 			}

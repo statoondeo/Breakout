@@ -69,6 +69,8 @@ namespace GameNameSpace
 				2 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.SwampChase),
 				3 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.SubterraneanMonster),
 				4 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.BusyBeat),
+				5 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.TheThroneRoom),
+				6 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.ZombieMarch),
 				_ => null,
 			};
 			return (song);
@@ -102,13 +104,13 @@ namespace GameNameSpace
 					gameObject = DecorateEntrance(new WobblerGameObject(Vector2.Zero, 1.0f), origin, destination);
 					break;
 				case 2:
-					// Atoms
+					// Atoms rotatifs
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new AtomBrickGameObject(Vector2.Zero, 1.0f, ConvertToVector2(jsonBrick.Center), jsonBrick.Radius, jsonBrick.Angle, jsonBrick.AngleSpeed), origin, destination);
+					gameObject = DecorateEntrance(new AtomGameObject(Vector2.Zero, 1.0f, ConvertToVector2(jsonBrick.Center), jsonBrick.Radius, jsonBrick.Angle, jsonBrick.AngleSpeed), origin, destination);
 					break;
 				case 3:
-					// Rocks
+					// Cube
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
 					gameObject = DecorateEntrance(new CubeGameObject(Vector2.Zero), origin, destination);
@@ -131,6 +133,25 @@ namespace GameNameSpace
 					origin = new Vector2(destination.X, -1000.0f);
 					gameObject = DecorateEntrance(new MegaBlobGameObject(Vector2.Zero), origin, destination);
 					break;
+				case 7:
+					// Atoms immobiles
+					destination = ConvertToVector2(jsonBrick.Position);
+					origin = new Vector2(destination.X, originX);
+					gameObject = DecorateEntrance(new AtomGameObject(Vector2.Zero, 1.0f), origin, destination);
+					break;
+				case 8:
+					// Blob
+					destination = ConvertToVector2(jsonBrick.Position);
+					origin = new Vector2(destination.X, originX);
+					gameObject = DecorateEntrance(new BlobGameObject(Vector2.Zero, 1.0f), origin, destination);
+					break;
+				case 9:
+					// Bonus
+					destination = ConvertToVector2(jsonBrick.Position);
+					origin = new Vector2(destination.X, originX);
+					gameObject = DecorateEntrance(new BonusGameObject(Vector2.Zero), origin, destination);
+					break;
+
 				default:
 					gameObject = null;
 					break;

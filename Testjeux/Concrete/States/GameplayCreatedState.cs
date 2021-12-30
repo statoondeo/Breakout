@@ -24,7 +24,9 @@ namespace GameNameSpace
 
 			// Chargement du niveau
 			IGameObjectFactoryService factory = Services.Instance.Get<IGameObjectFactoryService>();
-			ParsedLevel level = Services.Instance.Get<ILevelService>().GetLevel(Services.Instance.Get<ISceneService>().Level);
+			
+			ParsedLevel level = (Container as GameplayScene).Level ?? Services.Instance.Get<ILevelService>().GetLevel(Services.Instance.Get<ISceneService>().Level);
+
 			(Container as GameplayScene).Music = factory.CreateMusic(level.Music);
 			(Container as GameplayScene).VictoryText = level.Texts.FirstOrDefault(item => item.Type == 0).Text;
 			(Container as GameplayScene).DefeatText = level.Texts.FirstOrDefault(item => item.Type == 1).Text;

@@ -44,7 +44,15 @@ namespace GameNameSpace
 
 			destination = new Vector2(900.0f, 650.0f);
 			origin = new Vector2(destination.X, -300.0f);
-			(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Rejouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, Services.Instance.Get<ISceneService>().Level)), origin, destination));
+
+			if (null == (Container as GameplayScene).Level)
+			{
+				(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Rejouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, Services.Instance.Get<ISceneService>().Level)), origin, destination));
+			}
+			else
+			{
+				(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Rejouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, (Container as GameplayScene).Level)), origin, destination));
+			}
 
 			SpriteFont font = Services.Instance.Get<IAssetService>().GetFont(FontName.BigTitle);
 			Vector2 textSize = font.MeasureString("DEFAITE");

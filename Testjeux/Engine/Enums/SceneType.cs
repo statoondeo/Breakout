@@ -4,6 +4,7 @@
 	{
 		MENU,
 		SELECTION,
+		EDITOR,
 		GAMEPLAY
 	}
 }

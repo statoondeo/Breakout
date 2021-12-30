@@ -41,13 +41,18 @@ namespace GameNameSpace
 			{
 				// On change d'état : WonState
 				Container.CurrentState = this.Transitions[1];
+
+				// On récupère la vie en cours
+				Services.Instance.Get<ISceneService>().Life++;
 			}
 			else
 			{
+				// Combien y-a-t'il de balles en jeu?
 				IList<IGameObject> balls = (Container as IScene).GetObjects(item => item is IBallGameObject);
 
 				if (balls.Count == 0)
 				{
+					// Aucune
 					// Est-ce que le joueur a perdu?
 					if ((Container as GameplayScene).PlayerLoose)
 					{

@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\Commands\CollideCommands\BallColliderCommand.cs" />
+    <Compile Include="Concrete\Commands\CollideCommands\BonusColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\BrainColliderCommand.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\BrainParticlesEmitter.cs" />
     <Compile Include="Concrete\Commands\CollideCommands\BrickCollidableCommand.cs" />

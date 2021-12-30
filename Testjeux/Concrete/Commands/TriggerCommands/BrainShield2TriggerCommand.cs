@@ -15,7 +15,7 @@ namespace GameNameSpace
 				IRandomService rand = Services.Instance.Get<IRandomService>();
 				Texture2D texture = Services.Instance.Get<IAssetService>().GetTexture(TextureName.LaserGlow);
 				Vector2 position = shield.Body.Position + ShieldBrickGameObject.TextureSize * ShieldBrickGameObject.BodySizeFactor * shield.Renderable.Scale * 0.25f;
-				if (Services.Instance.Get<ISceneService>().GetObjects(item => item is WobblerGameObject && item.Status == GameObjectStatus.ACTIVE).Count == 0)
+				if (Services.Instance.Get<ISceneService>().GetObjects(item => item is GardianWobblerGameObject && item.Status == GameObjectStatus.ACTIVE).Count == 0)
 				{
 					for (int i = 1; i <= 5; i++)
 					{

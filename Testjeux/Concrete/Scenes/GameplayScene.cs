@@ -8,6 +8,7 @@ namespace GameNameSpace
 	{
 		private IStateItem mCurrentState;
 		public Song Music { get; set; }
+		public ParsedLevel Level { get; set; }
 		public string VictoryText { get; set; }
 		public string DefeatText { get; set; }
 
@@ -38,9 +39,18 @@ namespace GameNameSpace
 			MediaPlayer.Stop();
 		}
 
-		public GameplayScene(int level) 
+		public GameplayScene(ParsedLevel level)
+			: this(0)
+		{
+			Level = level;
+			Services.Instance.Get<ISceneService>().Mode = SceneModeNames.Selection;
+			Services.Instance.Get<ISceneService>().Life = Services.Instance.Get<ISceneService>().MaxLife;
+		}
+
+		public GameplayScene(int level)
 			: base()
 		{
+			Level = null;
 			Services.Instance.Get<ISceneService>().Level = level;
 
 			IStateItem createdState = new GameplayCreatedState(this);

@@ -11,7 +11,10 @@ namespace GameNameSpace
 			Vector2 centerScreen = Services.Instance.Get<IScreenService>().GetScreenSize().ToVector2() * 0.5f;
 			Type = GameObjectType.NONE;
 			Movable = new RevolutionMovable(this, centerScreen, angleSpeed);
-			Renderable = new TextureRenderable(this, texture, 1.0f, centerScreen);
+			Renderable = new TextureRenderable(this, texture, 1.0f, centerScreen)
+			{
+				Layer = 0.1f
+			};
 		}
 	}
 }

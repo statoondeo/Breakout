@@ -21,11 +21,11 @@ namespace GameNameSpace
 
 			destination = new Vector2(168, 208);
 			origin = new Vector2(destination.X, -300);
-			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(new WobblerGameObject(destination, 1.0f), origin, destination));
+			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(new GardianWobblerGameObject(destination, 1.0f), origin, destination));
 
 			destination = new Vector2(1048, 208);
 			origin = new Vector2(destination.X, -300);
-			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(new WobblerGameObject(destination, 1.0f), origin, destination));
+			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(new GardianWobblerGameObject(destination, 1.0f), origin, destination));
 		}
 	}
 }
