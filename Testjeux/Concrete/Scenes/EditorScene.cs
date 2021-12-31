@@ -129,6 +129,7 @@ namespace GameNameSpace
 
 							// Condition de victoire (aucune brique en vie)
 							level.Triggers.Add(new ParsedTrigger() { Type = 1 });
+							level.Triggers.Add(new ParsedTrigger() { Type = 2 });
 
 							// Textes accompagnant les écrans de victoire et défaite
 							level.Texts.Add(new ParsedText() { Type = 0, Text = string.Empty });

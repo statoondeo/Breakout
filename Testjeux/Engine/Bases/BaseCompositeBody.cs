@@ -37,15 +37,5 @@ namespace GameNameSpace
 		}
 
 		public virtual void Draw(SpriteBatch spriteBatch) { }
-
-		public override string ToString()
-		{
-			StringBuilder sb = new StringBuilder();
-			sb.AppendLine("CollisionCheckerBody =>");
-			sb.AppendLine(CollisionCheckerBody.ToString());
-			sb.AppendLine(CollisionResolverBody.ToString());
-
-			return (sb.ToString());
-		}
 	}
 }

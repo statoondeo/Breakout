@@ -11,7 +11,7 @@ namespace GameNameSpace
 
 		public override void Update(GameTime gameTime)
 		{
-			if (Services.Instance.Get<ISceneService>().GetObjects(item => item is BrainGameObject && item.Status == GameObjectStatus.ACTIVE).Count == 0)
+			if (Services.Instance.Get<ISceneService>().GetObject(item => item is BrainGameObject) == null)
 			{
 				Command.Execute();
 				Status = GameObjectStatus.OUTDATED;

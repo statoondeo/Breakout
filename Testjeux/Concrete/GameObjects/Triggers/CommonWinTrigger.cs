@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace GameNameSpace
 {
@@ -11,9 +12,10 @@ namespace GameNameSpace
 
 		public override void Update(GameTime gameTime)
 		{
-			if (Services.Instance.Get<ISceneService>().Life <= 0)
+			IList<IGameObject> gameObjects = Services.Instance.Get<ISceneService>().GetObjects(item => (item is IBrickGameObject) && !(item is CubeGameObject) && !(item is BonusGameObject));
+			if (gameObjects.Count == 0)
 			{
-				Command.Execute();
+				Services.Instance.Get<ISceneService>().Win();
 				Status = GameObjectStatus.OUTDATED;
 			}
 		}
