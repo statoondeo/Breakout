@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
@@ -110,7 +111,14 @@ namespace GameNameSpace
 				openFileDialog.ShowDialog();
 				if (!string.IsNullOrWhiteSpace(openFileDialog.FileName))
 				{
-					(new SwitchSceneCommand(SceneType.GAMEPLAY, Services.Instance.Get<ILevelService>().Load(openFileDialog.FileName))).Execute();
+					try
+					{
+						(new SwitchSceneCommand(SceneType.GAMEPLAY, Services.Instance.Get<ILevelService>().Load(openFileDialog.FileName))).Execute();
+					}
+					catch(Exception)
+					{
+
+					}
 				}
 			})), origin, destination));
 

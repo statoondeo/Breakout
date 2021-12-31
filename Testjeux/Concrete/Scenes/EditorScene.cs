@@ -322,7 +322,7 @@ namespace GameNameSpace
 				if (Services.Instance.Get<IInputListenerService>().IsLeftClick())
 				{
 					Tiles[tile.Y, tile.X]++;
-					Tiles[tile.Y, tile.X] %= 5;
+					Tiles[tile.Y, tile.X] %= 6;
 					if (GameObjects[tile.Y, tile.X] != null) 
 					{
 						UnRegisterGameObject(GameObjects[tile.Y, tile.X] as IGameObject);

@@ -34,10 +34,11 @@ namespace GameNameSpace
 				DecoratedMessageGameObject.Status = GameObjectStatus.OUTDATED;
 			}
 			DecoratedMessageGameObject = (Container as IScene).RegisterGameObject(new TweenMoveDecorator(MessageGameObject, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), OutScreenPosition, OnScreenPosition, 0.25f, 0.0f));
-			
+
 			// Balle de la scène
-			Services.Instance.Get<ISceneService>().Life--;
-			IList<IGameObject> lifes = Services.Instance.Get<ISceneService>().GetObjects(item => item is LifeMiniatureGameObject);
+			ISceneService sceneService = Services.Instance.Get<ISceneService>();
+			sceneService.Life--;
+			IList<IGameObject> lifes = sceneService.GetObjects(item => item is LifeMiniatureGameObject);
 			lifes[lifes.Count - 1].Status = GameObjectStatus.OUTDATED;
 
 			Vector2 screen = Services.Instance.Get<IScreenService>().GetScreenSize().ToVector2();

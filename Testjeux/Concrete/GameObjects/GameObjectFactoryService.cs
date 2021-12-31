@@ -55,6 +55,7 @@ namespace GameNameSpace
 			IGameObject gameObject = trigger.Type switch
 			{
 				1 => new CommonLooseTrigger(),
+				2 => new CommonWinTrigger(),
 				_ => null,
 			};
 			return (gameObject);
