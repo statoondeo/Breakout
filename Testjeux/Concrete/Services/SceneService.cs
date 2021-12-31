@@ -60,7 +60,7 @@ namespace GameNameSpace
 		public void Draw(SpriteBatch spriteBatch)
 {
 			CurrentScene.Draw(spriteBatch);
-			spriteBatch.DrawString(Services.Instance.Get<IAssetService>().GetFont(FontName.Mini), FrameCounter.Count.ToString(), new Vector2(1248.0f, 8.0f), Color.White);
+			//CamShake.Draw(spriteBatch);
 		}
 
 		public IScene ChangeScene(SceneType newScene, ICommand whenLoadedCommand)

@@ -15,6 +15,7 @@ namespace GameNameSpace
 			Renderable = new WobblerRenderable(this, scale);
 			SparkRenderable = new AnimatedTextureRenderable(this, Services.Instance.Get<IAssetService>().GetTexture(TextureName.BlueSpark), new Vector2(-43), new Point(100), 1.5f, new TextureAnimation(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1 }, 0.09f, true));
 
+			position += new Vector2(32);
 			Halo1 = new HaloGameObject(Color.CornflowerBlue, 0.2f, 1.5f);
 			Halo1.Renderable.Alpha = 0.2f;
 			Vector2 origin = new Vector2(position.X, -500);

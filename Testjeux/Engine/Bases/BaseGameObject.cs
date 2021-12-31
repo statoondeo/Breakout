@@ -8,7 +8,7 @@ namespace GameNameSpace
 		public IMovable Movable { get; set; }
 		public IBody Body { get; set; }
 		public IRenderable Renderable { get; set; }
-		public GameObjectStatus Status { get; set; }
+		public virtual GameObjectStatus Status { get; set; }
 		public GameObjectType Type { get; protected set; }
 
 		protected BaseGameObject()
@@ -29,7 +29,7 @@ namespace GameNameSpace
 		public virtual void Draw(SpriteBatch spriteBatch) 
 		{
 			Renderable.Draw(spriteBatch);
-			Body.Draw(spriteBatch);
+			//Body.Draw(spriteBatch);
 		}
 	}
 }

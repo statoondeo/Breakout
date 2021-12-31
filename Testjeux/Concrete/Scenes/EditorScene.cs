@@ -251,7 +251,7 @@ namespace GameNameSpace
 				2 => new AtomGameObject(position, 1.0f),
 				3 => new BlobGameObject(position, 1.0f),
 				4 => new CubeGameObject(position),
-				5 => new BonusGameObject(position),
+				5 => new BonusTokenGameObject(position),
 				_ => null
 			};
 			if (null != gameObject)

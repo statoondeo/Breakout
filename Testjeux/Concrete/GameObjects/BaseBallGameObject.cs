@@ -13,6 +13,19 @@ namespace GameNameSpace
 		protected readonly IGameObject BallHalo;
 		protected readonly Texture2D Texture;
 
+		public override GameObjectStatus Status 
+		{ 
+			get => base.Status;
+			set
+			{
+				base.Status = value;
+				if (BallHalo != null)
+				{
+					BallHalo.Status = value;
+				}
+			}
+		}
+
 		public bool Exploded { get; set; }
 
 		public float Speed { get; private set; }
@@ -30,7 +43,8 @@ namespace GameNameSpace
 			BallExplosionParticlesEmitter = new BallExplosionParticlesEmitter(this, Services.Instance.Get<IAssetService>().GetTexture(TextureName.RedSpark), 25);
 			Exploded = false;
 
-			BallHalo = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.OrangeRed, 0.15f, 1.0f));
+			BallHalo = new HaloGameObject(Color.OrangeRed, 0.15f, 1.0f);
+			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(BallHalo, new Vector2(position.X, -300), position));
 			BallHalo.Renderable.Alpha = 0.1f;
 		}
 
@@ -48,7 +62,7 @@ namespace GameNameSpace
 			if (Exploded)
 			{
 				BallExplosionParticlesEmitter.Emit();
-				BallHalo.Status = Status = GameObjectStatus.OUTDATED;
+				Status = GameObjectStatus.OUTDATED;
 			}
 		}
 	}

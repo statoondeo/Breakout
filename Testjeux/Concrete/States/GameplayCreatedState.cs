@@ -54,7 +54,7 @@ namespace GameNameSpace
 			Vector2 racketSize = new Vector2(racketTexture.Width, racketTexture.Height);
 			destination = new Vector2((Screen.X - racketSize.X) / 2, Screen.Y - 2 * racketSize.Y);
 			origin = new Vector2(destination.X, -300);
-			(Container as IScene).RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(new RacketGameObject(Vector2.Zero), origin, destination));
+			(Container as IScene).RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(new RacketGameObject(destination), origin, destination));
 
 			Ttl = Services.Instance.Get<IGameObjectFactoryService>().MaxTtl;
 		}

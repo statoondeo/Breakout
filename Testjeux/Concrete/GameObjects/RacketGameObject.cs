@@ -8,9 +8,9 @@ namespace GameNameSpace
 	{
 		private readonly IParticlesEmitter LeftTrailParticlesEmitter;
 		private readonly IParticlesEmitter RightTrailParticlesEmitter;
-		private readonly IGameObject HaloRenderable;
-		private readonly IGameObject Reactor1Renderable;
-		private readonly IGameObject Reactor2Renderable;
+		private readonly IGameObject HaloAdorner;
+		private readonly IGameObject Reactor1Adorner;
+		private readonly IGameObject Reactor2Adorner;
 
 		public Vector2 Size { get; private set; }
 
@@ -27,22 +27,28 @@ namespace GameNameSpace
 			LeftTrailParticlesEmitter = new RacketTrailParticlesEmitter(this, 3 * (float)Math.PI / 4, new Vector2(-8, 46));
 			RightTrailParticlesEmitter = new RacketTrailParticlesEmitter(this, (float)Math.PI / 4, new Vector2(128, 46));
 
-			HaloRenderable = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.White, 0.1f));
-			HaloRenderable.Renderable.Alpha = 0.1f;
+			Vector2 adornerPosition = Body.Position + Size * 0.5f;
+			HaloAdorner = new HaloGameObject(Color.White, 0.1f);
+			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(HaloAdorner, new Vector2(adornerPosition.X, -300), adornerPosition));
+			HaloAdorner.Renderable.Alpha = 0.1f;
 
-			Reactor1Renderable = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.OrangeRed, 0.2f, 0.5f));
-			Reactor1Renderable.Renderable.Alpha = 0.25f;
+			adornerPosition = Body.Position + new Vector2(10, 26);
+			Reactor1Adorner = new HaloGameObject(Color.OrangeRed, 0.2f, 0.5f);
+			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(Reactor1Adorner, new Vector2(adornerPosition.X, -300), adornerPosition));
+			Reactor1Adorner.Renderable.Alpha = 0.25f;
 
-			Reactor2Renderable = Services.Instance.Get<ISceneService>().RegisterGameObject(new HaloGameObject(Color.OrangeRed, -0.2f, 0.5f));
-			Reactor2Renderable.Renderable.Alpha = 0.25f;
+			adornerPosition = Body.Position + new Vector2(110, 26);
+			Reactor2Adorner = new HaloGameObject(Color.OrangeRed, -0.2f, 0.5f);
+			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(Reactor2Adorner, new Vector2(adornerPosition.X, -300), adornerPosition));
+			Reactor2Adorner.Renderable.Alpha = 0.25f;
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
-			HaloRenderable.Body.MoveTo(Body.Position + Size * 0.5f);
-			Reactor1Renderable.Body.MoveTo(Body.Position + new Vector2(10, 26));
-			Reactor2Renderable.Body.MoveTo(Body.Position + new Vector2(110, 26));
+			HaloAdorner.Body.MoveTo(Body.Position + Size * 0.5f);
+			Reactor1Adorner.Body.MoveTo(Body.Position + new Vector2(10, 26));
+			Reactor2Adorner.Body.MoveTo(Body.Position + new Vector2(110, 26));
 			LeftTrailParticlesEmitter.Emit(gameTime);
 			RightTrailParticlesEmitter.Emit(gameTime);
 		}

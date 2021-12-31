@@ -56,7 +56,7 @@ namespace GameNameSpace
 			{
 				1 => new CommonLooseTrigger(),
 				2 => new CommonWinTrigger(),
-				_ => null,
+				_ => throw new ArgumentNullException(nameof(trigger.Type)),
 			};
 			return (gameObject);
 		}
@@ -72,7 +72,7 @@ namespace GameNameSpace
 				4 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.BusyBeat),
 				5 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.TheThroneRoom),
 				6 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.ZombieMarch),
-				_ => null,
+				_ => throw new ArgumentNullException(nameof(music.Type)),
 			};
 			return (song);
 		}
@@ -83,7 +83,7 @@ namespace GameNameSpace
 			{
 				0 => new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), ConvertToVector2(background.Velocity)),
 				1 => new RotatingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), background.AngleSpeed),
-				_ => null,
+				_ => throw new ArgumentNullException(nameof(background.Type)),
 			};
 			return (gameObject);
 		}
@@ -91,7 +91,7 @@ namespace GameNameSpace
 		public IGameObject CreateBrick(ParsedBrick jsonBrick)
 		{
 			float originX = -300;
-			IGameObject gameObject;
+			IGameObject gameObject = null;
 			Vector2 origin, destination;
 			switch (jsonBrick.Type)
 			{
@@ -126,7 +126,7 @@ namespace GameNameSpace
 					// Snake
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new SnakeHeadGameObject(Vector2.Zero), origin, destination);
+					gameObject = DecorateEntrance(new SnakeHeadGameObject(new Vector2(1600, 32)), origin, destination);
 					break;
 				case 6:
 					// Mega Blob
@@ -150,11 +150,11 @@ namespace GameNameSpace
 					// Bonus
 					destination = ConvertToVector2(jsonBrick.Position);
 					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new BonusGameObject(Vector2.Zero), origin, destination);
+					gameObject = DecorateEntrance(new BonusGameObject(destination), origin, destination);
 					break;
 
 				default:
-					gameObject = null;
+					throw new ArgumentNullException(nameof(jsonBrick.Type));
 					break;
 			}
 			return (gameObject);

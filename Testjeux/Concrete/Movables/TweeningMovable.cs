@@ -10,7 +10,8 @@ namespace GameNameSpace
 		public Vector2 Origin { get; set; }
 		public Vector2 Destination { get; set; }
 		public Vector2 DestinationOffset { get; set; }
-		protected bool Ended;
+
+		public bool Ended { get; protected set; }
 
 		public TweeningMovable(IGameObject gameObject)
 			: base(gameObject)

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
@@ -101,7 +102,7 @@ namespace GameNameSpace
 
 			destination = new Vector2(490, 650);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Charger", Color.Black, new GenericCommand(delegate 
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Charger", Color.Black, new GenericCommand(delegate
 			{
 				System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog()
 				{
@@ -111,13 +112,21 @@ namespace GameNameSpace
 				openFileDialog.ShowDialog();
 				if (!string.IsNullOrWhiteSpace(openFileDialog.FileName))
 				{
+					ParsedLevel level;
 					try
 					{
-						(new SwitchSceneCommand(SceneType.GAMEPLAY, Services.Instance.Get<ILevelService>().Load(openFileDialog.FileName))).Execute();
+						level = Services.Instance.Get<ILevelService>().Load(openFileDialog.FileName);
+						Services.Instance.Get<IGameObjectFactoryService>().CreateLevel(level);
+						(new SwitchSceneCommand(SceneType.GAMEPLAY, level)).Execute();
 					}
-					catch(Exception)
+					catch (Exception)
 					{
-
+						Point screen = Services.Instance.Get<IScreenService>().GetScreenSize();
+						string label = "Erreur : Format de fichier incorrect";
+						SpriteFont font = Services.Instance.Get<IAssetService>().GetFont(FontName.Button);
+						Vector2 textSize = font.MeasureString(label);
+						destination = new Vector2((screen.X - textSize.X) * 0.5f, (screen.Y - textSize.Y) * 0.5f);
+						RegisterGameObject(new ErrorTextGameObject(destination, font, label, Color.Red));
 					}
 				}
 			})), origin, destination));

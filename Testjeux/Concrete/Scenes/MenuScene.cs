@@ -50,7 +50,6 @@ namespace GameNameSpace
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, font, "Raphael DUCHOSSOY (gamecodeur.fr)", Color.Silver), origin, destination));
 
-
 			// Ajout du curseur de souris
 			RegisterGameObject(new CursorGameObject());
 
