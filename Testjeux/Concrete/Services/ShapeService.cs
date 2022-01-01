@@ -15,14 +15,14 @@ namespace GameNameSpace
 
 		public Texture2D CreateTexture(Point size, Color color)
 		{
-			Texture2D newTexture = new Texture2D(SpriteBatch.GraphicsDevice, size.X, size.Y);
+			Texture2D newTexture = new(SpriteBatch.GraphicsDevice, size.X, size.Y);
 			newTexture.SetData(Enumerable.Repeat(color, size.X * size.Y).ToArray());
 			return (newTexture);
 		}
 
 		public Texture2D CropTexture(Texture2D original, Rectangle source)
 		{
-			Texture2D cropTexture = new Texture2D(SpriteBatch.GraphicsDevice, source.Width, source.Height);
+			Texture2D cropTexture = new(SpriteBatch.GraphicsDevice, source.Width, source.Height);
 			Color[] data = new Color[source.Width * source.Height];
 			original.GetData(0, source, data, 0, data.Length);
 			cropTexture.SetData(data);

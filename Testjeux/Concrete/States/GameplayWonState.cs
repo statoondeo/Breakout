@@ -36,7 +36,7 @@ namespace GameNameSpace
 
 			IGameObjectFactoryService factory = Services.Instance.Get<IGameObjectFactoryService>();
 			Vector2 destination = Vector2.Zero;
-			Vector2 origin = new Vector2(destination.X, -800.0f);
+			Vector2 origin = new(destination.X, -800.0f);
 			(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new BigPanelGameObject(), origin, destination));
 
 			destination = new Vector2(125.0f, 650.0f);

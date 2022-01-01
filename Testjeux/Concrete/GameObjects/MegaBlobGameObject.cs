@@ -24,7 +24,7 @@ namespace GameNameSpace
 			IGameObjectFactoryService factoryService = Services.Instance.Get<IGameObjectFactoryService>();
 			factoryService.ResetTtl();
 			Point screen = Services.Instance.Get<IScreenService>().GetScreenSize();
-			Vector2 centerScreen = new Vector2(screen.X * 0.5f, screen.Y / 3.0f);
+			Vector2 centerScreen = new(screen.X * 0.5f, screen.Y / 3.0f);
 			IRandomService rand = Services.Instance.Get<IRandomService>();
 			Vector2 originOrigin, origin, destination;
 			ITweening tween = Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintInOutTweening);
@@ -32,7 +32,7 @@ namespace GameNameSpace
 			origin = new Vector2(rand.Next() * 1152.0f + 64.0f, rand.Next() * 636.0f + 64.0f);
 			originOrigin = new Vector2(origin.X, -300);
 			destination = centerScreen - new Vector2(41);
-			SortedList<float, IGameObject> sortedList = new SortedList<float, IGameObject>
+			SortedList<float, IGameObject> sortedList = new()
 			{
 				{ rand.Next(), factoryService.DecorateEntrance(new TweenMoveDecorator(new ForkBlobBrickGameObject(originOrigin, 1.3f), tween, origin, destination, rand.Next() * 2.0f + 2.0f, 0.0f), originOrigin, origin)  }
 			};

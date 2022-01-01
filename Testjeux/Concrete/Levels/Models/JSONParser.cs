@@ -25,7 +25,7 @@ namespace GameNameSpace
 		{
 			string result;
 			using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-			using (StreamReader reader = new StreamReader(stream))
+			using (StreamReader reader = new(stream))
 			{
 				result = reader.ReadToEnd();
 			}

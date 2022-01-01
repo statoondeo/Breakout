@@ -40,8 +40,8 @@ namespace GameNameSpace
 			lifes[lifes.Count - 1].Status = GameObjectStatus.OUTDATED;
 
 			Vector2 screen = Services.Instance.Get<IScreenService>().GetScreenSize().ToVector2();
-			Vector2 origin = new Vector2((screen.X - 32) / 2, -300);
-			Vector2 destination = new Vector2(screen.X / 2, 2 * screen.Y / 3);
+			Vector2 origin = new((screen.X - 32) / 2, -300);
+			Vector2 destination = new(screen.X / 2, 2 * screen.Y / 3);
 			IGameObject ball = new InvisibleBodyDecorator(new SingleBallGameObject(origin, 700, new Vector2(32)));
 			(Container as IScene).RegisterGameObject(new TweenMoveDecorator(new WaitClickDecoratorGameObject(ball, new RemoveInvisibleBodyDecoratorCommand(ball)), Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), origin, destination, 0.25f, 0.0f));
 		}

@@ -14,7 +14,7 @@ namespace GameNameSpace
 			GameObjects = new T[Capacity];
 			for (int i = 0; i < Capacity; i++)
 			{
-				T newObject = new T();
+				T newObject = new();
 				GameObjects[i] = newObject;
 				(newObject as IGameObject).Status = GameObjectStatus.OUTDATED;
 			}

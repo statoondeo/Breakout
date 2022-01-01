@@ -23,8 +23,7 @@ namespace GameNameSpace
 		public void Init(Texture2D texture, ITweening tweening, Vector2 position, Vector2 velocity, float scale, float ttl, float angleSpeed, float initialAlpha, float angle, Vector2 rotationOrigin)
 		{
 			Status = GameObjectStatus.ACTIVE;
-			Body.MoveTo(position);
-			Body.Velocity = velocity;
+			Body = new InvisibleBody(position, velocity);
 			CurrentTtl = MaxTtl = ttl;
 			(Movable as TweeningMovable).Init(tweening, ttl, Body.Position, Body.Position + velocity * MaxTtl);
 			Angle = angle;

@@ -6,7 +6,7 @@ namespace GameNameSpace
 	public sealed class BrainGameObject : BaseBrickGameObject, IStateContainer
 	{
 		public static readonly float BodySizeFactor = 0.65f;
-		public static readonly Vector2 TextureSize = new Vector2(256);
+		public static readonly Vector2 TextureSize = new(256);
 
 		private IStateItem mCurrentState;
 		public IStateItem CurrentState {

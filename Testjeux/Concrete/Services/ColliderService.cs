@@ -156,7 +156,7 @@ namespace GameNameSpace
 				normal = newAxis;
 			}
 
-			if (Vector2.Dot(GetCenter(boxVectors) - circle.Center, normal) > 0.0f)
+			if (Vector2.Dot(GetCenter(boxVectors) - circle.Center, normal) < 0.0f)
 			{
 				normal = -normal;
 			}

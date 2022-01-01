@@ -21,7 +21,7 @@ namespace GameNameSpace
 				float scale = rand.Next() * 0.5f + 0.25f;
 				float particleSpeed = rand.Next() * 150.0f;
 				float particleAngle = (float)(rand.Next() * Math.PI * 0.5f + Math.PI * 0.25f);
-				Vector2 rotationOrigin = new Vector2(rand.Next() * Size.X * scale, rand.Next() * Size.Y * scale);
+				Vector2 rotationOrigin = new(rand.Next() * Size.X * scale, rand.Next() * Size.Y * scale);
 				Services.Instance.Get<IParticlesService>().Register(Texture, Services.Instance.Get<ITweeningService>().Get(TweeningName.QuintOut), body.Position + (body.Size - Size * scale) * 0.5f, new Vector2(particleSpeed * (float)Math.Cos(particleAngle), particleSpeed * (float)Math.Sin(particleAngle)), scale, ttl, angleSpeed, 1.0f, 0.0f, rotationOrigin);
 			}
 		}

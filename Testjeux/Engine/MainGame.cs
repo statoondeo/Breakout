@@ -5,7 +5,7 @@ namespace GameNameSpace
 {
 	public class MainGame : Game
 	{
-		private static readonly Point TargetResolution = new Point(1280, 800);
+		private static readonly Point TargetResolution = new(1280, 800);
 
 		private readonly GraphicsDeviceManager _graphics;
 		private SpriteBatch _spriteBatch;

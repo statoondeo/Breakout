@@ -28,8 +28,8 @@ namespace GameNameSpace
 			IGameObjectFactoryService factory = Services.Instance.Get<IGameObjectFactoryService>();
 
 			//Titre de la scène
-			Vector2 destination = new Vector2(125, 75);
-			Vector2 origin = new Vector2(destination.X, -300.0f);
+			Vector2 destination = new(125, 75);
+			Vector2 origin = new(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.Title), "Sélection du niveau", Color.White), origin, destination));
 
 			// Présentation des niveaux
@@ -104,7 +104,7 @@ namespace GameNameSpace
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Charger", Color.Black, new GenericCommand(delegate
 			{
-				System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog()
+				System.Windows.Forms.OpenFileDialog openFileDialog = new()
 				{
 					Filter = "JSON Level|*.json",
 					Title = "Enregistrer un niveau Space Breaker"

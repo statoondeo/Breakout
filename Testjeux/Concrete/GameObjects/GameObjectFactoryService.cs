@@ -56,7 +56,7 @@ namespace GameNameSpace
 			{
 				1 => new CommonLooseTrigger(),
 				2 => new CommonWinTrigger(),
-				_ => throw new ArgumentNullException(nameof(trigger.Type)),
+				_ => throw new ArgumentNullException(nameof(trigger)),
 			};
 			return (gameObject);
 		}
@@ -72,7 +72,7 @@ namespace GameNameSpace
 				4 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.BusyBeat),
 				5 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.TheThroneRoom),
 				6 => Services.Instance.Get<IAssetService>().GetMusic(MusicName.ZombieMarch),
-				_ => throw new ArgumentNullException(nameof(music.Type)),
+				_ => throw new ArgumentNullException(nameof(music)),
 			};
 			return (song);
 		}
@@ -83,7 +83,7 @@ namespace GameNameSpace
 			{
 				0 => new ScrollingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), ConvertToVector2(background.Velocity)),
 				1 => new RotatingBackgroundGameObject(Services.Instance.Get<IAssetService>().GetTexture((TextureName)Enum.Parse(typeof(TextureName), background.Texture)), background.AngleSpeed),
-				_ => throw new ArgumentNullException(nameof(background.Type)),
+				_ => throw new ArgumentNullException(nameof(background)),
 			};
 			return (gameObject);
 		}
@@ -91,8 +91,8 @@ namespace GameNameSpace
 		public IGameObject CreateBrick(ParsedBrick jsonBrick)
 		{
 			float originX = -300;
-			IGameObject gameObject = null;
 			Vector2 origin, destination;
+			IGameObject gameObject;
 			switch (jsonBrick.Type)
 			{
 				case 0:
@@ -154,7 +154,7 @@ namespace GameNameSpace
 					break;
 
 				default:
-					throw new ArgumentNullException(nameof(jsonBrick.Type));
+					throw new ArgumentNullException(nameof(jsonBrick));
 					break;
 			}
 			return (gameObject);

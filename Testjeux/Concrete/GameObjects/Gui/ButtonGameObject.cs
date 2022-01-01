@@ -6,7 +6,7 @@ namespace GameNameSpace
 {
 	public sealed class ButtonGameObject : BaseGameObject, IButtonGameObject
 	{
-		public static readonly Vector2 Size = new Vector2(299, 93);
+		public static readonly Vector2 Size = new(299, 93);
 		private readonly IRenderable TextRenderable;
 		private readonly float BaseAlpha;
 		private float CurrentHoverTtl;
@@ -53,7 +53,7 @@ namespace GameNameSpace
 			BaseAlpha = 0.5f;
 			Hover = false;
 			Texture2D texture = Services.Instance.Get<IAssetService>().GetTexture(TextureName.Button);
-			Vector2 size = new Vector2(texture.Width, texture.Height);
+			Vector2 size = new(texture.Width, texture.Height);
 			Type = GameObjectType.BUTTON;
 			SpriteFont font = Services.Instance.Get<IAssetService>().GetFont(FontName.Button);
 			Vector2 textSize = font.MeasureString(text);

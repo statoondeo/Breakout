@@ -14,7 +14,7 @@ namespace GameNameSpace
 		{
 			base.Emit(collisionResult);
 			IRandomService rand = Services.Instance.Get<IRandomService>();
-			Vector2 textureSize = new Vector2(Texture.Width, Texture.Height);
+			Vector2 textureSize = new(Texture.Width, Texture.Height);
 			float angleSpeed = 0;
 			float ttl;
 			float scale;

@@ -35,7 +35,7 @@ namespace GameNameSpace
 
 			IGameObjectFactoryService factory = Services.Instance.Get<IGameObjectFactoryService>();
 			Vector2 destination = Vector2.Zero;
-			Vector2 origin = new Vector2(destination.X, -800.0f);
+			Vector2 origin = new(destination.X, -800.0f);
 			(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new BigPanelGameObject(), origin, destination));
 
 			destination = new Vector2(125.0f, 650.0f);
@@ -45,13 +45,16 @@ namespace GameNameSpace
 			destination = new Vector2(900.0f, 650.0f);
 			origin = new Vector2(destination.X, -300.0f);
 
-			if (null == (Container as GameplayScene).Level)
+			if (Services.Instance.Get<ISceneService>().Mode == SceneModeNames.Selection)
 			{
-				(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Rejouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, Services.Instance.Get<ISceneService>().Level)), origin, destination));
-			}
-			else
-			{
-				(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Rejouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, (Container as GameplayScene).Level)), origin, destination));
+				if (null == (Container as GameplayScene).Level)
+				{
+					(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Rejouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, Services.Instance.Get<ISceneService>().Level)), origin, destination));
+				}
+				else
+				{
+					(Container as GameplayScene).RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Rejouer", Color.Black, new SwitchSceneCommand(SceneType.GAMEPLAY, (Container as GameplayScene).Level)), origin, destination));
+				}
 			}
 
 			SpriteFont font = Services.Instance.Get<IAssetService>().GetFont(FontName.BigTitle);

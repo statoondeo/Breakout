@@ -5,7 +5,7 @@ namespace GameNameSpace
 	public sealed class ShieldBrickGameObject : BaseBrickGameObject
 	{
 		public static readonly float BodySizeFactor = 0.9f;
-		public static readonly Vector2 TextureSize = new Vector2(122);
+		public static readonly Vector2 TextureSize = new(122);
 
 		public ShieldBrickGameObject(Vector2 position, float scale)
 			: base(position, TextureSize.X * 0.5f * scale * BodySizeFactor, 0)

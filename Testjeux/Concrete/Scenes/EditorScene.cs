@@ -8,8 +8,8 @@ namespace GameNameSpace
 	public sealed class EditorScene : BaseScene
 	{
 
-		private static readonly Point TilesBasePosition = new Point(55, 63);
-		private static readonly Point TilesBaseSize = new Point(65 * 18, 65 * 8);
+		private static readonly Point TilesBasePosition = new(55, 63);
+		private static readonly Point TilesBaseSize = new(65 * 18, 65 * 8);
 		private readonly int[,] Tiles;
 		private readonly object[,] GameObjects;
 		private IGameObject Cursor;
@@ -66,7 +66,7 @@ namespace GameNameSpace
 
 			//Titre de la scène
 			Vector2 destination = Vector2.Zero;
-			Vector2 origin = new Vector2(destination.X, -300.0f);
+			Vector2 origin = new(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.Title), "Création de niveau", Color.White), origin, destination));
 
 			// Boutons
@@ -116,7 +116,7 @@ namespace GameNameSpace
 				delegate
 				{
 					if (CanSave) { 
-						System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog
+						System.Windows.Forms.SaveFileDialog saveFileDialog = new()
 						{
 							Filter = "JSON Level|*.json",
 							Title = "Enregistrer un niveau Space Breaker"
@@ -125,7 +125,7 @@ namespace GameNameSpace
 
 						if (!string.IsNullOrWhiteSpace(saveFileDialog.FileName))
 						{
-							ParsedLevel level = new ParsedLevel();
+							ParsedLevel level = new();
 
 							// Condition de victoire (aucune brique en vie)
 							level.Triggers.Add(new ParsedTrigger() { Type = 1 });

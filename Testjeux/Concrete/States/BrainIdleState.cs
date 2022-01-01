@@ -11,8 +11,8 @@ namespace GameNameSpace
 
 		public override void Enter()
 		{
-			Vector2 destination = new Vector2(522, 88);
-			Vector2 origin = new Vector2(destination.X, -300);
+			Vector2 destination = new(522, 88);
+			Vector2 origin = new(destination.X, -300);
 			IGameObject ShieldGameObject = new ShieldBrickGameObject(Vector2.Zero, 2.1f);
 			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(ShieldGameObject, origin, destination));
 

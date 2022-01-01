@@ -18,7 +18,7 @@ namespace GameNameSpace
 			position += new Vector2(32);
 			Halo1 = new HaloGameObject(Color.CornflowerBlue, 0.2f, 1.5f);
 			Halo1.Renderable.Alpha = 0.2f;
-			Vector2 origin = new Vector2(position.X, -500);
+			Vector2 origin = new(position.X, -500);
 			Services.Instance.Get<ISceneService>().RegisterGameObject(Services.Instance.Get<IGameObjectFactoryService>().DecorateEntrance(Halo1, origin, position));
 
 			Halo2 = new HaloGameObject(Color.CornflowerBlue, -0.3f, 1f);

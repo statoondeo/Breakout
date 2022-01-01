@@ -34,8 +34,8 @@ namespace GameNameSpace
 			//Titre de la scène
 			SpriteFont font = Services.Instance.Get<IAssetService>().GetFont(FontName.GiantTitle);
 			Vector2 textSize = font.MeasureString("SPACE");
-			Vector2 destination = new Vector2((screen.X - textSize.X) * 0.5f, 125);
-			Vector2 origin = new Vector2(destination.X, -800.0f);
+			Vector2 destination = new((screen.X - textSize.X) * 0.5f, 125);
+			Vector2 origin = new(destination.X, -800.0f);
 			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.GiantTitle), "SPACE", Color.Silver), origin, destination));
 
 			font = Services.Instance.Get<IAssetService>().GetFont(FontName.BigTitle);

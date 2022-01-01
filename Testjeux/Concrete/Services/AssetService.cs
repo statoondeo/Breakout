@@ -74,7 +74,7 @@ namespace GameNameSpace
             }
 
             // Texture manuelle pour les collideBox
-            Texture2D DrawableTexture = new Texture2D(graphicDevice, 1, 1, false, SurfaceFormat.Color);
+            Texture2D DrawableTexture = new(graphicDevice, 1, 1, false, SurfaceFormat.Color);
             DrawableTexture.SetData(Enumerable.Repeat(Color.White, 1).ToArray());
             TexturesDictionary.Add(TextureName.Drawable, DrawableTexture);
         }
