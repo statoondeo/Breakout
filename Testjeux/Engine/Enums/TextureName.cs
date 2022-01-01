@@ -12,7 +12,6 @@
         Cube,
         Brain,
         Shield,
-        Shield2,
         LaserGlow,
         Life,
         Blob,

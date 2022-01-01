@@ -60,7 +60,7 @@ namespace GameNameSpace
 		public void Draw(SpriteBatch spriteBatch)
 {
 			CurrentScene.Draw(spriteBatch);
-			//CamShake.Draw(spriteBatch);
+			FrameCounter.Draw(spriteBatch);
 		}
 
 		public IScene ChangeScene(SceneType newScene, ICommand whenLoadedCommand)
@@ -78,6 +78,7 @@ namespace GameNameSpace
 				SceneType.GAMEPLAY => new GameplayScene(levelNumber),
 				_ => null,
 			};
+			FrameCounter.Reset();				
 			CurrentScene?.Load(whenLoadedCommand);
 			return (CurrentScene);
 		}
