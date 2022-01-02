@@ -12,7 +12,7 @@ namespace GameNameSpace
 		public override void Emit(CollisionTestResult collisionResult)
 		{
 			base.Emit(collisionResult);
-			Vector2 normal = collisionResult.BodyA == GameObject ? collisionResult.Normal : Vector2.Negate(collisionResult.Normal);
+			Vector2 normal = collisionResult.BodyA == GameObject ? Vector2.Negate(collisionResult.Normal) : collisionResult.Normal;
 			Vector2 position = GameObject.Body is IBoxBody ? GameObject.Body.Position + Size / 2 : GameObject.Body is ICircleBody ? (GameObject.Body as ICircleBody).Center : Vector2.Zero;
 			IRandomService rand = Services.Instance.Get<IRandomService>();
 			Number = rand.Next(5, 11);
