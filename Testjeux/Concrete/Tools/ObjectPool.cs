@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace GameNameSpace
+﻿namespace GameNameSpace
 {
 	public class ObjectPool<T> where T : class, new()
 	{
@@ -41,7 +39,6 @@ namespace GameNameSpace
 			if (read >= Capacity)
 			{
 				// Pool mal dimensionné
-				Trace.WriteLine("Pool mal dimensionné : " + Capacity);
 				return (new T());
 			}
 			else
