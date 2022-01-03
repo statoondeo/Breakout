@@ -37,68 +37,116 @@ namespace GameNameSpace
 			origin = new Vector2(destination.X, -8300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new BigPanelGameObject(), origin, destination));
 
-			destination = new Vector2(168, 220);
+			destination = new Vector2(70, 220);
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new CardPanelGameObject(origin), origin, destination));
 
-			destination = new Vector2(533, 220);
+			destination = new Vector2(495, 220);
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new CardPanelGameObject(origin), origin, destination));
 
-			destination = new Vector2(898, 220);
+			destination = new Vector2(920, 220);
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new CardPanelGameObject(origin), origin, destination));
 
 			// On ajoute les sprites des boss
-			destination = new Vector2(215, 320);
+			destination = new Vector2(117, 320);
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new BrainMiniatureGameObject(origin), origin, destination));
 
-			destination = new Vector2(600, 330);
+			destination = new Vector2(565, 330);
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new BlobMiniatureGameObject(origin), origin, destination));
 
-			destination = new Vector2(943, 303);
+			destination = new Vector2(963, 303);
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new SnakeMiniatureGameObject(origin), origin, destination));
 
 			// Textes
-			destination = new Vector2(220, 260);
+			destination = new Vector2(122, 260);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.Base), "Niveau 1", Color.White), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.Base), "Monde 1", Color.White), origin, destination));
 
-			destination = new Vector2(575, 260);
+			destination = new Vector2(540, 260);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.Base), "Niveau 2", Color.White), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.Base), "Monde 2", Color.White), origin, destination));
 
-			destination = new Vector2(940, 260);
+			destination = new Vector2(960, 260);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.Base), "Niveau 3", Color.White), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.Base), "Monde 3", Color.White), origin, destination));
 
-			destination = new Vector2(237, 450);
+			destination = new Vector2(139, 450);
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.Base), "BRAIN", Color.White), origin, destination));
 
-			destination = new Vector2(605, 450);
+			destination = new Vector2(570, 450);
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.Base), "BLOB", Color.White), origin, destination));
 
-			destination = new Vector2(960, 450);
+			destination = new Vector2(980, 450);
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new TextGameObject(origin, Services.Instance.Get<IAssetService>().GetFont(FontName.Base), "SNAKE", Color.White), origin, destination));
 
 			// Boutons
-			destination = new Vector2(125, 550);
+			destination = new Vector2(320, 250);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 1)), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "1", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 1)), origin, destination));
 
-			destination = new Vector2(490, 550);
+			destination = new Vector2(320, 350);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 2)), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "2", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 2)), origin, destination));
 
-			destination = new Vector2(855, 550);
+			destination = new Vector2(320, 450);
 			origin = new Vector2(destination.X, -300.0f);
-			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Jouer", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 3)), origin, destination));
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "3", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 3)), origin, destination));
+
+			destination = new Vector2(320, 550);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "4", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 4)), origin, destination));
+
+			destination = new Vector2(20, 550);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Boss", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 5)), origin, destination));
+
+			destination = new Vector2(745, 250);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "1", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 6)), origin, destination));
+
+			destination = new Vector2(745, 350);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "2", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 7)), origin, destination));
+
+			destination = new Vector2(745, 450);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "3", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 8)), origin, destination));
+
+			destination = new Vector2(745, 550);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "4", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 9)), origin, destination));
+
+			destination = new Vector2(445, 550);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Boss", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 10)), origin, destination));
+
+			destination = new Vector2(1170, 250);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "1", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 11)), origin, destination));
+
+			destination = new Vector2(1170, 350);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "2", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 12)), origin, destination));
+
+			destination = new Vector2(1170, 450);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "3", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 13)), origin, destination));
+
+			destination = new Vector2(1170, 550);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new SmallButtonGameObject(origin, "4", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 14)), origin, destination));
+
+			destination = new Vector2(870, 550);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Boss", Color.Black, new FollowSelectionSceneCommand(SceneType.GAMEPLAY, 15)), origin, destination));
 
 			destination = new Vector2(490, 650);
 			origin = new Vector2(destination.X, -300.0f);

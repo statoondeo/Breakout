@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace GameNameSpace
 {
@@ -100,6 +101,11 @@ namespace GameNameSpace
 
 		public virtual void Update(GameTime gameTime)
 		{
+			if (Services.Instance.Get<IInputListenerService>().IsKeyPressed(Keys.F1))
+			{
+				Services.Instance.Get<ISceneService>().ToggleFullScreen();
+			}
+
 			IColliderService collider = Services.Instance.Get<IColliderService>();
 			CollisionTestResult collisionResult = null;
 			

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Drawing.Printing;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameNameSpace
@@ -13,6 +14,7 @@ namespace GameNameSpace
 		private IInputListenerService InputListener;
 		private RenderTarget2D RenderTarget;
 		private Rectangle DrawTarget;
+		private bool PreviousFullScreen;
 
 		public MainGame()
 		{
@@ -28,13 +30,13 @@ namespace GameNameSpace
 		{
 			base.Initialize();
 
-			// On prépare la rendertarget
-			RenderTarget = new RenderTarget2D(_graphics.GraphicsDevice, TargetResolution.X, TargetResolution.Y);
-
 			// Changement de la résolution du jeu
+			RenderTarget = new RenderTarget2D(_graphics.GraphicsDevice, TargetResolution.X, TargetResolution.Y);
 			_graphics.PreferredBackBufferWidth = TargetResolution.X;
 			_graphics.PreferredBackBufferHeight = TargetResolution.Y;
-			//_graphics.IsFullScreen = true;
+			_graphics.IsFullScreen = false;
+			PreviousFullScreen = !_graphics.IsFullScreen;
+			//IsFixedTimeStep = false;
 			_graphics.ApplyChanges();
 
 			// Enregistrement des services
@@ -44,11 +46,11 @@ namespace GameNameSpace
 			GameNameSpace.Services.Instance.Register<IRandomService>(new RandomService());
 			GameNameSpace.Services.Instance.Register<IColliderService>(new ColliderService());
 			GameNameSpace.Services.Instance.Register<ITweeningService>(new TweeningService());
-			GameNameSpace.Services.Instance.Register<IParticlesService>(new ParticleService(2000));
+			GameNameSpace.Services.Instance.Register<IParticlesService>(new ParticleService(2500));
 			GameNameSpace.Services.Instance.Register<IGameObjectFactoryService>(new GameObjectFactoryService());
 			GameNameSpace.Services.Instance.Register<ILevelService>(new JSONLevelService());
 			InputListener = GameNameSpace.Services.Instance.Register<IInputListenerService>(new InputListenerService());
-			GameState = GameNameSpace.Services.Instance.Register<ISceneService>(new SceneService());
+			GameState = GameNameSpace.Services.Instance.Register<ISceneService>(new SceneService(_graphics));
 
 			// Redirection vers la 1ere scène du jeu
 			GameState.ChangeScene(SceneType.MENU, new DummyCommand());
@@ -80,26 +82,42 @@ namespace GameNameSpace
 			InputListener.Update(gameTime);
 
 			// On met à jour le cadre de rendu
-			float windowAspectRatio = (float)Window.ClientBounds.Width / Window.ClientBounds.Height;
-			float targetAspectRatio = (float)TargetResolution.X / TargetResolution.Y;
-			float ratio = 1.0f;
-			int marginTop = 0, marginLeft = 0;
-			if (windowAspectRatio != targetAspectRatio)
+			if (_graphics.IsFullScreen != PreviousFullScreen)
 			{
-				if (windowAspectRatio > targetAspectRatio)
+				PreviousFullScreen = _graphics.IsFullScreen;
+
+				// On prépare la rendertarget
+				int currentWidth, currentHeight;
+				if (_graphics.IsFullScreen)
 				{
-					ratio = (float)Window.ClientBounds.Height / TargetResolution.Y;
-					marginLeft = (int)((Window.ClientBounds.Width - TargetResolution.X * ratio) * 0.5f);
+					currentWidth = _graphics.GraphicsDevice.DisplayMode.Width;
+					currentHeight = _graphics.GraphicsDevice.DisplayMode.Height;
 				}
 				else
 				{
-					ratio = (float)Window.ClientBounds.Width / TargetResolution.X;
-					marginTop = (int)((Window.ClientBounds.Height - TargetResolution.Y * ratio) * 0.5f);
+					currentWidth = TargetResolution.X;
+					currentHeight = TargetResolution.Y;
 				}
+
+				float windowAspectRatio = _graphics.GraphicsDevice.DisplayMode.AspectRatio;
+				float targetAspectRatio = (float)TargetResolution.X / TargetResolution.Y;
+				float ratio = 1.0f;
+				int marginTop = 0, marginLeft = 0;
+				if (windowAspectRatio != targetAspectRatio)
+				{
+					if (windowAspectRatio > targetAspectRatio)
+					{
+						ratio = (float)currentHeight / TargetResolution.Y;
+						marginLeft = (int)((currentWidth - TargetResolution.X * ratio) * 0.5f);
+					}
+					else
+					{
+						ratio = (float)currentWidth / TargetResolution.X;
+						marginTop = (int)((currentHeight - TargetResolution.Y * ratio) * 0.5f);
+					}
+				}
+				DrawTarget = new Rectangle(new Point(marginLeft, marginTop) + GameState.CamShake.Value, new Point((int)(TargetResolution.X * ratio), (int)(TargetResolution.Y * ratio)));
 			}
-
-			DrawTarget = new Rectangle(new Point(marginLeft, marginTop) + GameState.CamShake.Value, new Point((int)(TargetResolution.X * ratio), (int)(TargetResolution.Y * ratio)));
-
 			base.Update(gameTime);
 		}
 
@@ -121,7 +139,7 @@ namespace GameNameSpace
 
 			// On draw la frame à l'écran
 			_spriteBatch.Begin();
-			_spriteBatch.Draw(RenderTarget, DrawTarget, Color.White);
+			_spriteBatch.Draw(RenderTarget, new Rectangle(DrawTarget.Location + GameState.CamShake.Value, DrawTarget.Size), Color.White);
 			_spriteBatch.End();
 
 			base.Draw(gameTime);

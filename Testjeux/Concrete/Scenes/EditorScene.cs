@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -111,6 +112,95 @@ namespace GameNameSpace
 
 				})), origin, destination));
 
+			destination = new Vector2(695.0f, 727.0f);
+			origin = new Vector2(destination.X, -300.0f);
+			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Charger", Color.Black, new GenericCommand(
+				delegate
+				{
+					// Chargement du niveau
+					System.Windows.Forms.OpenFileDialog openFileDialog = new()
+					{
+						Filter = "JSON Level|*.json",
+						Title = "Ouvrir un niveau Space Breaker"
+					};
+					openFileDialog.ShowDialog();
+
+					if (!string.IsNullOrWhiteSpace(openFileDialog.FileName))
+					{
+						ParsedLevel level = Services.Instance.Get<ILevelService>().Load(openFileDialog.FileName);
+						IGameObjectFactoryService factory = Services.Instance.Get<IGameObjectFactoryService>();
+
+						ParsedBackground background = level.Backgrounds.FirstOrDefault(item => item.Type == 1);
+						BackgroundIndex = level.Backgrounds.FirstOrDefault(item => item.Type == 1).Texture switch
+						{
+							"Gas0" => 1,
+							"Gas1" => 2,
+							"Gas2" => 3,
+							"Gas3" => 4,
+							_ => 0,
+						};
+						if (null != Background)
+						{
+							Background.Status = GameObjectStatus.OUTDATED;
+						}
+						Background = RegisterGameObject(factory.CreateBackground(background));
+
+						ParsedMusic music = level.Music;
+						MusicIndex = music.Type switch
+						{
+								4 => 1,
+								1 => 2,
+								0 => 3,
+								3 => 4,
+								2 => 5,
+								5 => 6,
+								6 => 7,
+								_ => 0
+						};
+						Music = factory.CreateMusic(music);
+						MediaPlayer.IsRepeating = true;
+						MediaPlayer.Volume = 0.5f;
+						MediaPlayer.Play(Music);
+
+						for (int i = 0; i < 9; i++)
+						{
+							for (int j = 0; j < 19; j++)
+							{
+								Tiles[i, j] = 0;
+								if (GameObjects[i, j] != null)
+								{
+									UnRegisterGameObject(GameObjects[i, j] as IGameObject);
+									GameObjects[i, j] = null;
+								}
+							}
+						}
+
+						foreach (ParsedBrick brick in level.Bricks)
+						{
+							if (brick.Type != 0)
+							{
+								//WaterMark.Body.MoveTo(new Vector2(TilesBasePosition.X + tile.X * 65.0f, TilesBasePosition.Y + tile.Y * 65.0f));
+								IGameObject newObject = RegisterGameObject(factory.CreateNudeBrick(brick));
+								newObject.Body.MoveTo(factory.ConvertToVector2(brick.Position));
+								int row = (int)((brick.Position.Y - TilesBasePosition.Y) / 65.0f);
+								int column = (int)((brick.Position.X - TilesBasePosition.X) / 65.0f);
+								GameObjects[row, column] = newObject;
+								Tiles[row, column] = brick.Type switch
+								{
+									1 => 1,
+									7 => 2,
+									8 => 3,
+									3 => 4,
+									9 => 5,
+									_ => 0,
+								};
+							}
+						}
+
+
+					}
+				})), origin, destination));
+
 			destination = new Vector2(988.0f, 727.0f);
 			origin = new Vector2(destination.X, -300.0f);
 			RegisterGameObject(factory.DecorateEntrance(new ButtonGameObject(origin, "Enreg.", Color.Black, new GenericCommand(
@@ -184,9 +274,9 @@ namespace GameNameSpace
 							level.Bricks.Add(new ParsedBrick() { Type = 0, Position = new ParsedVector2() { X = 1280, Y = 0 }, Size = new ParsedVector2() { X = 50, Y = 800 } });
 
 							// Briques
-							for (int i = 0; i < 8; i++)
+							for (int i = 0; i < 9; i++)
 							{
-								for (int j = 0; j < 18; j++)
+								for (int j = 0; j < 19; j++)
 								{
 									if (Tiles[i, j] != 0)
 									{
@@ -301,7 +391,6 @@ namespace GameNameSpace
 			{
 				(new SwitchSceneCommand(SceneType.SELECTION)).Execute();
 			}
-
 			if (Services.Instance.Get<IInputListenerService>().IsLeftClick())
 			{
 				CanSave = true;

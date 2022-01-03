@@ -31,9 +31,21 @@
     <Compile Remove="Engine\Interfaces\ICollidable.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Concrete\Levels\level1.json" />
-    <None Remove="Concrete\Levels\level2.json" />
-    <None Remove="Concrete\Levels\level3.json" />
+    <None Remove="Concrete\Levels\level11.json" />
+    <None Remove="Concrete\Levels\level12.json" />
+    <None Remove="Concrete\Levels\level13.json" />
+    <None Remove="Concrete\Levels\level14.json" />
+    <None Remove="Concrete\Levels\level15.json" />
+    <None Remove="Concrete\Levels\level21.json" />
+    <None Remove="Concrete\Levels\level22.json" />
+    <None Remove="Concrete\Levels\level23.json" />
+    <None Remove="Concrete\Levels\level24.json" />
+    <None Remove="Concrete\Levels\level25.json" />
+    <None Remove="Concrete\Levels\level31.json" />
+    <None Remove="Concrete\Levels\level32.json" />
+    <None Remove="Concrete\Levels\level33.json" />
+    <None Remove="Concrete\Levels\level34.json" />
+    <None Remove="Concrete\Levels\level35.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\Commands\CollideCommands\BallColliderCommand.cs" />
@@ -52,9 +64,17 @@
     <Compile Include="Concrete\Commands\CollideCommands\WallCollidableCommand.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Concrete\Levels\level1.json" />
-    <EmbeddedResource Include="Concrete\Levels\level3.json" />
-    <EmbeddedResource Include="Concrete\Levels\level2.json" />
+    <EmbeddedResource Include="Concrete\Levels\level15.json" />
+    <EmbeddedResource Include="Concrete\Levels\level21.json" />
+    <EmbeddedResource Include="Concrete\Levels\level22.json" />
+    <EmbeddedResource Include="Concrete\Levels\level23.json" />
+    <EmbeddedResource Include="Concrete\Levels\level24.json" />
+    <EmbeddedResource Include="Concrete\Levels\level31.json" />
+    <EmbeddedResource Include="Concrete\Levels\level32.json" />
+    <EmbeddedResource Include="Concrete\Levels\level33.json" />
+    <EmbeddedResource Include="Concrete\Levels\level34.json" />
+    <EmbeddedResource Include="Concrete\Levels\level35.json" />
+    <EmbeddedResource Include="Concrete\Levels\level25.json" />
   </ItemGroup>
   <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
@@ -69,5 +89,11 @@
   <ItemGroup>
     <Folder Include="Content\Musics\" />
     <Folder Include="Content\Sounds\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Concrete\Levels\level11.json" />
+    <EmbeddedResource Include="Concrete\Levels\level12.json" />
+    <EmbeddedResource Include="Concrete\Levels\level13.json" />
+    <EmbeddedResource Include="Concrete\Levels\level14.json" />
   </ItemGroup>
 </Project>

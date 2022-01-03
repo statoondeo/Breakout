@@ -27,6 +27,7 @@
         Wobbler,
         BigPanel,
         Button,
+        Button2,
         SerpentHead,
         SerpentBody,
         SerpentRear,

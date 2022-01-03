@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -18,7 +19,9 @@ namespace GameNameSpace
 		public SceneModeNames Mode { get; set; }
 		public float TotalGameTime { get; protected set; }
 
-		public SceneService() 
+		protected private readonly GraphicsDeviceManager Graphics;
+
+		public SceneService(GraphicsDeviceManager graphics) 
 		{
 			ExitRequired = false;
 			CamShake = new CamShake();
@@ -26,7 +29,13 @@ namespace GameNameSpace
 			Mode = SceneModeNames.None;
 			Life = Level = 0;
 			MaxLife = 3;
-			TotalGameTime = 0.0f;
+			TotalGameTime = 0.0f; 
+			Graphics = graphics;
+		}
+
+		public void ToggleFullScreen()
+		{
+			Graphics.ToggleFullScreen();
 		}
 
 		public void Load(ICommand commandWhenLoaded)
@@ -78,7 +87,6 @@ namespace GameNameSpace
 				SceneType.GAMEPLAY => new GameplayScene(levelNumber),
 				_ => null,
 			};
-			FrameCounter.Reset();				
 			CurrentScene?.Load(whenLoadedCommand);
 			return (CurrentScene);
 		}

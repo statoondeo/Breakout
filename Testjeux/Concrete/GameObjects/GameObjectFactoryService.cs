@@ -18,7 +18,7 @@ namespace GameNameSpace
 		{
 			MaxTtl = 0;
 		}
-		
+
 		public Vector2 ConvertToVector2(ParsedVector2 vector2)
 		{
 			return (new Vector2(vector2.X, vector2.Y));
@@ -88,76 +88,28 @@ namespace GameNameSpace
 			return (gameObject);
 		}
 
+		public IGameObject CreateNudeBrick(ParsedBrick jsonBrick)
+		{
+			return jsonBrick.Type switch
+			{
+				0 => (new WallGameObject(ConvertToVector2(jsonBrick.Position), ConvertToVector2(jsonBrick.Size))),
+				1 => (new WobblerGameObject(ConvertToVector2(jsonBrick.Position), 1.0f)),// Wobbler
+				2 => (new AtomGameObject(ConvertToVector2(jsonBrick.Position), 1.0f, ConvertToVector2(jsonBrick.Center), jsonBrick.Radius, jsonBrick.Angle, jsonBrick.AngleSpeed)),// Atoms rotatifs
+				3 => (new CubeGameObject(ConvertToVector2(jsonBrick.Position))),// Cube
+				4 => (new BrainGameObject(ConvertToVector2(jsonBrick.Position), 1.0f)),// Brain
+				5 => (new SnakeHeadGameObject(ConvertToVector2(jsonBrick.Position))),// Snake
+				6 => (new MegaBlobGameObject(ConvertToVector2(jsonBrick.Position))),// Mega Blob
+				7 => (new AtomGameObject(ConvertToVector2(jsonBrick.Position), 1.0f)),// Atoms immobiles
+				8 => (new BlobGameObject(ConvertToVector2(jsonBrick.Position), 1.0f)),// Blob
+				9 => (new BonusGameObject(ConvertToVector2(jsonBrick.Position))),// Bonus
+				_ => throw new ArgumentNullException(nameof(jsonBrick)),
+			};
+		}
+
 		public IGameObject CreateBrick(ParsedBrick jsonBrick)
 		{
-			float originX = -300;
-			Vector2 origin, destination;
-			IGameObject gameObject;
-			switch (jsonBrick.Type)
-			{
-				case 0:
-					gameObject = new WallGameObject(ConvertToVector2(jsonBrick.Position), ConvertToVector2(jsonBrick.Size));
-					break;
-				case 1:
-					// Wobbler
-					destination = ConvertToVector2(jsonBrick.Position);
-					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new WobblerGameObject(Vector2.Zero, 1.0f), origin, destination);
-					break;
-				case 2:
-					// Atoms rotatifs
-					destination = ConvertToVector2(jsonBrick.Position);
-					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new AtomGameObject(Vector2.Zero, 1.0f, ConvertToVector2(jsonBrick.Center), jsonBrick.Radius, jsonBrick.Angle, jsonBrick.AngleSpeed), origin, destination);
-					break;
-				case 3:
-					// Cube
-					destination = ConvertToVector2(jsonBrick.Position);
-					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new CubeGameObject(Vector2.Zero), origin, destination);
-					break;
-				case 4:
-					// Brain
-					destination = ConvertToVector2(jsonBrick.Position);
-					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new BrainGameObject(Vector2.Zero, 1.0f), origin, destination);
-					break;
-				case 5:
-					// Snake
-					destination = ConvertToVector2(jsonBrick.Position);
-					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new SnakeHeadGameObject(new Vector2(1600, 32)), origin, destination);
-					break;
-				case 6:
-					// Mega Blob
-					destination = ConvertToVector2(jsonBrick.Position);
-					origin = new Vector2(destination.X, -1000.0f);
-					gameObject = DecorateEntrance(new MegaBlobGameObject(Vector2.Zero), origin, destination);
-					break;
-				case 7:
-					// Atoms immobiles
-					destination = ConvertToVector2(jsonBrick.Position);
-					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new AtomGameObject(Vector2.Zero, 1.0f), origin, destination);
-					break;
-				case 8:
-					// Blob
-					destination = ConvertToVector2(jsonBrick.Position);
-					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new BlobGameObject(Vector2.Zero, 1.0f), origin, destination);
-					break;
-				case 9:
-					// Bonus
-					destination = ConvertToVector2(jsonBrick.Position);
-					origin = new Vector2(destination.X, originX);
-					gameObject = DecorateEntrance(new BonusGameObject(destination), origin, destination);
-					break;
-
-				default:
-					throw new ArgumentNullException(nameof(jsonBrick));
-					break;
-			}
-			return (gameObject);
+			Vector2 destination = ConvertToVector2(jsonBrick.Position);
+			return (DecorateEntrance(CreateNudeBrick(jsonBrick), new Vector2(destination.X, -300), destination));
 		}
 
 		public IGameObject DecorateEntrance(IGameObject gameObject, Vector2 origin, Vector2 destination)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 namespace GameNameSpace
@@ -84,13 +85,11 @@ namespace GameNameSpace
 
 		public override void Update(GameTime gameTime)
 		{
-			if (Services.Instance.Get<IInputListenerService>().IsLeftClick())
-			{
-				IGameObject cursor = GetObject(item => item is CursorGameObject);
-				(new BallExplosionParticlesEmitter(cursor, Services.Instance.Get<IAssetService>().GetTexture(TextureName.RedSpark), 25)).Emit();
-			}
-
 			base.Update(gameTime);
+			if (Services.Instance.Get<IInputListenerService>().IsKeyDown(Keys.Escape))
+			{
+				(new ExitGameCommand()).Execute();
+			}
 		}
 	}
 }

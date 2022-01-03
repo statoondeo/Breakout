@@ -76,6 +76,14 @@ namespace GameNameSpace
 			{
 				(new SwitchSceneCommand(SceneType.MENU)).Execute();
 			}
+			if (Services.Instance.Get<IInputListenerService>().IsKeyPressed(Keys.F2))
+			{
+				(new WinTriggerCommand()).Execute();
+			}
+			if (Services.Instance.Get<IInputListenerService>().IsKeyPressed(Keys.F3))
+			{
+				(new LooseTriggerCommand()).Execute();
+			}
 		}
 	}
 }

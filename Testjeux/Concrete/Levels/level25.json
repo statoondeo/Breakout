@@ -1,0 +1,175 @@
+{
+  "Music": {
+    "Type": 2
+  },
+  "Texts": [
+    {
+      "Type": 0,
+      "Text": "Vous avez vaincu The Blob!"
+    },
+    {
+      "Type": 1,
+      "Text": "The Blob est plus fort que vous!"
+    }
+  ],
+  "Backgrounds": [
+    {
+      "Type": 0,
+      "Position": {
+        "X": 0,
+        "Y": 0
+      },
+      "Velocity": {
+        "X": -3,
+        "Y": 0
+      },
+      "Texture": "Stars01",
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 0,
+      "Position": {
+        "X": 0,
+        "Y": 0
+      },
+      "Velocity": {
+        "X": -7,
+        "Y": 0
+      },
+      "Texture": "Stars02",
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 0,
+      "Position": {
+        "X": 0,
+        "Y": 0
+      },
+      "Velocity": {
+        "X": -15,
+        "Y": 0
+      },
+      "Texture": "Stars03",
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 1,
+      "Position": null,
+      "Velocity": null,
+      "Texture": "Gas2",
+      "AngleSpeed": 0.01
+    }
+  ],
+  "Bricks": [
+    {
+      "Type": 0,
+      "Position": {
+        "X": -50,
+        "Y": -50
+      },
+      "Size": {
+        "X": 1380,
+        "Y": 50
+      },
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 0,
+      "Position": {
+        "X": -50,
+        "Y": 0
+      },
+      "Size": {
+        "X": 50,
+        "Y": 800
+      },
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 0,
+      "Position": {
+        "X": 1280,
+        "Y": 0
+      },
+      "Size": {
+        "X": 50,
+        "Y": 800
+      },
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 9,
+      "Position": {
+        "X": 248,
+        "Y": 234
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 9,
+      "Position": {
+        "X": 968,
+        "Y": 234
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 508,
+        "Y": 374
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 3,
+      "Position": {
+        "X": 708,
+        "Y": 374
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    },
+    {
+      "Type": 6,
+      "Position": {
+        "X": 640,
+        "Y": 266
+      },
+      "Size": null,
+      "Center": null,
+      "Radius": 0,
+      "Angle": 0,
+      "AngleSpeed": 0
+    }
+  ],
+  "Triggers": [
+    {
+      "Type": 1
+    }
+  ]
+}

@@ -12,6 +12,7 @@
 		IScene ChangeScene(SceneType scene, ICommand whenLoadedCommand);
 		IScene ChangeScene(SceneType scene, int levelNumber, ICommand whenLoadedCommand);
 		IScene ChangeScene(SceneType scene, ParsedLevel level, ICommand whenLoadedCommand);
+		void ToggleFullScreen();
 		CamShake CamShake { get; }
 		FrameCounter FrameCounter { get; }
 	}
