@@ -15,9 +15,12 @@ namespace GameNameSpace
 
 		protected bool FrameDone;
 
+		public float Ratio { get; set; }
+
 		public InputListenerService()
 		{
 			FrameDone = false;
+			Ratio = 1.0f;
 		}
 
 		public void Update(GameTime gameTime)
@@ -32,6 +35,7 @@ namespace GameNameSpace
 		{
 			return (!OldKeyboardState.IsKeyDown(key) && GetKeyboardState().IsKeyDown(key));
 		}
+
 		public bool IsKeyDown(Keys key)
 		{
 			return (GetKeyboardState().IsKeyDown(key));
@@ -45,7 +49,7 @@ namespace GameNameSpace
 
 		public Point MousePosition()
 		{
-			return (GetMouseState().Position);
+			return ((GetMouseState().Position.ToVector2() / Ratio).ToPoint());
 		}
 
 		protected void RefreshStates()

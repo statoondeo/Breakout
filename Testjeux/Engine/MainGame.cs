@@ -24,6 +24,7 @@ namespace GameNameSpace
 			};
 			Content.RootDirectory = "Content";
 			IsMouseVisible = true;
+			Window.ClientSizeChanged += Window_ClientSizeChanged;
 		}
 
 		protected override void Initialize()
@@ -35,9 +36,9 @@ namespace GameNameSpace
 			_graphics.PreferredBackBufferWidth = TargetResolution.X;
 			_graphics.PreferredBackBufferHeight = TargetResolution.Y;
 			_graphics.IsFullScreen = false;
-			PreviousFullScreen = !_graphics.IsFullScreen;
-			//IsFixedTimeStep = false;
 			_graphics.ApplyChanges();
+			PreviousFullScreen = !_graphics.IsFullScreen;
+
 
 			// Enregistrement des services
 			GameNameSpace.Services.Instance.Register<ILogService>(new LogService(new ConsoleLogger()));
@@ -54,6 +55,21 @@ namespace GameNameSpace
 
 			// Redirection vers la 1ere scène du jeu
 			GameState.ChangeScene(SceneType.MENU, new DummyCommand());
+		}
+
+		private void Window_ClientSizeChanged(object sender, System.EventArgs e)
+		{
+			if (_graphics.IsFullScreen)
+			{
+				_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+				_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+			}
+			else
+			{
+				_graphics.PreferredBackBufferWidth = TargetResolution.X;
+				_graphics.PreferredBackBufferHeight = TargetResolution.Y;
+			}
+			_graphics.ApplyChanges();
 		}
 
 		protected override void LoadContent()
@@ -99,8 +115,9 @@ namespace GameNameSpace
 					currentHeight = TargetResolution.Y;
 				}
 
-				float windowAspectRatio = _graphics.GraphicsDevice.DisplayMode.AspectRatio;
+				float windowAspectRatio = (float)currentWidth / currentHeight;
 				float targetAspectRatio = (float)TargetResolution.X / TargetResolution.Y;
+
 				float ratio = 1.0f;
 				int marginTop = 0, marginLeft = 0;
 				if (windowAspectRatio != targetAspectRatio)
@@ -116,7 +133,8 @@ namespace GameNameSpace
 						marginTop = (int)((currentHeight - TargetResolution.Y * ratio) * 0.5f);
 					}
 				}
-				DrawTarget = new Rectangle(new Point(marginLeft, marginTop) + GameState.CamShake.Value, new Point((int)(TargetResolution.X * ratio), (int)(TargetResolution.Y * ratio)));
+				DrawTarget = new Rectangle(new Point(marginLeft, marginTop), (new Vector2(TargetResolution.X * ratio, TargetResolution.Y * ratio).ToPoint()));
+				GameNameSpace.Services.Instance.Get<IInputListenerService>().Ratio = ratio;
 			}
 			base.Update(gameTime);
 		}

@@ -5,6 +5,7 @@ namespace GameNameSpace
 {
 	public interface IInputListenerService : IService
 	{
+		float Ratio { get; set; }
 		KeyboardState GetKeyboardState();
 		MouseState GetMouseState();
 		bool IsKeyDown(Keys key);
